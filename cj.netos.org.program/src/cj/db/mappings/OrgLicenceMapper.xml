@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cj.netos.org.mapper.OrgLicenceMapper">
+  <resultMap id="BaseResultMap" type="cj.netos.org.model.OrgLicence">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="operate_period" jdbcType="VARCHAR" property="operatePeriod" />
+    <result column="fee" jdbcType="INTEGER" property="fee" />
+    <result column="privilege_level" jdbcType="INTEGER" property="privilegeLevel" />
+    <result column="bussiness_scop" jdbcType="VARCHAR" property="bussinessScop" />
+    <result column="bussiness_area_title" jdbcType="VARCHAR" property="bussinessAreaTitle" />
+    <result column="bussiness_area_code" jdbcType="VARCHAR" property="bussinessAreaCode" />
+    <result column="organ" jdbcType="VARCHAR" property="organ" />
+    <result column="sign_text" jdbcType="VARCHAR" property="signText" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="pub_time" jdbcType="VARCHAR" property="pubTime" />
+    <result column="end_time" jdbcType="VARCHAR" property="endTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    id, title, operate_period, fee, privilege_level, bussiness_scop, bussiness_area_title, 
+    bussiness_area_code, organ, sign_text, `state`, pub_time, end_time
+  </sql>
+  <select id="selectByExample" parameterType="cj.netos.org.model.OrgLicenceExample" resultMap="BaseResultMap">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from org_licence
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    select 
+    <include refid="Base_Column_List" />
+    from org_licence
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    delete from org_licence
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cj.netos.org.model.OrgLicenceExample">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    delete from org_licence
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cj.netos.org.model.OrgLicence">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    insert into org_licence (id, title, operate_period, 
+      fee, privilege_level, bussiness_scop, 
+      bussiness_area_title, bussiness_area_code, 
+      organ, sign_text, `state`, 
+      pub_time, end_time)
+    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{operatePeriod,jdbcType=VARCHAR}, 
+      #{fee,jdbcType=INTEGER}, #{privilegeLevel,jdbcType=INTEGER}, #{bussinessScop,jdbcType=VARCHAR}, 
+      #{bussinessAreaTitle,jdbcType=VARCHAR}, #{bussinessAreaCode,jdbcType=VARCHAR}, 
+      #{organ,jdbcType=VARCHAR}, #{signText,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, 
+      #{pubTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cj.netos.org.model.OrgLicence">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    insert into org_licence
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="operatePeriod != null">
+        operate_period,
+      </if>
+      <if test="fee != null">
+        fee,
+      </if>
+      <if test="privilegeLevel != null">
+        privilege_level,
+      </if>
+      <if test="bussinessScop != null">
+        bussiness_scop,
+      </if>
+      <if test="bussinessAreaTitle != null">
+        bussiness_area_title,
+      </if>
+      <if test="bussinessAreaCode != null">
+        bussiness_area_code,
+      </if>
+      <if test="organ != null">
+        organ,
+      </if>
+      <if test="signText != null">
+        sign_text,
+      </if>
+      <if test="state != null">
+        `state`,
+      </if>
+      <if test="pubTime != null">
+        pub_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="operatePeriod != null">
+        #{operatePeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="fee != null">
+        #{fee,jdbcType=INTEGER},
+      </if>
+      <if test="privilegeLevel != null">
+        #{privilegeLevel,jdbcType=INTEGER},
+      </if>
+      <if test="bussinessScop != null">
+        #{bussinessScop,jdbcType=VARCHAR},
+      </if>
+      <if test="bussinessAreaTitle != null">
+        #{bussinessAreaTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="bussinessAreaCode != null">
+        #{bussinessAreaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="organ != null">
+        #{organ,jdbcType=VARCHAR},
+      </if>
+      <if test="signText != null">
+        #{signText,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="pubTime != null">
+        #{pubTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cj.netos.org.model.OrgLicenceExample" resultType="java.lang.Long">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    select count(*) from org_licence
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    update org_licence
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operatePeriod != null">
+        operate_period = #{record.operatePeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fee != null">
+        fee = #{record.fee,jdbcType=INTEGER},
+      </if>
+      <if test="record.privilegeLevel != null">
+        privilege_level = #{record.privilegeLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.bussinessScop != null">
+        bussiness_scop = #{record.bussinessScop,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bussinessAreaTitle != null">
+        bussiness_area_title = #{record.bussinessAreaTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bussinessAreaCode != null">
+        bussiness_area_code = #{record.bussinessAreaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.organ != null">
+        organ = #{record.organ,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signText != null">
+        sign_text = #{record.signText,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null">
+        `state` = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.pubTime != null">
+        pub_time = #{record.pubTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endTime != null">
+        end_time = #{record.endTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    update org_licence
+    set id = #{record.id,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      operate_period = #{record.operatePeriod,jdbcType=VARCHAR},
+      fee = #{record.fee,jdbcType=INTEGER},
+      privilege_level = #{record.privilegeLevel,jdbcType=INTEGER},
+      bussiness_scop = #{record.bussinessScop,jdbcType=VARCHAR},
+      bussiness_area_title = #{record.bussinessAreaTitle,jdbcType=VARCHAR},
+      bussiness_area_code = #{record.bussinessAreaCode,jdbcType=VARCHAR},
+      organ = #{record.organ,jdbcType=VARCHAR},
+      sign_text = #{record.signText,jdbcType=VARCHAR},
+      `state` = #{record.state,jdbcType=INTEGER},
+      pub_time = #{record.pubTime,jdbcType=VARCHAR},
+      end_time = #{record.endTime,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cj.netos.org.model.OrgLicence">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    update org_licence
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="operatePeriod != null">
+        operate_period = #{operatePeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="fee != null">
+        fee = #{fee,jdbcType=INTEGER},
+      </if>
+      <if test="privilegeLevel != null">
+        privilege_level = #{privilegeLevel,jdbcType=INTEGER},
+      </if>
+      <if test="bussinessScop != null">
+        bussiness_scop = #{bussinessScop,jdbcType=VARCHAR},
+      </if>
+      <if test="bussinessAreaTitle != null">
+        bussiness_area_title = #{bussinessAreaTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="bussinessAreaCode != null">
+        bussiness_area_code = #{bussinessAreaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="organ != null">
+        organ = #{organ,jdbcType=VARCHAR},
+      </if>
+      <if test="signText != null">
+        sign_text = #{signText,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        `state` = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="pubTime != null">
+        pub_time = #{pubTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cj.netos.org.model.OrgLicence">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    update org_licence
+    set title = #{title,jdbcType=VARCHAR},
+      operate_period = #{operatePeriod,jdbcType=VARCHAR},
+      fee = #{fee,jdbcType=INTEGER},
+      privilege_level = #{privilegeLevel,jdbcType=INTEGER},
+      bussiness_scop = #{bussinessScop,jdbcType=VARCHAR},
+      bussiness_area_title = #{bussinessAreaTitle,jdbcType=VARCHAR},
+      bussiness_area_code = #{bussinessAreaCode,jdbcType=VARCHAR},
+      organ = #{organ,jdbcType=VARCHAR},
+      sign_text = #{signText,jdbcType=VARCHAR},
+      `state` = #{state,jdbcType=INTEGER},
+      pub_time = #{pubTime,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

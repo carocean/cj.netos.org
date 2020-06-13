@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cj.netos.org.mapper.OrgLaMapper">
+  <resultMap id="BaseResultMap" type="cj.netos.org.model.OrgLa">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="corp_name" jdbcType="VARCHAR" property="corpName" />
+    <result column="corp_code" jdbcType="VARCHAR" property="corpCode" />
+    <result column="licence_src" jdbcType="VARCHAR" property="licenceSrc" />
+    <result column="corp_logo" jdbcType="VARCHAR" property="corpLogo" />
+    <result column="isp" jdbcType="VARCHAR" property="isp" />
+    <result column="master_person" jdbcType="VARCHAR" property="masterPerson" />
+    <result column="master_real_name" jdbcType="VARCHAR" property="masterRealName" />
+    <result column="master_phone" jdbcType="VARCHAR" property="masterPhone" />
+    <result column="time" jdbcType="VARCHAR" property="time" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    id, corp_name, corp_code, licence_src, corp_logo, isp, master_person, master_real_name, 
+    master_phone, `time`
+  </sql>
+  <select id="selectByExample" parameterType="cj.netos.org.model.OrgLaExample" resultMap="BaseResultMap">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from org_la
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    select 
+    <include refid="Base_Column_List" />
+    from org_la
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    delete from org_la
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cj.netos.org.model.OrgLaExample">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    delete from org_la
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cj.netos.org.model.OrgLa">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    insert into org_la (id, corp_name, corp_code, 
+      licence_src, corp_logo, isp, 
+      master_person, master_real_name, master_phone, 
+      `time`)
+    values (#{id,jdbcType=VARCHAR}, #{corpName,jdbcType=VARCHAR}, #{corpCode,jdbcType=VARCHAR}, 
+      #{licenceSrc,jdbcType=VARCHAR}, #{corpLogo,jdbcType=VARCHAR}, #{isp,jdbcType=VARCHAR}, 
+      #{masterPerson,jdbcType=VARCHAR}, #{masterRealName,jdbcType=VARCHAR}, #{masterPhone,jdbcType=VARCHAR}, 
+      #{time,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cj.netos.org.model.OrgLa">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    insert into org_la
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="corpName != null">
+        corp_name,
+      </if>
+      <if test="corpCode != null">
+        corp_code,
+      </if>
+      <if test="licenceSrc != null">
+        licence_src,
+      </if>
+      <if test="corpLogo != null">
+        corp_logo,
+      </if>
+      <if test="isp != null">
+        isp,
+      </if>
+      <if test="masterPerson != null">
+        master_person,
+      </if>
+      <if test="masterRealName != null">
+        master_real_name,
+      </if>
+      <if test="masterPhone != null">
+        master_phone,
+      </if>
+      <if test="time != null">
+        `time`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="corpName != null">
+        #{corpName,jdbcType=VARCHAR},
+      </if>
+      <if test="corpCode != null">
+        #{corpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="licenceSrc != null">
+        #{licenceSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="corpLogo != null">
+        #{corpLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="isp != null">
+        #{isp,jdbcType=VARCHAR},
+      </if>
+      <if test="masterPerson != null">
+        #{masterPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="masterRealName != null">
+        #{masterRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="masterPhone != null">
+        #{masterPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cj.netos.org.model.OrgLaExample" resultType="java.lang.Long">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    select count(*) from org_la
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    update org_la
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.corpName != null">
+        corp_name = #{record.corpName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.corpCode != null">
+        corp_code = #{record.corpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.licenceSrc != null">
+        licence_src = #{record.licenceSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.corpLogo != null">
+        corp_logo = #{record.corpLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isp != null">
+        isp = #{record.isp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.masterPerson != null">
+        master_person = #{record.masterPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.masterRealName != null">
+        master_real_name = #{record.masterRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.masterPhone != null">
+        master_phone = #{record.masterPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null">
+        `time` = #{record.time,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    update org_la
+    set id = #{record.id,jdbcType=VARCHAR},
+      corp_name = #{record.corpName,jdbcType=VARCHAR},
+      corp_code = #{record.corpCode,jdbcType=VARCHAR},
+      licence_src = #{record.licenceSrc,jdbcType=VARCHAR},
+      corp_logo = #{record.corpLogo,jdbcType=VARCHAR},
+      isp = #{record.isp,jdbcType=VARCHAR},
+      master_person = #{record.masterPerson,jdbcType=VARCHAR},
+      master_real_name = #{record.masterRealName,jdbcType=VARCHAR},
+      master_phone = #{record.masterPhone,jdbcType=VARCHAR},
+      `time` = #{record.time,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cj.netos.org.model.OrgLa">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    update org_la
+    <set>
+      <if test="corpName != null">
+        corp_name = #{corpName,jdbcType=VARCHAR},
+      </if>
+      <if test="corpCode != null">
+        corp_code = #{corpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="licenceSrc != null">
+        licence_src = #{licenceSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="corpLogo != null">
+        corp_logo = #{corpLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="isp != null">
+        isp = #{isp,jdbcType=VARCHAR},
+      </if>
+      <if test="masterPerson != null">
+        master_person = #{masterPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="masterRealName != null">
+        master_real_name = #{masterRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="masterPhone != null">
+        master_phone = #{masterPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        `time` = #{time,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cj.netos.org.model.OrgLa">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    update org_la
+    set corp_name = #{corpName,jdbcType=VARCHAR},
+      corp_code = #{corpCode,jdbcType=VARCHAR},
+      licence_src = #{licenceSrc,jdbcType=VARCHAR},
+      corp_logo = #{corpLogo,jdbcType=VARCHAR},
+      isp = #{isp,jdbcType=VARCHAR},
+      master_person = #{masterPerson,jdbcType=VARCHAR},
+      master_real_name = #{masterRealName,jdbcType=VARCHAR},
+      master_phone = #{masterPhone,jdbcType=VARCHAR},
+      `time` = #{time,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

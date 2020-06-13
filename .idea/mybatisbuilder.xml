@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MybatisBuilder.project.settings">
+    <option name="connectionInfoList">
+      <list>
+        <ConnectionInfo>
+          <option name="database" value="netos.org" />
+          <option name="description" value="" />
+          <option name="driverClass" value="" />
+          <option name="driverLibrary" value="" />
+          <option name="driverType" value="MySQL" />
+          <option name="host" value="47.104.128.137" />
+          <option name="id" value="2aecd9af1e754eab8c6cee6cb06797a8" />
+          <option name="name" value="netos.org" />
+          <option name="port" value="3306" />
+          <option name="url" value="" />
+          <option name="userName" value="cj" />
+        </ConnectionInfo>
+      </list>
+    </option>
+    <option name="defaultParameters">
+      <DefaultParameters>
+        <option name="renameConfig">
+          <Config>
+            <option name="mapperTypePattern" value="" />
+            <option name="exampleTypePattern" value="" />
+            <option name="sqlFileNamePattern" value="" />
+          </Config>
+        </option>
+        <option name="selectWithLockConfig">
+          <SelectWithLockConfig>
+            <option name="byPrimaryKeyWithLockOverride" value="" />
+            <option name="byExampleWithLockOverride" value="" />
+          </SelectWithLockConfig>
+        </option>
+      </DefaultParameters>
+    </option>
+    <option name="historyMap">
+      <map>
+        <entry key="JAVA_CLIENT_PACKAGE">
+          <value>
+            <list>
+              <option value="cj.netos.org.mapper" />
+            </list>
+          </value>
+        </entry>
+        <entry key="JAVA_MODEL_PACKAGE">
+          <value>
+            <list>
+              <option value="cj.netos.org.model" />
+            </list>
+          </value>
+        </entry>
+        <entry key="SQL_MAP_PACKAGE">
+          <value>
+            <list>
+              <option value="cj.db.mappings" />
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="lastGeneratorParamWrapper">
+      <GeneratorParamWrapper>
+        <option name="defaultTableConfigWrapper">
+          <TableConfigurationWrapper>
+            <option name="domainObjectRenamingRule">
+              <DomainObjectRenamingRule>
+                <option name="replaceString" value="" />
+                <option name="searchString" value="" />
+              </DomainObjectRenamingRule>
+            </option>
+            <option name="generatedKeyWrapper">
+              <GeneratedKeyWrapper>
+                <option name="column" value="" />
+              </GeneratedKeyWrapper>
+            </option>
+          </TableConfigurationWrapper>
+        </option>
+        <option name="javaClientConfig">
+          <JavaClientGeneratorConfiguration>
+            <option name="configurationType" value="XMLMAPPER" />
+            <option name="targetPackage" value="cj.netos.org.mapper" />
+            <option name="targetProject" value="$PROJECT_DIR$/cj.netos.org.program/src" />
+          </JavaClientGeneratorConfiguration>
+        </option>
+        <option name="javaModelConfig">
+          <JavaModelGeneratorConfiguration>
+            <option name="targetPackage" value="cj.netos.org.model" />
+            <option name="targetProject" value="$PROJECT_DIR$/cj.netos.org.openports/src" />
+          </JavaModelGeneratorConfiguration>
+        </option>
+        <option name="sqlMapConfig">
+          <SqlMapGeneratorConfiguration>
+            <option name="targetPackage" value="cj.db.mappings" />
+            <option name="targetProject" value="$PROJECT_DIR$/cj.netos.org.program/src" />
+          </SqlMapGeneratorConfiguration>
+        </option>
+      </GeneratorParamWrapper>
+    </option>
+    <option name="tableInfoMap">
+      <map>
+        <entry key="netos.org#flow_event">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.org" />
+              <option name="domainName" value="FlowEvent" />
+              <option name="tableComment" value="流转过程发生的事件，即步骤" />
+              <option name="tableName" value="flow_event" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.org#flow_info">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.org" />
+              <option name="domainName" value="FlowInfo" />
+              <option name="tableComment" value="审批流程（简化的工作流，非预定流程）&#10;一个流程会产生多个事件" />
+              <option name="tableName" value="flow_info" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.org#org_isp">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.org" />
+              <option name="domainName" value="OrgIsp" />
+              <option name="tableComment" value="运营商" />
+              <option name="tableName" value="org_isp" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.org#org_la">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.org" />
+              <option name="domainName" value="OrgLa" />
+              <option name="tableComment" value="地商" />
+              <option name="tableName" value="org_la" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.org#org_licence">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.org" />
+              <option name="domainName" value="OrgLicence" />
+              <option name="tableComment" value="运营商｜地商｜市商&#10;经营牌照。拥有牌照才可经营各类交易所，而各类交易所则不需再单独发牌照" />
+              <option name="tableName" value="org_licence" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.org#receiving_bank">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.org" />
+              <option name="domainName" value="ReceivingBank" />
+              <option name="tableComment" value="平台提供的收款行" />
+              <option name="tableName" value="receiving_bank" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.org#work_event">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.org" />
+              <option name="domainName" value="WorkEvent" />
+              <option name="tableComment" value="流转过程发生的事件，即步骤" />
+              <option name="tableName" value="work_event" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.org#work_inst">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.org" />
+              <option name="domainName" value="WorkInst" />
+              <option name="tableComment" value="工作实现表示一个工作流实例&#10;拷贝一份workflow到工作项" />
+              <option name="tableName" value="work_inst" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.org#work_item">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.org" />
+              <option name="domainName" value="WorkItem" />
+              <option name="tableComment" value="工作项表示一个工作流实例&#10;拷贝一份workflow到工作项" />
+              <option name="tableName" value="work_item" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.org#workflow">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.org" />
+              <option name="domainName" value="Workflow" />
+              <option name="tableComment" value="审批流程（简化的工作流，非预定流程）&#10;一个流程会产生多个事件" />
+              <option name="tableName" value="workflow" />
+            </TableInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

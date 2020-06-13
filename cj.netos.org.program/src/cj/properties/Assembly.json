@@ -1,0 +1,81 @@
+{
+	entryPoint : {
+		plugins: [
+			{
+				name:"mybatis",
+				class:"cj.studio.orm.mybatis.MyBatisPlugin",
+				parameters:{
+					classes:"[
+					]",
+					packages:"[
+					]"
+				}
+			}
+		],
+		activators: [
+			{
+				name: '开放口服务活动器',
+				class: 'cj.studio.openport.OpenportEntryPointActivator',
+				parameters: {
+					"publicAPIPath": '/portsapi',
+					checkAppSignStrategy: 'cj.netos.org.program.AppSignStrategy',
+					checkAccessTokenStrategy: 'cj.netos.org.program.CheckAccessTokenStrategy'
+				}
+			}
+		]
+	},
+	assemblyInfo : {
+		assemblyTitle : "org",
+		assemblyResource:"site=/site;http.root=$(site)/web;http.jss=$(site)/jss/http;ws.jss=$(site)/jss/ws",
+		assemblyDescription : "市场运营机构及审批中心",
+		assemblyConfiguration : "",
+		assemblyCompany : "cj工作室出品，lns平台制造",
+		assemblyProduct : "cj.netos.org",
+		assemblyCopyright : "Copyright   2011",
+		assemblyTrademark : "",
+		assemblyCulture : "",
+		guid : "3C810C7E-2025-48B3-966E-29B23C338F12",
+		assemblyVersion : "1.0.0.0",
+		assemblyFileVersion : "1.0.0.0"
+	},
+	global:{
+		default:"zh_CN",
+		desc:"如果系统环境要求各芯片采用的语言本芯片没有，则芯片可采用默认语言"
+		},
+	serviceContainer : {
+		name : "netContainer",
+		switchFilter:"off",
+		desc: "cj.netos.rabbitmq.DefaultRabbitMQMonitor 如用再设给monitor",
+		monitor: "",
+		jss:[{
+			module:"services1",
+			package:"cj.netos.org.jss",
+			unzip:"true",
+			searchMode:"link",
+			extName:".jss.js"
+		}],
+		scans : [{
+			package : "cj.studio.orm.mybatis",
+			extName : ".class|.json|.xml",
+			exoterical:"true"
+		},{
+			package : "cj.netos.org.program",
+			extName : ".class|.json|.xml",
+			exoterical:"true"
+		},{
+			package : "cj.netos.org.service",
+			extName : ".class|.json|.xml",
+			exoterical:"true"
+		},{
+				package : "cj.netos.org.ports",
+				extName : ".class|.json|.xml",
+				exoterical:"true"
+		},{
+			package : "cj.netos.org.cmd",
+			extName : ".class|.json|.xml",
+			exoterical:"true"
+		}
+		]
+
+	}
+}

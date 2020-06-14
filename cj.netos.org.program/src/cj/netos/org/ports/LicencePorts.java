@@ -15,32 +15,23 @@ public class LicencePorts implements ILicencePorts {
     ILicenceService licenceService;
 
     @Override
-    public List<OrgLicence> pageLicence(ISecuritySession securitySession, String organ, int privilegeLevel, int limit, long offset) throws CircuitException {
-        return null;
+    public List<OrgLicence> pageLicence(ISecuritySession securitySession,  int limit, long offset) throws CircuitException {
+        return licenceService.pageLicence(limit,offset);
+    }
+
+    @Override
+    public List<OrgLicence> pageLicenceByIsp(ISecuritySession securitySession, String isp, int limit, long offset) throws CircuitException {
+        return licenceService.pageLicenceByIsp(isp,limit,offset);
     }
 
     @Override
     public OrgLicence getLicenceByOrg(ISecuritySession securitySession, String organ, int privilegeLevel) throws CircuitException {
-        return null;
+        return licenceService.getLicence(organ,privilegeLevel);
     }
 
     @Override
     public OrgLicence getLicenceByID(ISecuritySession securitySession, String licenceid) throws CircuitException {
-        return null;
+        return licenceService.getlicenceByID(licenceid);
     }
 
-    @Override
-    public void revokeLicenceByIsp(ISecuritySession securitySession, String licenceid) throws CircuitException {
-
-    }
-
-    @Override
-    public void checkRevokeLicenceByPlatfrom(ISecuritySession securitySession, String licenceid) throws CircuitException {
-
-    }
-
-    @Override
-    public void forceRevokeLicenceByPlatform(ISecuritySession securitySession, String licenceid) throws CircuitException {
-
-    }
 }

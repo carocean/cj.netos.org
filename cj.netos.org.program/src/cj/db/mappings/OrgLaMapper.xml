@@ -303,4 +303,19 @@
       `time` = #{time,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  <select id="pageLa" parameterType="cj.netos.org.model.OrgLa" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from org_la
+    order by `time` asc
+    limit #{offset},#{limit}
+  </select>
+  <select id="pageLaOfIsp" parameterType="cj.netos.org.model.OrgLa" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from org_la
+    where isp = #{isp,jdbcType=VARCHAR}
+    order by `time` asc
+    limit #{offset},#{limit}
+  </select>
 </mapper>

@@ -34,12 +34,6 @@ public class WorkInst {
     private Integer isDone;
 
     /**
-     * Column: ondone_event_code
-     * Remark: 在指定的事件代码时结束实例，非空
-     */
-    private String ondoneEventCode;
-
-    /**
      * Column: icon
      * Remark: 从工作流拷贝
      */
@@ -59,7 +53,7 @@ public class WorkInst {
 
     /**
      * Column: data
-     * Remark: 工作数据
+     * Remark: 工作数据。由工作事件来追溯其变更的过程
      */
     private String data;
 
@@ -101,14 +95,6 @@ public class WorkInst {
 
     public void setIsDone(Integer isDone) {
         this.isDone = isDone;
-    }
-
-    public String getOndoneEventCode() {
-        return ondoneEventCode;
-    }
-
-    public void setOndoneEventCode(String ondoneEventCode) {
-        this.ondoneEventCode = ondoneEventCode == null ? null : ondoneEventCode.trim();
     }
 
     public String getIcon() {

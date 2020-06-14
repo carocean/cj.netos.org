@@ -11,11 +11,9 @@ IspApplyBO属性：
     String masterPhone;
     int operatePeriod;
     long fee;
-    int priviliegeLevel;
     private String bussinessScop;
     private String bussinessAreaTitle;
     private String bussinessAreaCode;
-    String organ;
     
 #json
 ```json
@@ -32,8 +30,6 @@ IspApplyBO属性：
  "fee": 1000000,
  "bussinessScop": "虚拟产品、农产品、农业金融",
  "bussinessAreaTitle": "尉氏县",
- "bussinessAreaCode": "2939",
- "organ": "2983d9292992de",
- "priviliegeLevel": "0"
+ "bussinessAreaCode": "2939"
 }
 ```

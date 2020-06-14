@@ -19,7 +19,7 @@ public interface IWorkflowService {
     List<Workflow> pageWorkflow(int limit, long offset);
 
 
-    WorkItem createWorkInstance(String principal, String workflow, String ondoneEventCode, String data) throws CircuitException;
+    WorkItem createWorkInstance(String principal, String workflow, String data) throws CircuitException;
 
     List<WorkItem> pageMyWorkItem(String principal, int filter, int limit, long offset) throws CircuitException;
 

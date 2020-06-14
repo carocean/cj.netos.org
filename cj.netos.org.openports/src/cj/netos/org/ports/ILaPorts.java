@@ -1,11 +1,13 @@
 package cj.netos.org.ports;
 
+import cj.netos.org.bo.LaApplyBO;
 import cj.netos.org.model.OrgLa;
 import cj.netos.org.model.OrgLicence;
-import cj.netos.org.model.WorkEvent;
+import cj.netos.org.result.WorkItem;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.IOpenportService;
 import cj.studio.openport.ISecuritySession;
+import cj.studio.openport.PKeyInRequest;
 import cj.studio.openport.annotations.CjOpenport;
 import cj.studio.openport.annotations.CjOpenportParameter;
 import cj.studio.openport.annotations.CjOpenports;
@@ -34,26 +36,27 @@ public interface ILaPorts extends IOpenportService {
             @CjOpenportParameter(usage = "偏移", name = "offset") long offset
     ) throws CircuitException;
 
-    @CjOpenport(usage = "公众申请成为地商。该公众会被作为所有人")
-    WorkEvent applyRegisterByPerson(ISecuritySession securitySession,
-                                    @CjOpenportParameter(usage = "公司名", name = "cropName") String cropName,
-                                    @CjOpenportParameter(usage = "公司简称", name = "simpleName") String simpleName,
-                                    @CjOpenportParameter(usage = "统一社会信用代码（营业执照上的）", name = "cropCode") String cropCode,
-                                    @CjOpenportParameter(usage = "营业执照地址", name = "licenceSrc") String licenceSrc,
-                                    @CjOpenportParameter(usage = "公司logo", name = "cropLogo") String cropLogo,
-                                    @CjOpenportParameter(usage = "运营商标识", name = "isp") String isp,
-                                    @CjOpenportParameter(usage = "所有人真实名", name = "masterRealName") String masterRealName,
-                                    @CjOpenportParameter(usage = "所有人电话", name = "masterPhone") String masterPhone
+    @CjOpenport(usage = "公众申请成为地商。该公众会被作为所有人", command = "post")
+    WorkItem applyRegisterByPerson(ISecuritySession securitySession,
+                                   @CjOpenportParameter(usage = "注册流程", name = "workflow") String workflow,
+                                   @CjOpenportParameter(usage = "公司名", name = "laApplyBO", in = PKeyInRequest.content, simpleModelFile = "laApplyBO.md") LaApplyBO laApplyBO
     ) throws CircuitException;
 
     @CjOpenport(usage = "公众申请成为地商。运营商申批")
-    WorkEvent checkApplyRegisterByIsp(ISecuritySession securitySession,
-                                      @CjOpenportParameter(usage = "工作项标识", name = "workitem") String workitem
+    WorkItem reviewByIsp(ISecuritySession securitySession,
+                         @CjOpenportParameter(usage = "工作实例", name = "workinst") String workinst
+    ) throws CircuitException;
+
+    @CjOpenport(usage = "地商确认付款")
+    WorkItem confirmPayOrder(ISecuritySession securitySession,
+                             @CjOpenportParameter(usage = "我的注册流程实例", name = "workinst") String workinst,
+                             @CjOpenportParameter(usage = "上传的付款单地址", name = "payEvidence") String payEvidence
     ) throws CircuitException;
 
     @CjOpenport(usage = "公众申请成为地商。平台申批")
-    WorkEvent checkApplyRegisterByPlatform(ISecuritySession securitySession,
-                                           @CjOpenportParameter(usage = "工作项标识", name = "workitem") String workitem
+    WorkItem checkApplyRegisterByPlatform(ISecuritySession securitySession,
+                                          @CjOpenportParameter(usage = "工作实例", name = "workinst") String workinst,
+                                          @CjOpenportParameter(usage = "审查确认，true为通过", name = "checkPass") boolean checkPass
     ) throws CircuitException;
 
     @CjOpenport(usage = "获取地商营业牌照")
@@ -63,15 +66,17 @@ public interface ILaPorts extends IOpenportService {
     ) throws CircuitException;
 
     @CjOpenport(usage = "运营商申请吊销地商牌照")
-    void revokeLaByIsp(
+    WorkItem revokeLaLicenceByIsp(
             ISecuritySession securitySession,
+            @CjOpenportParameter(usage = "注册流程", name = "workflow") String workflow,
             @CjOpenportParameter(usage = "牌照标识", name = "licenceid") String licenceid
     ) throws CircuitException;
 
     @CjOpenport(usage = "平台批准运营商吊销地商牌照")
-    void checkRevokeLaByPlatfrom(
+    WorkItem checkRevokeLaByPlatfrom(
             ISecuritySession securitySession,
-            @CjOpenportParameter(usage = "牌照标识", name = "licenceid") String licenceid
+            @CjOpenportParameter(usage = "工作实例", name = "workinst") String workinst,
+            @CjOpenportParameter(usage = "审批是否通过", name = "checkPass") boolean checkPass
     ) throws CircuitException;
 
     @CjOpenport(usage = "平台直接吊销地商牌照")

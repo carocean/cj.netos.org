@@ -15,4 +15,5 @@ public interface IIspService {
 
     void doRegisterIsp(String principal, IspApplyBO ispApplyBO);
 
+
 }

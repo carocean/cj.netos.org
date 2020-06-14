@@ -39,14 +39,20 @@ public interface IWorkflowPorts extends IOpenportService {
     @CjOpenport(usage = "创建工作流实例")
     WorkItem createWorkInstance(ISecuritySession securitySession,
                                 @CjOpenportParameter(usage = "工作流标识", name = "workflow") String workflow,
-                                @CjOpenportParameter(usage = "在指定的事件代码时结束实例，非空", name = "ondoneEventCode") String ondoneEventCode,
                                 @CjOpenportParameter(usage = "工作数据", name = "data") String data
+    ) throws CircuitException;
+
+    @CjOpenport(usage = "更新工作流数据。")
+    void updateWorkInstData(ISecuritySession securitySession,
+                            @CjOpenportParameter(usage = "工作实例标识", name = "workinst") String workinst,
+                            @CjOpenportParameter(usage = "工作数据", name = "data") String data
     ) throws CircuitException;
 
     @CjOpenport(usage = "获取工作流实例。")
     WorkInst getWorkInstance(ISecuritySession securitySession,
                              @CjOpenportParameter(usage = "工作实例标识", name = "workinst") String workinst
     ) throws CircuitException;
+
 
     @CjOpenport(usage = "分页工作实例")
     List<WorkInst> pageWorkInst(ISecuritySession securitySession,
@@ -111,7 +117,7 @@ public interface IWorkflowPorts extends IOpenportService {
 
     @CjOpenport(usage = "获取工作组")
     WorkGroup getWorkGroup(ISecuritySession securitySession,
-                      @CjOpenportParameter(usage = "工作组代码，有语义的收件人集合名称", name = "code") String workgroup
+                           @CjOpenportParameter(usage = "工作组代码，有语义的收件人集合名称", name = "code") String workgroup
     ) throws CircuitException;
 
     @CjOpenport(usage = "移除工作组")

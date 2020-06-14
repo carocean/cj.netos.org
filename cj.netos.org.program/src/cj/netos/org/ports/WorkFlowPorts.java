@@ -47,8 +47,26 @@ public class WorkFlowPorts implements IWorkflowPorts {
     }
 
     @Override
-    public WorkItem createWorkInstance(ISecuritySession securitySession, String workflow, String ondoneEventCode, String data) throws CircuitException {
-        return workflowService.createWorkInstance(securitySession.principal(), workflow, ondoneEventCode, data);
+    public WorkItem createWorkInstance(ISecuritySession securitySession, String workflow, String data) throws CircuitException {
+        return workflowService.createWorkInstance(securitySession.principal(), workflow, data);
+    }
+
+    @Override
+    public void updateWorkInstData(ISecuritySession securitySession, String workinst, String data) throws CircuitException {
+        WorkItem workItem = workflowService.getMyLastWorkItemOnInstance(securitySession.principal(), workinst);
+        if (workItem == null) {
+            throw new CircuitException("404", String.format("用户%s没有当前工作项", securitySession.principal()));
+        }
+        if (workItem.getWorkInst().getIsDone() == 1) {
+            throw new CircuitException("500", String.format("当前事件已完成"));
+        }
+        if (workItem.getWorkEvent().getIsDone() == 1) {
+            throw new CircuitException("500", String.format("流程已完成"));
+        }
+        if (!securitySession.principal().equals(workItem.getWorkEvent().getRecipient())) {
+            throw new CircuitException("800", String.format("不是用户的当前工作项，拒绝修改流程数据"));
+        }
+        workflowService.updateWorkInstData(workinst, data);
     }
 
     @Override
@@ -138,7 +156,7 @@ public class WorkFlowPorts implements IWorkflowPorts {
             throw new CircuitException("800", String.format("非本人:%s创建的工作组，拒绝访问", securitySession.principal()));
         }
         WorkRecipient recipient = new WorkRecipient();
-        recipient.setPerson(securitySession.principal());
+        recipient.setPerson(person);
         recipient.setSort(sort);
         recipient.setWorkgroup(workgroup);
         workflowService.addWorkRecipient(recipient);

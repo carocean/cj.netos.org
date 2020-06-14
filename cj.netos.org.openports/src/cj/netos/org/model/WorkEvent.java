@@ -74,6 +74,12 @@ public class WorkEvent {
      */
     private String dtime;
 
+    /**
+     * Column: data
+     * Remark: 数据，每个事件的数据均是从工作实例的data而来，它记录了工作实例上data的版本变化情况，所以工作实例上的data虽然保持的是最新的，但可通过事件追溯它
+     */
+    private String data;
+
     public String getId() {
         return id;
     }
@@ -168,5 +174,13 @@ public class WorkEvent {
 
     public void setDtime(String dtime) {
         this.dtime = dtime == null ? null : dtime.trim();
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data == null ? null : data.trim();
     }
 }

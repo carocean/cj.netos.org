@@ -21,25 +21,28 @@ public class IspService implements IIspService {
 
     @CjServiceRef(refByName = "mybatis.cj.netos.org.mapper.OrgIspMapper")
     OrgIspMapper orgIspMapper;
+    @CjServiceRef
+    ILicenceService licenceService;
 
     @CjTransaction
     @Override
     public OrgIsp getIsp(String ispid) {
-        return null;
+        return orgIspMapper.selectByPrimaryKey(ispid);
     }
 
     @CjTransaction
     @Override
     public List<OrgIsp> pageIsp(int limit, long offset) {
-        return null;
+        return orgIspMapper.page(limit, offset);
     }
 
     @CjTransaction
     @Override
     public OrgLicence getLicence(String ispid) {
-        return null;
+        return licenceService.getLicence(ispid, 2);
     }
 
+    @CjTransaction
     @Override
     public void doRegisterIsp(String principal, IspApplyBO bo) {
         OrgIsp isp = new OrgIsp();
@@ -53,6 +56,9 @@ public class IspService implements IIspService {
         isp.setCorpLogo(bo.getCropLogo());
         isp.setCorpCode(bo.getCropCode());
         orgIspMapper.insert(isp);
+
+        bo.setOrgan(isp.getId());
+        bo.setPriviliegeLevel(2);
     }
 
 

@@ -47,8 +47,9 @@ public class IspPorts implements IIspPorts {
             throw new CircuitException("404", String.format("工作流:%s不存在。", workflow));
         }
         bo.setMasterPerson(securitySession.principal());
-        WorkItem workItem = workflowService.createWorkInstance(securitySession.principal(), workflow, "platformChecker", new Gson().toJson(bo));
         ispService.doRegisterIsp(securitySession.principal(), bo);
+
+        WorkItem workItem = workflowService.createWorkInstance(securitySession.principal(), workflow,  new Gson().toJson(bo));
         workflowService.doWorkItemAndSend(securitySession.principal(), workItem.getWorkInst().getId(), "doRegister", securitySession.principal(), "payConfirm", "付款确认");
         return workItem;
     }
@@ -77,7 +78,7 @@ public class IspPorts implements IIspPorts {
             workflowService.doMyWorkItem(securitySession.principal(), workinst, "adopt", true);
             String json = workItem.getWorkInst().getData();
             IspApplyBO ispApplyBO = new Gson().fromJson(json, IspApplyBO.class);
-            licenceService.publishLicence(ispApplyBO);
+            licenceService.publishIspLicence(ispApplyBO);
         } else {
             workflowService.doWorkItemAndSend(securitySession.principal(), workinst, "return", workItem.getWorkEvent().getSender(), "return", "退回");
         }
@@ -86,6 +87,9 @@ public class IspPorts implements IIspPorts {
 
     @Override
     public void forceRevokeIspByPlatfrom(ISecuritySession securitySession, String ispid) throws CircuitException {
-
+        if (!securitySession.roleIn("platform:administrators")) {
+            throw new CircuitException("800",String.format("拒绝访问"));
+        }
+        licenceService.revoke(ispid,2);
     }
 }

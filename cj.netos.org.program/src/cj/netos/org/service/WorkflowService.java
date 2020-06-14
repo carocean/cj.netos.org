@@ -66,7 +66,7 @@ public class WorkflowService implements IWorkflowService {
 
     @CjTransaction
     @Override
-    public WorkItem createWorkInstance(String principal, String workflow, String ondoneEventCode, String data) throws CircuitException {
+    public WorkItem createWorkInstance(String principal, String workflow,  String data) throws CircuitException {
         Workflow flow = getWorkflow(workflow);
         if (flow == null) {
             throw new CircuitException("404", String.format("工作流不存在:%s", workflow));
@@ -78,7 +78,6 @@ public class WorkflowService implements IWorkflowService {
         inst.setIcon(flow.getIcon());
         inst.setId(new IdWorker().nextId());
         inst.setIsDone(0);
-        inst.setOndoneEventCode(ondoneEventCode);
         inst.setName(flow.getName());
         inst.setNote(flow.getNote());
         inst.setWorkflow(flow.getId());
@@ -93,6 +92,7 @@ public class WorkflowService implements IWorkflowService {
         event.setCode("workInstBegin");
         event.setId(new IdWorker().nextId());
         event.setCtime(OrgUtils.dateTimeToMicroSecond(System.currentTimeMillis()));
+        event.setData(data);
         workEventMapper.insert(event);
         return new WorkItem(inst, event);
     }
@@ -184,7 +184,7 @@ public class WorkflowService implements IWorkflowService {
 
     @CjTransaction
     @Override
-    public boolean doMyWorkItem(String principal, String workinst, String operated,boolean doneWorkInst) throws CircuitException {
+    public boolean doMyWorkItem(String principal, String workinst, String operated, boolean doneWorkInst) throws CircuitException {
         WorkItem workItem = getMyLastWorkItemOnInstance(principal, workinst);
         if (workItem == null || workItem.getWorkEvent() == null) {
             throw new CircuitException("404", String.format("当前工作事件不是我本人"));
@@ -195,7 +195,7 @@ public class WorkflowService implements IWorkflowService {
         if (workItem.getWorkEvent().getIsDone() == 1) {
             throw new CircuitException("500", String.format("用户%s 的工作事件%s在流程实例%s上已完成", principal, workItem.getWorkEvent().getId(), workinst));
         }
-        workEventMapper.done(principal, workinst, operated, OrgUtils.dateTimeToMicroSecond(System.currentTimeMillis()));
+        workEventMapper.done(workItem.getWorkEvent().getId(), operated, OrgUtils.dateTimeToMicroSecond(System.currentTimeMillis()));
         if (doneWorkInst) {
             workInstMapper.done(workinst);
             WorkEvent event = new WorkEvent();
@@ -210,6 +210,7 @@ public class WorkflowService implements IWorkflowService {
             event.setCtime(OrgUtils.dateTimeToMicroSecond(System.currentTimeMillis()));
             event.setDtime(event.getCtime());
             event.setOperated("ok");
+            event.setData(workItem.getWorkInst().getData());
             workEventMapper.insert(event);
             return true;
         }
@@ -228,9 +229,6 @@ public class WorkflowService implements IWorkflowService {
         }
         if (workItem.getWorkEvent().getIsDone() == 0) {
             throw new CircuitException("500", String.format("用户%s 的工作事件%s在流程实例%s上还未完成", principal, workItem.getWorkEvent().getId(), workinst));
-        }
-        if (workItem.getWorkEvent().getCode().equals(workItem.getWorkInst().getOndoneEventCode())) {
-            throw new CircuitException("501", String.format("不能向后发送，流程被定义为在事件:%s后结束", workItem.getWorkInst().getOndoneEventCode()));
         }
         if (recipients.startsWith("$g.")) {
             String groupCode = recipients.substring(3, recipients.length());
@@ -261,6 +259,7 @@ public class WorkflowService implements IWorkflowService {
             event.setStepNo(workItem.getWorkEvent().getStepNo() + 1);
             event.setTitle(stepName);
             event.setWorkInst(workinst);
+            event.setData(workItem.getWorkInst().getData());
             workEventMapper.insert(event);
         }
     }
@@ -268,10 +267,10 @@ public class WorkflowService implements IWorkflowService {
     @CjTransaction
     @Override
     public boolean doWorkItemAndSend(String principal, String workinst, String operated, String recipients, String eventCode, String stepName) throws CircuitException {
-        boolean isEnd = doMyWorkItem(principal, workinst, operated,false);
+        boolean isEnd = doMyWorkItem(principal, workinst, operated, false);
         if (isEnd) {
             WorkInst inst = getWorkInstance(principal, workinst);
-            CJSystem.logging().warn(getClass(), String.format("不能向后发送，流程被定义为在事件:%s后结束", inst.getOndoneEventCode()));
+            CJSystem.logging().warn(getClass(), String.format("不能向后发送，流程实例：%s已结束", inst.getName()));
             return true;
         }
         sendMyWorkItem(principal, workinst, recipients, eventCode, stepName);

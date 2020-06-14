@@ -15,6 +15,7 @@
     <result column="is_done" jdbcType="INTEGER" property="isDone" />
     <result column="prev_event" jdbcType="VARCHAR" property="prevEvent" />
     <result column="dtime" jdbcType="VARCHAR" property="dtime" />
+    <result column="data" jdbcType="VARCHAR" property="data" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -79,7 +80,7 @@
   <sql id="Base_Column_List">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     id, title, code, step_no, work_inst, ctime, sender, recipient, operated, is_done, 
-    prev_event, dtime
+    prev_event, dtime, `data`
   </sql>
   <select id="selectByExample" parameterType="cj.netos.org.model.WorkEventExample" resultMap="BaseResultMap">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -120,13 +121,13 @@
     insert into work_event (id, title, code, 
       step_no, work_inst, ctime, 
       sender, recipient, operated, 
-      is_done, prev_event, dtime
-      )
+      is_done, prev_event, dtime, 
+      `data`)
     values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
       #{stepNo,jdbcType=INTEGER}, #{workInst,jdbcType=VARCHAR}, #{ctime,jdbcType=VARCHAR}, 
       #{sender,jdbcType=VARCHAR}, #{recipient,jdbcType=VARCHAR}, #{operated,jdbcType=VARCHAR}, 
-      #{isDone,jdbcType=INTEGER}, #{prevEvent,jdbcType=VARCHAR}, #{dtime,jdbcType=VARCHAR}
-      )
+      #{isDone,jdbcType=INTEGER}, #{prevEvent,jdbcType=VARCHAR}, #{dtime,jdbcType=VARCHAR}, 
+      #{data,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cj.netos.org.model.WorkEvent">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -168,6 +169,9 @@
       <if test="dtime != null">
         dtime,
       </if>
+      <if test="data != null">
+        `data`,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -205,6 +209,9 @@
       </if>
       <if test="dtime != null">
         #{dtime,jdbcType=VARCHAR},
+      </if>
+      <if test="data != null">
+        #{data,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -255,6 +262,9 @@
       <if test="record.dtime != null">
         dtime = #{record.dtime,jdbcType=VARCHAR},
       </if>
+      <if test="record.data != null">
+        `data` = #{record.data,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -274,7 +284,8 @@
       operated = #{record.operated,jdbcType=VARCHAR},
       is_done = #{record.isDone,jdbcType=INTEGER},
       prev_event = #{record.prevEvent,jdbcType=VARCHAR},
-      dtime = #{record.dtime,jdbcType=VARCHAR}
+      dtime = #{record.dtime,jdbcType=VARCHAR},
+      `data` = #{record.data,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -316,6 +327,9 @@
       <if test="dtime != null">
         dtime = #{dtime,jdbcType=VARCHAR},
       </if>
+      <if test="data != null">
+        `data` = #{data,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -332,7 +346,8 @@
       operated = #{operated,jdbcType=VARCHAR},
       is_done = #{isDone,jdbcType=INTEGER},
       prev_event = #{prevEvent,jdbcType=VARCHAR},
-      dtime = #{dtime,jdbcType=VARCHAR}
+      dtime = #{dtime,jdbcType=VARCHAR},
+      `data` = #{data,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
     <update id="done" parameterType="cj.netos.org.model.WorkEvent">
@@ -341,8 +356,7 @@
     operated = #{operated,jdbcType=VARCHAR},
     dtime = #{dtime,jdbcType=VARCHAR},
     is_done = 1
-    where recipient = #{recipient,jdbcType=VARCHAR}
-    and work_inst = #{workInst,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
     <select id="getLastWorkEvent" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
         select

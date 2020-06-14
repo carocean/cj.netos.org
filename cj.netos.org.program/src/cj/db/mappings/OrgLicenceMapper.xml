@@ -367,4 +367,31 @@
       pay_evidence = #{payEvidence,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  <update id="revokeById" parameterType="cj.netos.org.model.OrgLicence">
+    update org_licence
+    set
+    `state` = 1
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="revokeWhere" parameterType="cj.netos.org.model.OrgLicence">
+    update org_licence
+    set
+    `state` = 1
+    where organ = #{organ,jdbcType=VARCHAR}
+    and privilege_level = #{privilegeLevel,jdbcType=INTEGER}
+  </update>
+  <select id="page" parameterType="cj.netos.org.model.OrgLicence" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from org_licence
+    order by pub_time asc
+    limit #{offset},#{limit}
+  </select>
+  <select id="pageByIsp" parameterType="cj.netos.org.model.OrgLicence" resultMap="BaseResultMap">
+    select *
+    from org_licence
+    where organ in (select la.id from org_la la,org_isp isp where la.isp=isp.id and isp.id=#{isp})
+    order by pub_time asc
+    limit #{offset},#{limit}
+  </select>
 </mapper>

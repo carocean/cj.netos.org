@@ -61,4 +61,7 @@ public interface OrgIspMapper {
      * @mbg.generated generated automatically, do not modify!
      */
     int updateByPrimaryKey(OrgIsp record);
+
+    List<OrgIsp> page(@Param(value = "limit") int limit,@Param(value = "offset") long offset);
+
 }

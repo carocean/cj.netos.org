@@ -62,7 +62,7 @@ public interface WorkEventMapper {
      */
     int updateByPrimaryKey(WorkEvent record);
 
-    void done(@Param(value = "recipient") String recipient, @Param(value = "workInst") String workInst, @Param(value = "operated") String operated, @Param(value = "dtime") String dtime);
+    void done(@Param(value = "id") String id, @Param(value = "operated") String operated, @Param(value = "dtime") String dtime);
 
     WorkEvent getLastWorkEvent(@Param(value = "recipient") String recipient, @Param(value = "workInst") String workInst);
 

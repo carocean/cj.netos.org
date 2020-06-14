@@ -8,7 +8,6 @@
     <result column="workflow" jdbcType="VARCHAR" property="workflow" />
     <result column="ctime" jdbcType="VARCHAR" property="ctime" />
     <result column="is_done" jdbcType="INTEGER" property="isDone" />
-    <result column="ondone_event_code" jdbcType="VARCHAR" property="ondoneEventCode" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
     <result column="creator" jdbcType="VARCHAR" property="creator" />
     <result column="note" jdbcType="VARCHAR" property="note" />
@@ -76,7 +75,7 @@
   </sql>
   <sql id="Base_Column_List">
     <!-- @mbg.generated: generated automatically, do not modify! -->
-    id, `name`, workflow, ctime, is_done, ondone_event_code, icon, creator, note, `data`
+    id, `name`, workflow, ctime, is_done, icon, creator, note, `data`
   </sql>
   <select id="selectByExample" parameterType="cj.netos.org.model.WorkInstExample" resultMap="BaseResultMap">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -115,13 +114,13 @@
   <insert id="insert" parameterType="cj.netos.org.model.WorkInst">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     insert into work_inst (id, `name`, workflow, 
-      ctime, is_done, ondone_event_code, 
-      icon, creator, note, 
-      `data`)
+      ctime, is_done, icon, 
+      creator, note, `data`
+      )
     values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{workflow,jdbcType=VARCHAR}, 
-      #{ctime,jdbcType=VARCHAR}, #{isDone,jdbcType=INTEGER}, #{ondoneEventCode,jdbcType=VARCHAR}, 
-      #{icon,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, 
-      #{data,jdbcType=VARCHAR})
+      #{ctime,jdbcType=VARCHAR}, #{isDone,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, #{data,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cj.netos.org.model.WorkInst">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -141,9 +140,6 @@
       </if>
       <if test="isDone != null">
         is_done,
-      </if>
-      <if test="ondoneEventCode != null">
-        ondone_event_code,
       </if>
       <if test="icon != null">
         icon,
@@ -173,9 +169,6 @@
       </if>
       <if test="isDone != null">
         #{isDone,jdbcType=INTEGER},
-      </if>
-      <if test="ondoneEventCode != null">
-        #{ondoneEventCode,jdbcType=VARCHAR},
       </if>
       <if test="icon != null">
         #{icon,jdbcType=VARCHAR},
@@ -217,9 +210,6 @@
       <if test="record.isDone != null">
         is_done = #{record.isDone,jdbcType=INTEGER},
       </if>
-      <if test="record.ondoneEventCode != null">
-        ondone_event_code = #{record.ondoneEventCode,jdbcType=VARCHAR},
-      </if>
       <if test="record.icon != null">
         icon = #{record.icon,jdbcType=VARCHAR},
       </if>
@@ -245,7 +235,6 @@
       workflow = #{record.workflow,jdbcType=VARCHAR},
       ctime = #{record.ctime,jdbcType=VARCHAR},
       is_done = #{record.isDone,jdbcType=INTEGER},
-      ondone_event_code = #{record.ondoneEventCode,jdbcType=VARCHAR},
       icon = #{record.icon,jdbcType=VARCHAR},
       creator = #{record.creator,jdbcType=VARCHAR},
       note = #{record.note,jdbcType=VARCHAR},
@@ -270,9 +259,6 @@
       <if test="isDone != null">
         is_done = #{isDone,jdbcType=INTEGER},
       </if>
-      <if test="ondoneEventCode != null">
-        ondone_event_code = #{ondoneEventCode,jdbcType=VARCHAR},
-      </if>
       <if test="icon != null">
         icon = #{icon,jdbcType=VARCHAR},
       </if>
@@ -295,7 +281,6 @@
       workflow = #{workflow,jdbcType=VARCHAR},
       ctime = #{ctime,jdbcType=VARCHAR},
       is_done = #{isDone,jdbcType=INTEGER},
-      ondone_event_code = #{ondoneEventCode,jdbcType=VARCHAR},
       icon = #{icon,jdbcType=VARCHAR},
       creator = #{creator,jdbcType=VARCHAR},
       note = #{note,jdbcType=VARCHAR},

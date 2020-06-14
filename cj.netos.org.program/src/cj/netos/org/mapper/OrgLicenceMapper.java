@@ -2,7 +2,9 @@ package cj.netos.org.mapper;
 
 import cj.netos.org.model.OrgLicence;
 import cj.netos.org.model.OrgLicenceExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface OrgLicenceMapper {
@@ -61,4 +63,13 @@ public interface OrgLicenceMapper {
      * @mbg.generated generated automatically, do not modify!
      */
     int updateByPrimaryKey(OrgLicence record);
+
+    void revokeWhere(@Param(value = "organ") String organ, @Param(value = "privilegeLevel") int privilegeLevel);
+
+    void revokeById(@Param(value = "id") String id);
+
+    List<OrgLicence> page(@Param(value = "limit") int limit, @Param(value = "offset") long offset);
+
+    List<OrgLicence> pageByIsp(@Param(value = "isp") String isp,  @Param(value = "limit") int limit, @Param(value = "offset") long offset);
+
 }

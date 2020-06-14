@@ -288,4 +288,11 @@
       ctime = #{ctime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  <select id="page" parameterType="cj.netos.org.model.OrgIsp" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from org_isp
+    order by ctime asc
+    limit #{offset},#{limit}
+  </select>
 </mapper>

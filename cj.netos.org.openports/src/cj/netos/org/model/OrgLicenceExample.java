@@ -287,62 +287,52 @@ public class OrgLicenceExample {
             return (Criteria) this;
         }
 
-        public Criteria andOperatePeriodEqualTo(String value) {
+        public Criteria andOperatePeriodEqualTo(Integer value) {
             addCriterion("operate_period =", value, "operatePeriod");
             return (Criteria) this;
         }
 
-        public Criteria andOperatePeriodNotEqualTo(String value) {
+        public Criteria andOperatePeriodNotEqualTo(Integer value) {
             addCriterion("operate_period <>", value, "operatePeriod");
             return (Criteria) this;
         }
 
-        public Criteria andOperatePeriodGreaterThan(String value) {
+        public Criteria andOperatePeriodGreaterThan(Integer value) {
             addCriterion("operate_period >", value, "operatePeriod");
             return (Criteria) this;
         }
 
-        public Criteria andOperatePeriodGreaterThanOrEqualTo(String value) {
+        public Criteria andOperatePeriodGreaterThanOrEqualTo(Integer value) {
             addCriterion("operate_period >=", value, "operatePeriod");
             return (Criteria) this;
         }
 
-        public Criteria andOperatePeriodLessThan(String value) {
+        public Criteria andOperatePeriodLessThan(Integer value) {
             addCriterion("operate_period <", value, "operatePeriod");
             return (Criteria) this;
         }
 
-        public Criteria andOperatePeriodLessThanOrEqualTo(String value) {
+        public Criteria andOperatePeriodLessThanOrEqualTo(Integer value) {
             addCriterion("operate_period <=", value, "operatePeriod");
             return (Criteria) this;
         }
 
-        public Criteria andOperatePeriodLike(String value) {
-            addCriterion("operate_period like", value, "operatePeriod");
-            return (Criteria) this;
-        }
-
-        public Criteria andOperatePeriodNotLike(String value) {
-            addCriterion("operate_period not like", value, "operatePeriod");
-            return (Criteria) this;
-        }
-
-        public Criteria andOperatePeriodIn(List<String> values) {
+        public Criteria andOperatePeriodIn(List<Integer> values) {
             addCriterion("operate_period in", values, "operatePeriod");
             return (Criteria) this;
         }
 
-        public Criteria andOperatePeriodNotIn(List<String> values) {
+        public Criteria andOperatePeriodNotIn(List<Integer> values) {
             addCriterion("operate_period not in", values, "operatePeriod");
             return (Criteria) this;
         }
 
-        public Criteria andOperatePeriodBetween(String value1, String value2) {
+        public Criteria andOperatePeriodBetween(Integer value1, Integer value2) {
             addCriterion("operate_period between", value1, value2, "operatePeriod");
             return (Criteria) this;
         }
 
-        public Criteria andOperatePeriodNotBetween(String value1, String value2) {
+        public Criteria andOperatePeriodNotBetween(Integer value1, Integer value2) {
             addCriterion("operate_period not between", value1, value2, "operatePeriod");
             return (Criteria) this;
         }
@@ -357,52 +347,52 @@ public class OrgLicenceExample {
             return (Criteria) this;
         }
 
-        public Criteria andFeeEqualTo(Integer value) {
+        public Criteria andFeeEqualTo(Long value) {
             addCriterion("fee =", value, "fee");
             return (Criteria) this;
         }
 
-        public Criteria andFeeNotEqualTo(Integer value) {
+        public Criteria andFeeNotEqualTo(Long value) {
             addCriterion("fee <>", value, "fee");
             return (Criteria) this;
         }
 
-        public Criteria andFeeGreaterThan(Integer value) {
+        public Criteria andFeeGreaterThan(Long value) {
             addCriterion("fee >", value, "fee");
             return (Criteria) this;
         }
 
-        public Criteria andFeeGreaterThanOrEqualTo(Integer value) {
+        public Criteria andFeeGreaterThanOrEqualTo(Long value) {
             addCriterion("fee >=", value, "fee");
             return (Criteria) this;
         }
 
-        public Criteria andFeeLessThan(Integer value) {
+        public Criteria andFeeLessThan(Long value) {
             addCriterion("fee <", value, "fee");
             return (Criteria) this;
         }
 
-        public Criteria andFeeLessThanOrEqualTo(Integer value) {
+        public Criteria andFeeLessThanOrEqualTo(Long value) {
             addCriterion("fee <=", value, "fee");
             return (Criteria) this;
         }
 
-        public Criteria andFeeIn(List<Integer> values) {
+        public Criteria andFeeIn(List<Long> values) {
             addCriterion("fee in", values, "fee");
             return (Criteria) this;
         }
 
-        public Criteria andFeeNotIn(List<Integer> values) {
+        public Criteria andFeeNotIn(List<Long> values) {
             addCriterion("fee not in", values, "fee");
             return (Criteria) this;
         }
 
-        public Criteria andFeeBetween(Integer value1, Integer value2) {
+        public Criteria andFeeBetween(Long value1, Long value2) {
             addCriterion("fee between", value1, value2, "fee");
             return (Criteria) this;
         }
 
-        public Criteria andFeeNotBetween(Integer value1, Integer value2) {
+        public Criteria andFeeNotBetween(Long value1, Long value2) {
             addCriterion("fee not between", value1, value2, "fee");
             return (Criteria) this;
         }
@@ -1014,6 +1004,76 @@ public class OrgLicenceExample {
 
         public Criteria andEndTimeNotBetween(String value1, String value2) {
             addCriterion("end_time not between", value1, value2, "endTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayEvidenceIsNull() {
+            addCriterion("pay_evidence is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayEvidenceIsNotNull() {
+            addCriterion("pay_evidence is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayEvidenceEqualTo(String value) {
+            addCriterion("pay_evidence =", value, "payEvidence");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayEvidenceNotEqualTo(String value) {
+            addCriterion("pay_evidence <>", value, "payEvidence");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayEvidenceGreaterThan(String value) {
+            addCriterion("pay_evidence >", value, "payEvidence");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayEvidenceGreaterThanOrEqualTo(String value) {
+            addCriterion("pay_evidence >=", value, "payEvidence");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayEvidenceLessThan(String value) {
+            addCriterion("pay_evidence <", value, "payEvidence");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayEvidenceLessThanOrEqualTo(String value) {
+            addCriterion("pay_evidence <=", value, "payEvidence");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayEvidenceLike(String value) {
+            addCriterion("pay_evidence like", value, "payEvidence");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayEvidenceNotLike(String value) {
+            addCriterion("pay_evidence not like", value, "payEvidence");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayEvidenceIn(List<String> values) {
+            addCriterion("pay_evidence in", values, "payEvidence");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayEvidenceNotIn(List<String> values) {
+            addCriterion("pay_evidence not in", values, "payEvidence");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayEvidenceBetween(String value1, String value2) {
+            addCriterion("pay_evidence between", value1, value2, "payEvidence");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayEvidenceNotBetween(String value1, String value2) {
+            addCriterion("pay_evidence not between", value1, value2, "payEvidence");
             return (Criteria) this;
         }
     }

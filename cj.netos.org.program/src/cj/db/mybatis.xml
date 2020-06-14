@@ -4,9 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <!-- 打印查询语句 -->
-    <settings>
-        <setting name="logImpl" value="STDOUT_LOGGING"/>
-    </settings>
+<!--    <settings>-->
+<!--        <setting name="logImpl" value="STDOUT_LOGGING"/>-->
+<!--    </settings>-->
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
@@ -35,5 +35,7 @@
         <mapper resource="cj/db/mappings/OrgIspMapper.xml"/>
         <mapper resource="cj/db/mappings/OrgLicenceMapper.xml"/>
         <mapper resource="cj/db/mappings/ReceivingBankMapper.xml"/>
+        <mapper resource="cj/db/mappings/WorkGroupMapper.xml"/>
+        <mapper resource="cj/db/mappings/WorkRecipientMapper.xml"/>
     </mappers>
 </configuration>

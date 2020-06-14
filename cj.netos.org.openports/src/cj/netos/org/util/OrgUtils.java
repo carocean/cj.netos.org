@@ -1,5 +1,6 @@
 package cj.netos.org.util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -31,5 +32,31 @@ public class OrgUtils {
     public static String dateTimeToMicroSecond(long dateTime) {
         SimpleDateFormat dft = new SimpleDateFormat("yyyyMMddHHmmssSSS", Locale.CHINA);
         return dft.format(new Date(dateTime));
+    }
+
+    public static Date getNewDate(Date olddate, int monthsInt) throws ParseException {
+        Date date = olddate;
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String data = format.format(date);
+        String dataStr[] = data.split("-");
+        //年份
+        int  year = (Integer.parseInt(dataStr[1]) + monthsInt)/12;
+        //月份
+        int yue = (Integer.parseInt(dataStr[1]) + monthsInt)%12;
+        String a = "";
+        if(yue<10){
+            if(yue<1){
+                a = "12";
+            }else{
+                a = "0"+yue;
+            }
+        }else {
+            a = yue+"";
+        }
+        dataStr[0]=String.valueOf(Integer.parseInt(dataStr[0]) + year);
+        dataStr[1]=a;
+        String newdata = dataStr[0]+"-"+dataStr[1]+"-"+dataStr[2];
+        Date newDate = format.parse(newdata);
+        return newDate;
     }
 }

@@ -1,11 +1,14 @@
 package cj.netos.org.ports;
 
+import cj.netos.org.bo.IspApplyBO;
 import cj.netos.org.model.OrgIsp;
 import cj.netos.org.model.OrgLicence;
 import cj.netos.org.model.WorkEvent;
+import cj.netos.org.result.WorkItem;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.IOpenportService;
 import cj.studio.openport.ISecuritySession;
+import cj.studio.openport.PKeyInRequest;
 import cj.studio.openport.annotations.CjOpenport;
 import cj.studio.openport.annotations.CjOpenportParameter;
 import cj.studio.openport.annotations.CjOpenports;
@@ -27,26 +30,28 @@ public interface IIspPorts extends IOpenportService {
     ) throws CircuitException;
 
 
-    @CjOpenport(usage = "获取地商营业牌照")
+    @CjOpenport(usage = "获取运营商营业牌照")
     OrgLicence getLicence(
             ISecuritySession securitySession,
-            @CjOpenportParameter(usage = "地商标识", name = "laid") String laid
+            @CjOpenportParameter(usage = "运营商标识", name = "ispid") String ispid
     ) throws CircuitException;
 
-    @CjOpenport(usage = "公众申请成为运营商。该公众会被作为所有人")
-    WorkEvent applyRegisterByPerson(ISecuritySession securitySession,
-                                    @CjOpenportParameter(usage = "公司名", name = "cropName") String cropName,
-                                    @CjOpenportParameter(usage = "公司简称", name = "simpleName") String simpleName,
-                                    @CjOpenportParameter(usage = "统一社会信用代码（营业执照上的）", name = "cropCode") String cropCode,
-                                    @CjOpenportParameter(usage = "营业执照地址", name = "licenceSrc") String licenceSrc,
-                                    @CjOpenportParameter(usage = "公司logo", name = "cropLogo") String cropLogo,
-                                    @CjOpenportParameter(usage = "所有人真实名", name = "masterRealName") String masterRealName,
-                                    @CjOpenportParameter(usage = "所有人电话", name = "masterPhone") String masterPhone
+    @CjOpenport(usage = "公众申请成为运营商。该公众会被作为所有人", command = "post")
+    WorkItem applyRegisterByPerson(ISecuritySession securitySession,
+                                   @CjOpenportParameter(usage = "注册流程", name = "workflow") String workflow,
+                                   @CjOpenportParameter(usage = "运营商申请单", name = "ispApplyBO", in = PKeyInRequest.content,simpleModelFile = "/ispApplyBO.md") IspApplyBO ispApplyBO
+    ) throws CircuitException;
+
+    @CjOpenport(usage = "确认付款单")
+    WorkItem confirmPayOrder(ISecuritySession securitySession,
+                             @CjOpenportParameter(usage = "我的注册流程实例", name = "workinst") String workinst,
+                             @CjOpenportParameter(usage = "上传的付款单地址", name = "payEvidence") String payEvidence
     ) throws CircuitException;
 
     @CjOpenport(usage = "平台审核运营商申请")
-    WorkEvent checkApplyRegisterByPlatform(ISecuritySession securitySession,
-                                           String workitem
+    WorkItem checkApplyRegisterByPlatform(ISecuritySession securitySession,
+                                          @CjOpenportParameter(usage = "我的注册流程实例", name = "workinst") String workinst,
+                                          @CjOpenportParameter(usage = "审查是否通过", name = "checkPass") boolean checkPass
     ) throws CircuitException;
 
     @CjOpenport(usage = "平台直接吊销运营商牌照")

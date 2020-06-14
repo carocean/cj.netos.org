@@ -65,4 +65,6 @@ public interface WorkInstMapper {
     void done(@Param(value = "id") String id);
 
     List<WorkInst> page(@Param(value = "limit") int limit, @Param(value = "offset") long offset);
+
+    void updateData(@Param(value = "id") String id,@Param(value = "data") String data);
 }

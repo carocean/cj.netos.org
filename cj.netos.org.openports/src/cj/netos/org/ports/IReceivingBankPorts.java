@@ -18,8 +18,9 @@ public interface IReceivingBankPorts extends IOpenportService {
             @CjOpenportParameter(usage = "收款行标识", name = "bankid") String bankid
     ) throws CircuitException;
 
+
     @CjOpenport(usage = "获取所有收款行")
-    List<ReceivingBank> getAll();
+    List<ReceivingBank> getAll(ISecuritySession securitySession);
 
     @CjOpenport(usage = "添加收款行")
     void addReceivingBank(

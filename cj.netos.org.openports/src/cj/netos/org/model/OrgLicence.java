@@ -18,15 +18,15 @@ public class OrgLicence {
 
     /**
      * Column: operate_period
-     * Remark: 经营期限
+     * Remark: 经营期限，以月数表示，单位是月
      */
-    private String operatePeriod;
+    private Integer operatePeriod;
 
     /**
      * Column: fee
      * Remark: 已交服务费
      */
-    private Integer fee;
+    private Long fee;
 
     /**
      * Column: privilege_level
@@ -82,6 +82,12 @@ public class OrgLicence {
      */
     private String endTime;
 
+    /**
+     * Column: pay_evidence
+     * Remark: 支付凭证地址
+     */
+    private String payEvidence;
+
     public String getId() {
         return id;
     }
@@ -98,19 +104,19 @@ public class OrgLicence {
         this.title = title == null ? null : title.trim();
     }
 
-    public String getOperatePeriod() {
+    public Integer getOperatePeriod() {
         return operatePeriod;
     }
 
-    public void setOperatePeriod(String operatePeriod) {
-        this.operatePeriod = operatePeriod == null ? null : operatePeriod.trim();
+    public void setOperatePeriod(Integer operatePeriod) {
+        this.operatePeriod = operatePeriod;
     }
 
-    public Integer getFee() {
+    public Long getFee() {
         return fee;
     }
 
-    public void setFee(Integer fee) {
+    public void setFee(Long fee) {
         this.fee = fee;
     }
 
@@ -184,5 +190,13 @@ public class OrgLicence {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime == null ? null : endTime.trim();
+    }
+
+    public String getPayEvidence() {
+        return payEvidence;
+    }
+
+    public void setPayEvidence(String payEvidence) {
+        this.payEvidence = payEvidence == null ? null : payEvidence.trim();
     }
 }

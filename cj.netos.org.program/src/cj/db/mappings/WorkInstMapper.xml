@@ -308,7 +308,12 @@
     is_done = 1
     where id = #{id,jdbcType=VARCHAR}
   </update>
-
+  <update id="updateData" parameterType="cj.netos.org.model.WorkInst">
+    update work_inst
+    set
+    `data` = #{data,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
   <select id="page" parameterType="cj.netos.org.model.WorkInst" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

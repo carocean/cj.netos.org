@@ -73,5 +73,4 @@ public interface WorkEventMapper {
     WorkEvent getFirstWorkEvent(@Param(value = "recipient") String recipient, @Param(value = "workInst") String workInst);
 
     List<WorkEvent> getAll(@Param(value = "workInst") String workInst);
-
 }

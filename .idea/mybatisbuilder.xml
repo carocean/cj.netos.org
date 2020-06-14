@@ -170,6 +170,16 @@
             </TableInfo>
           </value>
         </entry>
+        <entry key="netos.org#work_group">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.org" />
+              <option name="domainName" value="WorkGroup" />
+              <option name="tableComment" value="工作组。一个工作组下有一到多个收件人成员。&#10;目的是为了在工作流发送时指定工作组作为收件人，工作组名在逻辑上等同于绑定到了工作事件" />
+              <option name="tableName" value="work_group" />
+            </TableInfo>
+          </value>
+        </entry>
         <entry key="netos.org#work_inst">
           <value>
             <TableInfo>
@@ -187,6 +197,26 @@
               <option name="domainName" value="WorkItem" />
               <option name="tableComment" value="工作项表示一个工作流实例&#10;拷贝一份workflow到工作项" />
               <option name="tableName" value="work_item" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.org#work_recipient">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.org" />
+              <option name="domainName" value="WorkRecipient" />
+              <option name="tableComment" value="收件人" />
+              <option name="tableName" value="work_recipient" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.org#work_recipients">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.org" />
+              <option name="domainName" value="WorkRecipients" />
+              <option name="tableComment" value="收件人" />
+              <option name="tableName" value="work_recipients" />
             </TableInfo>
           </value>
         </entry>

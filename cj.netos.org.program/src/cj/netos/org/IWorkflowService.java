@@ -1,6 +1,8 @@
 package cj.netos.org;
 
+import cj.netos.org.model.WorkGroup;
 import cj.netos.org.model.WorkInst;
+import cj.netos.org.model.WorkRecipient;
 import cj.netos.org.model.Workflow;
 import cj.netos.org.result.WorkItem;
 import cj.studio.ecm.net.CircuitException;
@@ -17,11 +19,11 @@ public interface IWorkflowService {
     List<Workflow> pageWorkflow(int limit, long offset);
 
 
-    WorkInst createWorkInstance(String principal, String workflow,String ondoneEventCode, String data) throws CircuitException;
+    WorkItem createWorkInstance(String principal, String workflow, String ondoneEventCode, String data) throws CircuitException;
 
     List<WorkItem> pageMyWorkItem(String principal, int filter, int limit, long offset) throws CircuitException;
 
-    WorkItem doMyWorkItem(String principal, String workitem, String operated) throws CircuitException;
+    boolean doMyWorkItem(String principal, String workinst, String operated,boolean doneWorkInst) throws CircuitException;
 
     WorkItem getMyLastWorkItemOnInstance(String principal, String workinst);
 
@@ -29,14 +31,30 @@ public interface IWorkflowService {
 
     long countWorkItem(String workinst);
 
-    void sendMyWorkItem(String principal, String workitem, String recipients,String eventCode,  String stepName) throws CircuitException;
+    void sendMyWorkItem(String principal, String workinst, String recipients,String eventCode,  String stepName) throws CircuitException;
 
-    void doWorkItemAndSend(String principal, String workitem, String operated, String recipients,String eventCode,  String stepName) throws CircuitException;
+    boolean doWorkItemAndSend(String principal, String workinst, String operated, String recipients, String eventCode, String stepName) throws CircuitException;
 
-    WorkInst getWorkInstance(String principal, String workitem);
+    WorkInst getWorkInstance(String principal, String workinst);
 
-    List<WorkItem> getAllWorkitem(String principal, String workitem);
+    List<WorkItem> getAllWorkitem(String principal, String workinst);
 
     List<WorkInst> pageWorkInst(String principal, int limit, long offset);
+
+    void addWorkGroup(WorkGroup group);
+
+    WorkGroup getWorkGroup(String workgroup);
+
+    void removeWorkGroup(String workGroup);
+
+    List<WorkGroup> pageWorkGroup(int limit, long offset);
+
+    void addWorkRecipient(WorkRecipient recipient);
+
+    void removeWorkRecipient(String workGroup, String person);
+
+    List<WorkRecipient> getGroupRecipients(String workgroup);
+
+    void updateWorkInstData(String workinst, String data);
 
 }

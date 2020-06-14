@@ -5,8 +5,8 @@
     <!-- @mbg.generated: generated automatically, do not modify! -->
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="operate_period" jdbcType="VARCHAR" property="operatePeriod" />
-    <result column="fee" jdbcType="INTEGER" property="fee" />
+    <result column="operate_period" jdbcType="INTEGER" property="operatePeriod" />
+    <result column="fee" jdbcType="BIGINT" property="fee" />
     <result column="privilege_level" jdbcType="INTEGER" property="privilegeLevel" />
     <result column="bussiness_scop" jdbcType="VARCHAR" property="bussinessScop" />
     <result column="bussiness_area_title" jdbcType="VARCHAR" property="bussinessAreaTitle" />
@@ -16,6 +16,7 @@
     <result column="state" jdbcType="INTEGER" property="state" />
     <result column="pub_time" jdbcType="VARCHAR" property="pubTime" />
     <result column="end_time" jdbcType="VARCHAR" property="endTime" />
+    <result column="pay_evidence" jdbcType="VARCHAR" property="payEvidence" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -80,7 +81,7 @@
   <sql id="Base_Column_List">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     id, title, operate_period, fee, privilege_level, bussiness_scop, bussiness_area_title, 
-    bussiness_area_code, organ, sign_text, `state`, pub_time, end_time
+    bussiness_area_code, organ, sign_text, `state`, pub_time, end_time, pay_evidence
   </sql>
   <select id="selectByExample" parameterType="cj.netos.org.model.OrgLicenceExample" resultMap="BaseResultMap">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -122,12 +123,14 @@
       fee, privilege_level, bussiness_scop, 
       bussiness_area_title, bussiness_area_code, 
       organ, sign_text, `state`, 
-      pub_time, end_time)
-    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{operatePeriod,jdbcType=VARCHAR}, 
-      #{fee,jdbcType=INTEGER}, #{privilegeLevel,jdbcType=INTEGER}, #{bussinessScop,jdbcType=VARCHAR}, 
+      pub_time, end_time, pay_evidence
+      )
+    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{operatePeriod,jdbcType=INTEGER}, 
+      #{fee,jdbcType=BIGINT}, #{privilegeLevel,jdbcType=INTEGER}, #{bussinessScop,jdbcType=VARCHAR}, 
       #{bussinessAreaTitle,jdbcType=VARCHAR}, #{bussinessAreaCode,jdbcType=VARCHAR}, 
       #{organ,jdbcType=VARCHAR}, #{signText,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, 
-      #{pubTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR})
+      #{pubTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, #{payEvidence,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cj.netos.org.model.OrgLicence">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -172,6 +175,9 @@
       <if test="endTime != null">
         end_time,
       </if>
+      <if test="payEvidence != null">
+        pay_evidence,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -181,10 +187,10 @@
         #{title,jdbcType=VARCHAR},
       </if>
       <if test="operatePeriod != null">
-        #{operatePeriod,jdbcType=VARCHAR},
+        #{operatePeriod,jdbcType=INTEGER},
       </if>
       <if test="fee != null">
-        #{fee,jdbcType=INTEGER},
+        #{fee,jdbcType=BIGINT},
       </if>
       <if test="privilegeLevel != null">
         #{privilegeLevel,jdbcType=INTEGER},
@@ -213,6 +219,9 @@
       <if test="endTime != null">
         #{endTime,jdbcType=VARCHAR},
       </if>
+      <if test="payEvidence != null">
+        #{payEvidence,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="cj.netos.org.model.OrgLicenceExample" resultType="java.lang.Long">
@@ -233,10 +242,10 @@
         title = #{record.title,jdbcType=VARCHAR},
       </if>
       <if test="record.operatePeriod != null">
-        operate_period = #{record.operatePeriod,jdbcType=VARCHAR},
+        operate_period = #{record.operatePeriod,jdbcType=INTEGER},
       </if>
       <if test="record.fee != null">
-        fee = #{record.fee,jdbcType=INTEGER},
+        fee = #{record.fee,jdbcType=BIGINT},
       </if>
       <if test="record.privilegeLevel != null">
         privilege_level = #{record.privilegeLevel,jdbcType=INTEGER},
@@ -265,6 +274,9 @@
       <if test="record.endTime != null">
         end_time = #{record.endTime,jdbcType=VARCHAR},
       </if>
+      <if test="record.payEvidence != null">
+        pay_evidence = #{record.payEvidence,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -275,8 +287,8 @@
     update org_licence
     set id = #{record.id,jdbcType=VARCHAR},
       title = #{record.title,jdbcType=VARCHAR},
-      operate_period = #{record.operatePeriod,jdbcType=VARCHAR},
-      fee = #{record.fee,jdbcType=INTEGER},
+      operate_period = #{record.operatePeriod,jdbcType=INTEGER},
+      fee = #{record.fee,jdbcType=BIGINT},
       privilege_level = #{record.privilegeLevel,jdbcType=INTEGER},
       bussiness_scop = #{record.bussinessScop,jdbcType=VARCHAR},
       bussiness_area_title = #{record.bussinessAreaTitle,jdbcType=VARCHAR},
@@ -285,7 +297,8 @@
       sign_text = #{record.signText,jdbcType=VARCHAR},
       `state` = #{record.state,jdbcType=INTEGER},
       pub_time = #{record.pubTime,jdbcType=VARCHAR},
-      end_time = #{record.endTime,jdbcType=VARCHAR}
+      end_time = #{record.endTime,jdbcType=VARCHAR},
+      pay_evidence = #{record.payEvidence,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -298,10 +311,10 @@
         title = #{title,jdbcType=VARCHAR},
       </if>
       <if test="operatePeriod != null">
-        operate_period = #{operatePeriod,jdbcType=VARCHAR},
+        operate_period = #{operatePeriod,jdbcType=INTEGER},
       </if>
       <if test="fee != null">
-        fee = #{fee,jdbcType=INTEGER},
+        fee = #{fee,jdbcType=BIGINT},
       </if>
       <if test="privilegeLevel != null">
         privilege_level = #{privilegeLevel,jdbcType=INTEGER},
@@ -330,6 +343,9 @@
       <if test="endTime != null">
         end_time = #{endTime,jdbcType=VARCHAR},
       </if>
+      <if test="payEvidence != null">
+        pay_evidence = #{payEvidence,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -337,8 +353,8 @@
     <!-- @mbg.generated: generated automatically, do not modify! -->
     update org_licence
     set title = #{title,jdbcType=VARCHAR},
-      operate_period = #{operatePeriod,jdbcType=VARCHAR},
-      fee = #{fee,jdbcType=INTEGER},
+      operate_period = #{operatePeriod,jdbcType=INTEGER},
+      fee = #{fee,jdbcType=BIGINT},
       privilege_level = #{privilegeLevel,jdbcType=INTEGER},
       bussiness_scop = #{bussinessScop,jdbcType=VARCHAR},
       bussiness_area_title = #{bussinessAreaTitle,jdbcType=VARCHAR},
@@ -347,7 +363,8 @@
       sign_text = #{signText,jdbcType=VARCHAR},
       `state` = #{state,jdbcType=INTEGER},
       pub_time = #{pubTime,jdbcType=VARCHAR},
-      end_time = #{endTime,jdbcType=VARCHAR}
+      end_time = #{endTime,jdbcType=VARCHAR},
+      pay_evidence = #{payEvidence,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

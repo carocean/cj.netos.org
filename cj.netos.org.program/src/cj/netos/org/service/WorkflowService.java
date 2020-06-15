@@ -155,7 +155,38 @@ public class WorkflowService implements IWorkflowService {
         }
         return results;
     }
+    @CjTransaction
+    @Override
+    public List<WorkItem> pageMyWorkItemOnWorkflow(String principal, String workflow, int filter, int limit, long offset) throws CircuitException {
+        List<WorkEvent> list = null;
 
+        //0为未完成；1为已完成；2为所有
+        switch (filter) {
+            case 0:
+            case 1:
+                list = workEventMapper.pageWithFilterOnWorkflow(principal,workflow, filter, limit, offset);
+                break;
+            case 2:
+                list = workEventMapper.pageWithoutFilterOnWorkflow(principal,workflow, limit, offset);
+                break;
+            default:
+                throw new CircuitException("500", String.format("不支持的过滤条件:%s", filter));
+        }
+        List<WorkItem> results = new ArrayList<>();
+        Map<String, WorkInst> instMap = new HashMap<>();
+        for (WorkEvent event : list) {
+            WorkItem result = new WorkItem();
+            result.setWorkEvent(event);
+            WorkInst inst = instMap.get(event.getWorkInst());
+            if (inst == null) {
+                inst = workInstMapper.selectByPrimaryKey(event.getWorkInst());
+                instMap.put(inst.getId(), inst);
+            }
+            result.setWorkInst(inst);
+            results.add(result);
+        }
+        return results;
+    }
 
     @CjTransaction
     @Override

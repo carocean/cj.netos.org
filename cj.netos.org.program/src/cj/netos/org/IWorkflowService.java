@@ -57,4 +57,6 @@ public interface IWorkflowService {
 
     void updateWorkInstData(String workinst, String data);
 
+    List<WorkItem> pageMyWorkItemOnWorkflow(String principal, String workflow, int filter, int limit, long offset) throws CircuitException;
+
 }

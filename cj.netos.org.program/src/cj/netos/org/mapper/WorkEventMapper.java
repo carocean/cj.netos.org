@@ -2,7 +2,9 @@ package cj.netos.org.mapper;
 
 import cj.netos.org.model.WorkEvent;
 import cj.netos.org.model.WorkEventExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface WorkEventMapper {
@@ -73,4 +75,9 @@ public interface WorkEventMapper {
     WorkEvent getFirstWorkEvent(@Param(value = "recipient") String recipient, @Param(value = "workInst") String workInst);
 
     List<WorkEvent> getAll(@Param(value = "workInst") String workInst);
+
+    List<WorkEvent> pageWithFilterOnWorkflow(@Param(value = "recipient") String recipient, @Param(value = "workflow") String workflow, @Param(value = "isDone") int isDone, @Param(value = "limit") int limit, @Param(value = "offset") long offset);
+
+    List<WorkEvent> pageWithoutFilterOnWorkflow(@Param(value = "recipient") String recipient, @Param(value = "workflow") String workflow, @Param(value = "limit") int limit, @Param(value = "offset") long offset);
+
 }

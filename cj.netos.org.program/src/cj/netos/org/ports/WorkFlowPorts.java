@@ -100,6 +100,11 @@ public class WorkFlowPorts implements IWorkflowPorts {
     }
 
     @Override
+    public List<WorkItem> pageMyWorkItemOnWorkflow(ISecuritySession securitySession, String workflow, int filter, int limit, long offset) throws CircuitException {
+        return workflowService.pageMyWorkItemOnWorkflow(securitySession.principal(),workflow, filter, limit, offset);
+    }
+
+    @Override
     public boolean doMyWorkItem(ISecuritySession securitySession, String workitem, String operated, boolean doneWorkInst) throws CircuitException {
         return workflowService.doMyWorkItem(securitySession.principal(), workitem, operated, doneWorkInst);
     }

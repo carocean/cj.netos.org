@@ -19,6 +19,7 @@ public interface IWorkflowPorts extends IOpenportService {
     @CjOpenport(usage = "创建工作流")
     Workflow createWorkflow(
             ISecuritySession securitySession,
+            @CjOpenportParameter(usage = "流程唯一标识，如果为空则系统自动分配", name = "workflowid") String workflowid,
             @CjOpenportParameter(usage = "流程名", name = "name") String name,
             @CjOpenportParameter(usage = "流程图标", name = "icon") String icon,
             @CjOpenportParameter(usage = "备注", name = "note") String note

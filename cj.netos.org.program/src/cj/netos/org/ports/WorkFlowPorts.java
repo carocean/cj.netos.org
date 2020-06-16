@@ -14,6 +14,7 @@ import cj.studio.ecm.annotation.CjServiceRef;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.ISecuritySession;
 import cj.studio.openport.annotations.CjOpenportParameter;
+import cj.ultimate.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +25,12 @@ public class WorkFlowPorts implements IWorkflowPorts {
     IWorkflowService workflowService;
 
     @Override
-    public Workflow createWorkflow(ISecuritySession securitySession, String name, String icon, String note) throws CircuitException {
+    public Workflow createWorkflow(ISecuritySession securitySession, String workflowid, String name, String icon, String note) throws CircuitException {
         Workflow workflow = new Workflow();
         workflow.setCreator(securitySession.principal());
         workflow.setCtime(OrgUtils.dateTimeToMicroSecond(System.currentTimeMillis()));
         workflow.setIcon(icon);
-        workflow.setId(new IdWorker().nextId());
+        workflow.setId(StringUtil.isEmpty(workflowid) ? new IdWorker().nextId() : workflowid);
         workflow.setName(name);
         workflow.setNote(note);
         workflowService.addWorkflow(workflow);
@@ -101,7 +102,7 @@ public class WorkFlowPorts implements IWorkflowPorts {
 
     @Override
     public List<WorkItem> pageMyWorkItemOnWorkflow(ISecuritySession securitySession, String workflow, int filter, int limit, long offset) throws CircuitException {
-        return workflowService.pageMyWorkItemOnWorkflow(securitySession.principal(),workflow, filter, limit, offset);
+        return workflowService.pageMyWorkItemOnWorkflow(securitySession.principal(), workflow, filter, limit, offset);
     }
 
     @Override

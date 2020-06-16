@@ -119,7 +119,7 @@ public interface IWorkflowPorts extends IOpenportService {
 
     @CjOpenport(usage = "添加工作组。一个工作组下有一到多个收件人成员。\n" +
             "目的是为了在工作流发送时指定工作组作为收件人，工作组名在逻辑上等同于绑定到了工作事件")
-    void addWorkGroup(ISecuritySession securitySession,
+    WorkGroup addWorkGroup(ISecuritySession securitySession,
                       @CjOpenportParameter(usage = "工作组代码，有语义的收件人集合名称", name = "code") String code,
                       @CjOpenportParameter(usage = "中文名", name = "name") String name,
                       @CjOpenportParameter(usage = "备注", name = "note") String note

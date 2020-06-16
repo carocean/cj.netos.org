@@ -13,10 +13,8 @@ import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.ISecuritySession;
-import cj.studio.openport.annotations.CjOpenportParameter;
 import cj.ultimate.util.StringUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @CjService(name = "/workflow.ports")
@@ -121,13 +119,15 @@ public class WorkFlowPorts implements IWorkflowPorts {
     }
 
     @Override
-    public void addWorkGroup(ISecuritySession securitySession, String code, String name, String note) throws CircuitException {
+    public WorkGroup addWorkGroup(ISecuritySession securitySession, String code, String name, String note) throws CircuitException {
         WorkGroup group = new WorkGroup();
         group.setCode(code);
         group.setName(name);
         group.setNote(note);
+        group.setCtime(OrgUtils.dateTimeToMicroSecond(System.currentTimeMillis()));
         group.setCreator(securitySession.principal());
         workflowService.addWorkGroup(group);
+        return group;
     }
 
     @Override

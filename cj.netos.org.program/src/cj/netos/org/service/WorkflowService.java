@@ -3,7 +3,6 @@ package cj.netos.org.service;
 import cj.netos.org.IWorkflowService;
 import cj.netos.org.mapper.*;
 import cj.netos.org.model.*;
-import cj.netos.org.result.WorkGroupRecipients;
 import cj.netos.org.result.WorkItem;
 import cj.netos.org.util.IdWorker;
 import cj.netos.org.util.OrgUtils;
@@ -128,14 +127,13 @@ public class WorkflowService implements IWorkflowService {
     public List<WorkItem> pageMyWorkItem(String principal, int filter, int limit, long offset) throws CircuitException {
         List<WorkEvent> list = null;
 
-        //0为未完成；1为已完成；2为所有
+        //0为待办项；1为我参与过的已处理项
         switch (filter) {
             case 0:
-            case 1:
-                list = workEventMapper.pageWithFilter(principal, filter, limit, offset);
+                list = workEventMapper.pageTodoEvents(principal,  limit, offset);
                 break;
-            case 2:
-                list = workEventMapper.pageWithoutFilter(principal, limit, offset);
+            case 1:
+                list = workEventMapper.pageDoneEvents(principal,limit, offset);
                 break;
             default:
                 throw new CircuitException("500", String.format("不支持的过滤条件:%s", filter));
@@ -164,11 +162,9 @@ public class WorkflowService implements IWorkflowService {
         //0为未完成；1为已完成；2为所有
         switch (filter) {
             case 0:
+                list = workEventMapper.pageTodoEventsOnWorkflow(principal, workflow,  limit, offset);
             case 1:
-                list = workEventMapper.pageWithFilterOnWorkflow(principal, workflow, filter, limit, offset);
-                break;
-            case 2:
-                list = workEventMapper.pageWithoutFilterOnWorkflow(principal, workflow, limit, offset);
+                list = workEventMapper.pageDoneEventsOnWorkflow(principal, workflow, limit, offset);
                 break;
             default:
                 throw new CircuitException("500", String.format("不支持的过滤条件:%s", filter));

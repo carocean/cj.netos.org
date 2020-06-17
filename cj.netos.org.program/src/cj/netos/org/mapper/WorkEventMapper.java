@@ -68,16 +68,16 @@ public interface WorkEventMapper {
 
     WorkEvent getLastWorkEvent(@Param(value = "recipient") String recipient, @Param(value = "workInst") String workInst);
 
-    List<WorkEvent> pageWithFilter(@Param(value = "recipient") String recipient, @Param(value = "isDone") int isDone, @Param(value = "limit") int limit, @Param(value = "offset") long offset);
+    List<WorkEvent> pageTodoEvents(@Param(value = "recipient") String recipient,  @Param(value = "limit") int limit, @Param(value = "offset") long offset);
 
-    List<WorkEvent> pageWithoutFilter(@Param(value = "recipient") String recipient, @Param(value = "limit") int limit, @Param(value = "offset") long offset);
+    List<WorkEvent> pageDoneEvents(@Param(value = "principal") String principal, @Param(value = "limit") int limit, @Param(value = "offset") long offset);
 
     WorkEvent getFirstWorkEvent(@Param(value = "recipient") String recipient, @Param(value = "workInst") String workInst);
 
     List<WorkEvent> getAll(@Param(value = "workInst") String workInst);
 
-    List<WorkEvent> pageWithFilterOnWorkflow(@Param(value = "recipient") String recipient, @Param(value = "workflow") String workflow, @Param(value = "isDone") int isDone, @Param(value = "limit") int limit, @Param(value = "offset") long offset);
+    List<WorkEvent> pageTodoEventsOnWorkflow(@Param(value = "recipient") String recipient, @Param(value = "workflow") String workflow,  @Param(value = "limit") int limit, @Param(value = "offset") long offset);
 
-    List<WorkEvent> pageWithoutFilterOnWorkflow(@Param(value = "recipient") String recipient, @Param(value = "workflow") String workflow, @Param(value = "limit") int limit, @Param(value = "offset") long offset);
+    List<WorkEvent> pageDoneEventsOnWorkflow(@Param(value = "principal") String principal, @Param(value = "workflow") String workflow, @Param(value = "limit") int limit, @Param(value = "offset") long offset);
 
 }

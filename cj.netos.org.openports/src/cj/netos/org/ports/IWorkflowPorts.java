@@ -69,7 +69,7 @@ public interface IWorkflowPorts extends IOpenportService {
 
     @CjOpenport(usage = "分页获取我的工作项列表")
     List<WorkItem> pageMyWorkItem(ISecuritySession securitySession,
-                                  @CjOpenportParameter(usage = "工作项过滤条件：0为未完成；1为已完成；2为所有", name = "filter") int filter,
+                                  @CjOpenportParameter(usage = "工作项过滤条件：0为待办项；1为我参与过的已处理项", name = "filter") int filter,
                                   @CjOpenportParameter(usage = "分页大小", name = "limit") int limit,
                                   @CjOpenportParameter(usage = "偏移", name = "offset") long offset
     ) throws CircuitException;
@@ -78,7 +78,7 @@ public interface IWorkflowPorts extends IOpenportService {
     @CjOpenport(usage = "分页获取我的在指定工作流上的工作项列表")
     List<WorkItem> pageMyWorkItemOnWorkflow(ISecuritySession securitySession,
                                             @CjOpenportParameter(usage = "工作流标识", name = "workflow") String workflow,
-                                            @CjOpenportParameter(usage = "工作项过滤条件：0为未完成；1为已完成；2为所有", name = "filter") int filter,
+                                            @CjOpenportParameter(usage = "工作项过滤条件：0为待办项；1为我参与过的已处理项", name = "filter") int filter,
                                             @CjOpenportParameter(usage = "分页大小", name = "limit") int limit,
                                             @CjOpenportParameter(usage = "偏移", name = "offset") long offset
     ) throws CircuitException;

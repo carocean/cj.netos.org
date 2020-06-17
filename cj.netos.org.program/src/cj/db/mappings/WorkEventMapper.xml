@@ -378,15 +378,25 @@
         order by work_inst asc,step_no asc
         limit 0,1
     </select>
-    <select id="pageWithFilter" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
+    <select id="pageTodoEvents" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from work_event
         where recipient = #{recipient,jdbcType=VARCHAR}
-        and is_done = #{isDone,jdbcType=INTEGER}
+        and is_done = 0
         limit #{offset},#{limit}
     </select>
-    <select id="pageWithFilterOnWorkflow" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
+    <select id="pageDoneEvents" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from work_event
+        where (recipient = #{principal,jdbcType=VARCHAR}
+        or sender = #{principal,jdbcType=VARCHAR}
+        )
+        and step_no=(select max(step_no) from work_event group by work_inst)
+        limit #{offset},#{limit}
+    </select>
+    <select id="pageTodoEventsOnWorkflow" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
     select
     event.*
     from work_event event,work_inst inst,workflow flow
@@ -394,24 +404,21 @@
     and inst.id=event.work_inst
     and event.recipient = #{recipient,jdbcType=VARCHAR}
     and flow.id=#{workflow}
-    and event.is_done = #{isDone,jdbcType=INTEGER}
+    and event.is_done = 0
     limit #{offset},#{limit}
   </select>
-    <select id="pageWithoutFilter" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from work_event
-        where recipient = #{recipient,jdbcType=VARCHAR}
-        limit #{offset},#{limit}
-    </select>
-    <select id="pageWithoutFilterOnWorkflow" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
+
+    <select id="pageDoneEventsOnWorkflow" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
     select
     event.*
     from work_event event,work_inst inst,workflow flow
     where flow.id=inst.workflow
     and inst.id=event.work_inst
-    and event.recipient = #{recipient,jdbcType=VARCHAR}
     and flow.id=#{workflow}
+    and (event.recipient = #{principal,jdbcType=VARCHAR}
+        or event.sender = #{principal,jdbcType=VARCHAR}
+        )
+    and event.step_no=(select max(step_no) from work_event group by work_inst)
     limit #{offset},#{limit}
   </select>
     <select id="getAll" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">

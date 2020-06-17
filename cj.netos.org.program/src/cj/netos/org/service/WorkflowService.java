@@ -66,7 +66,7 @@ public class WorkflowService implements IWorkflowService {
 
     @CjTransaction
     @Override
-    public WorkItem createWorkInstance(String principal, String workflow,  String data) throws CircuitException {
+    public WorkItem createWorkInstance(String principal, String workflow, String data) throws CircuitException {
         Workflow flow = getWorkflow(workflow);
         if (flow == null) {
             throw new CircuitException("404", String.format("工作流不存在:%s", workflow));
@@ -155,6 +155,7 @@ public class WorkflowService implements IWorkflowService {
         }
         return results;
     }
+
     @CjTransaction
     @Override
     public List<WorkItem> pageMyWorkItemOnWorkflow(String principal, String workflow, int filter, int limit, long offset) throws CircuitException {
@@ -164,10 +165,10 @@ public class WorkflowService implements IWorkflowService {
         switch (filter) {
             case 0:
             case 1:
-                list = workEventMapper.pageWithFilterOnWorkflow(principal,workflow, filter, limit, offset);
+                list = workEventMapper.pageWithFilterOnWorkflow(principal, workflow, filter, limit, offset);
                 break;
             case 2:
-                list = workEventMapper.pageWithoutFilterOnWorkflow(principal,workflow, limit, offset);
+                list = workEventMapper.pageWithoutFilterOnWorkflow(principal, workflow, limit, offset);
                 break;
             default:
                 throw new CircuitException("500", String.format("不支持的过滤条件:%s", filter));
@@ -342,6 +343,14 @@ public class WorkflowService implements IWorkflowService {
     @Override
     public void removeWorkRecipient(String workGroup, String person) {
         workRecipientMapper.deleteByPrimaryKey(workGroup, person);
+    }
+
+    @CjTransaction
+    @Override
+    public boolean existsWorkRecipient(String workgroup, String person) {
+        WorkRecipientExample example = new WorkRecipientExample();
+        example.createCriteria().andWorkgroupEqualTo(workgroup).andPersonEqualTo(person);
+        return workRecipientMapper.countByExample(example)>0;
     }
 
     @CjTransaction

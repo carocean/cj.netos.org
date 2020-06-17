@@ -154,8 +154,15 @@ public interface IWorkflowPorts extends IOpenportService {
                              @CjOpenportParameter(usage = "公号", name = "person") String person
     ) throws CircuitException;
 
+    @CjOpenport(usage = "是否包含了工作组成员")
+    boolean existsWorkRecipient(ISecuritySession securitySession,
+                             @CjOpenportParameter(usage = "工作组代码，有语义的收件人集合名称", name = "code") String workgroup,
+                             @CjOpenportParameter(usage = "公号", name = "person") String person
+    ) throws CircuitException;
+
     @CjOpenport(usage = "获取工作组的成员")
     WorkGroupRecipients getWorkGroupRecipients(ISecuritySession securitySession,
                                                @CjOpenportParameter(usage = "工作组代码，有语义的收件人集合名称", name = "code") String workgroup
     ) throws CircuitException;
+
 }

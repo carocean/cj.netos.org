@@ -59,4 +59,6 @@ public interface IWorkflowService {
 
     List<WorkItem> pageMyWorkItemOnWorkflow(String principal, String workflow, int filter, int limit, long offset) throws CircuitException;
 
+    boolean existsWorkRecipient(String workgroup, String person);
+
 }

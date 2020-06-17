@@ -181,6 +181,15 @@ public class WorkFlowPorts implements IWorkflowPorts {
     }
 
     @Override
+    public boolean existsWorkRecipient(ISecuritySession securitySession, String workgroup, String person) throws CircuitException {
+        WorkGroup workGroup = workflowService.getWorkGroup(workgroup);
+        if (workGroup == null) {
+            return false;
+        }
+        return workflowService.existsWorkRecipient(workgroup, person);
+    }
+
+    @Override
     public WorkGroupRecipients getWorkGroupRecipients(ISecuritySession securitySession, String workgroup) throws CircuitException {
         WorkGroup workGroup = workflowService.getWorkGroup(workgroup);
         if (workGroup == null) {

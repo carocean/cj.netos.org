@@ -163,6 +163,7 @@ public class WorkflowService implements IWorkflowService {
         switch (filter) {
             case 0:
                 list = workEventMapper.pageTodoEventsOnWorkflow(principal, workflow,  limit, offset);
+                break;
             case 1:
                 list = workEventMapper.pageDoneEventsOnWorkflow(principal, workflow, limit, offset);
                 break;

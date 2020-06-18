@@ -57,4 +57,10 @@ public class LaService implements ILaService {
     public List<OrgLa> pageLaOfIsp(String ispid, int limit, long offset) {
         return orgLaMapper.pageLaOfIsp(ispid,limit,offset);
     }
+
+    @CjTransaction
+    @Override
+    public void updateIsp(String laid,String ispid) {
+        orgLaMapper.updateIsp(laid,ispid);
+    }
 }

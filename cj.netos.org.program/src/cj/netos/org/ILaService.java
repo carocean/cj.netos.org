@@ -14,4 +14,6 @@ public interface ILaService {
 
     List<OrgLa> pageLaOfIsp(String ispid, int limit, long offset);
 
+    void updateIsp(String laid,String ispid);
+
 }

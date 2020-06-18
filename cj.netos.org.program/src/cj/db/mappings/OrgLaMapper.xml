@@ -318,4 +318,10 @@
     order by `time` asc
     limit #{offset},#{limit}
   </select>
+  <update id="updateIsp" parameterType="cj.netos.org.model.OrgLa">
+    update org_la
+    set
+    isp = #{isp,jdbcType=VARCHAR},
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
 </mapper>

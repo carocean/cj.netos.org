@@ -84,6 +84,7 @@ public class LaPorts implements ILaPorts {
             String json = workItem.getWorkInst().getData();
             LaApplyBO laApplyBO = new Gson().fromJson(json, LaApplyBO.class);
             laApplyBO.setIsp(ispid);
+            laService.updateIsp(laApplyBO.getOrgan(),ispid);
             workflowService.updateWorkInstData(workinst, new Gson().toJson(laApplyBO));
             licenceService.publishLaLicence(laApplyBO);
             workflowService.doWorkItemAndSend(securitySession.principal(), workinst, "adopt", "", workItem.getWorkEvent().getSender(), "review", "地商查阅");

@@ -14,6 +14,7 @@ import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
 import cj.studio.orm.mybatis.annotation.CjTransaction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CjBridge(aspects = "@transaction")
@@ -39,9 +40,21 @@ public class IspService implements IIspService {
 
     @CjTransaction
     @Override
+    public List<OrgLicenceResult> pageIspWithLicence(int limit, long offset) {
+        List<OrgIsp> ispList=pageIsp(limit,offset);
+        List<OrgLicenceResult> list = new ArrayList<>();
+        for (OrgIsp isp : ispList) {
+            OrgLicence licence=licenceService.getLicence(isp.getId(),2);
+            list.add(new OrgLicenceResult(isp, licence));
+        }
+        return list;
+    }
+
+    @CjTransaction
+    @Override
     public OrgLicenceResult getLicence(String ispid) {
         OrgIsp isp = getIsp(ispid);
-        OrgLicence licence= licenceService.getLicence(ispid, 2);
+        OrgLicence licence = licenceService.getLicence(ispid, 2);
         return new OrgLicenceResult(isp, licence);
     }
 

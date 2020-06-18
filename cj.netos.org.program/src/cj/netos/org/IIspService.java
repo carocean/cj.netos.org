@@ -17,4 +17,6 @@ public interface IIspService {
     void doRegisterIsp(String principal, IspApplyBO ispApplyBO);
 
 
+    List<OrgLicenceResult> pageIspWithLicence(int limit, long offset);
+
 }

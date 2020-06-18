@@ -29,6 +29,13 @@ public interface IIspPorts extends IOpenportService {
     ) throws CircuitException;
 
 
+    @CjOpenport(usage = "分页运营商及其执照")
+    List<OrgLicenceResult> pageIspWithLicence(
+            ISecuritySession securitySession,
+            @CjOpenportParameter(usage = "分页大小", name = "limit") int limit,
+            @CjOpenportParameter(usage = "偏移", name = "offset") long offset
+    ) throws CircuitException;
+
     @CjOpenport(usage = "获取运营商营业牌照及运营商信息")
     OrgLicenceResult getLicence(
             ISecuritySession securitySession,

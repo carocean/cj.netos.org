@@ -5,7 +5,6 @@ import cj.netos.org.ILicenceService;
 import cj.netos.org.IWorkflowService;
 import cj.netos.org.bo.IspApplyBO;
 import cj.netos.org.model.OrgIsp;
-import cj.netos.org.model.OrgLicence;
 import cj.netos.org.model.Workflow;
 import cj.netos.org.result.OrgLicenceResult;
 import cj.netos.org.result.WorkItem;
@@ -56,7 +55,7 @@ public class IspPorts implements IIspPorts {
         ispService.doRegisterIsp(securitySession.principal(), bo);
 
         WorkItem workItem = workflowService.createWorkInstance(securitySession.principal(), workflow,  new Gson().toJson(bo));
-        workflowService.doWorkItemAndSend(securitySession.principal(), workItem.getWorkInst().getId(), "doRegister", securitySession.principal(), "payConfirm", "付款确认");
+        workflowService.doWorkItemAndSend(securitySession.principal(), workItem.getWorkInst().getId(), "doRegister","", securitySession.principal(), "payConfirm", "付款确认");
         return workItem;
     }
 
@@ -70,7 +69,7 @@ public class IspPorts implements IIspPorts {
         IspApplyBO ispApplyBO = new Gson().fromJson(json, IspApplyBO.class);
         ispApplyBO.setPayEvidence(payEvidence);
         workflowService.updateWorkInstData(workinst, new Gson().toJson(ispApplyBO));
-        workflowService.doWorkItemAndSend(securitySession.principal(), workItem.getWorkInst().getId(), "doConfirm", "$g.netos.market.checker", "platformChecker", "平台审核");
+        workflowService.doWorkItemAndSend(securitySession.principal(), workItem.getWorkInst().getId(), "doConfirm","", "$g.netos.market.checker", "platformChecker", "平台审核");
         return workItem;
     }
 
@@ -81,12 +80,12 @@ public class IspPorts implements IIspPorts {
             throw new CircuitException("404", String.format("用户:%s当前没有工作事件。", securitySession.principal()));
         }
         if (checkPass) {
-            workflowService.doMyWorkItem(securitySession.principal(), workinst, "adopt", true);
+            workflowService.doMyWorkItem(securitySession.principal(), workinst, "adopt", "", true);
             String json = workItem.getWorkInst().getData();
             IspApplyBO ispApplyBO = new Gson().fromJson(json, IspApplyBO.class);
             licenceService.publishIspLicence(ispApplyBO);
         } else {
-            workflowService.doWorkItemAndSend(securitySession.principal(), workinst, "return", workItem.getWorkEvent().getSender(), "return", "退回");
+            workflowService.doWorkItemAndSend(securitySession.principal(), workinst, "return", "",workItem.getWorkEvent().getSender(), "return", "退回");
         }
         return workItem;
     }

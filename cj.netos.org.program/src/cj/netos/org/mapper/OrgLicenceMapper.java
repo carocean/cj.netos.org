@@ -2,9 +2,7 @@ package cj.netos.org.mapper;
 
 import cj.netos.org.model.OrgLicence;
 import cj.netos.org.model.OrgLicenceExample;
-
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 
 public interface OrgLicenceMapper {
@@ -70,6 +68,5 @@ public interface OrgLicenceMapper {
 
     List<OrgLicence> page(@Param(value = "limit") int limit, @Param(value = "offset") long offset);
 
-    List<OrgLicence> pageByIsp(@Param(value = "isp") String isp,  @Param(value = "limit") int limit, @Param(value = "offset") long offset);
-
+    List<OrgLicence> pageByIsp(@Param(value = "isp") String isp, @Param(value = "limit") int limit, @Param(value = "offset") long offset);
 }

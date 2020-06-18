@@ -62,6 +62,5 @@ public interface OrgIspMapper {
      */
     int updateByPrimaryKey(OrgIsp record);
 
-    List<OrgIsp> page(@Param(value = "limit") int limit,@Param(value = "offset") long offset);
-
+    List<OrgIsp> page(@Param(value = "limit") int limit, @Param(value = "offset") long offset);
 }

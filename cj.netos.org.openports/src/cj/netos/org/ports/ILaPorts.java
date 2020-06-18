@@ -56,7 +56,8 @@ public interface ILaPorts extends IOpenportService {
     @CjOpenport(usage = "公众申请成为地商。平台申批")
     WorkItem checkApplyRegisterByPlatform(ISecuritySession securitySession,
                                           @CjOpenportParameter(usage = "工作实例", name = "workinst") String workinst,
-                                          @CjOpenportParameter(usage = "审查确认，true为通过", name = "checkPass") boolean checkPass
+                                          @CjOpenportParameter(usage = "审查确认，true为通过", name = "checkPass") boolean checkPass,
+                                          @CjOpenportParameter(usage = "分配的运营商", name = "ispid") String ispid
     ) throws CircuitException;
 
     @CjOpenport(usage = "获取地商营业牌照")

@@ -23,7 +23,7 @@ public interface IWorkflowService {
 
     List<WorkItem> pageMyWorkItem(String principal, int filter, int limit, long offset) throws CircuitException;
 
-    boolean doMyWorkItem(String principal, String workinst, String operated,boolean doneWorkInst) throws CircuitException;
+    boolean doMyWorkItem(String principal, String workinst, String operated, String note, boolean doneWorkInst) throws CircuitException;
 
     WorkItem getMyLastWorkItemOnInstance(String principal, String workinst);
 
@@ -33,7 +33,7 @@ public interface IWorkflowService {
 
     void sendMyWorkItem(String principal, String workinst, String recipients,String eventCode,  String stepName) throws CircuitException;
 
-    boolean doWorkItemAndSend(String principal, String workinst, String operated, String recipients, String eventCode, String stepName) throws CircuitException;
+    boolean doWorkItemAndSend(String principal, String workinst, String operated,String note, String recipients, String eventCode, String stepName) throws CircuitException;
 
     WorkInst getWorkInstance(String principal, String workinst);
 

@@ -213,7 +213,7 @@ public class WorkflowService implements IWorkflowService {
 
     @CjTransaction
     @Override
-    public boolean doMyWorkItem(String principal, String workinst, String operated, boolean doneWorkInst) throws CircuitException {
+    public boolean doMyWorkItem(String principal, String workinst, String operated, String note, boolean doneWorkInst) throws CircuitException {
         WorkItem workItem = getMyLastWorkItemOnInstance(principal, workinst);
         if (workItem == null || workItem.getWorkEvent() == null) {
             throw new CircuitException("404", String.format("当前工作事件不是我本人"));
@@ -240,6 +240,7 @@ public class WorkflowService implements IWorkflowService {
             event.setDtime(event.getCtime());
             event.setOperated("ok");
             event.setData(workItem.getWorkInst().getData());
+            event.setNote(note);
             workEventMapper.insert(event);
             return true;
         }
@@ -295,8 +296,8 @@ public class WorkflowService implements IWorkflowService {
 
     @CjTransaction
     @Override
-    public boolean doWorkItemAndSend(String principal, String workinst, String operated, String recipients, String eventCode, String stepName) throws CircuitException {
-        boolean isEnd = doMyWorkItem(principal, workinst, operated, false);
+    public boolean doWorkItemAndSend(String principal, String workinst, String operated,String note, String recipients, String eventCode, String stepName) throws CircuitException {
+        boolean isEnd = doMyWorkItem(principal, workinst, operated, note, false);
         if (isEnd) {
             WorkInst inst = getWorkInstance(principal, workinst);
             CJSystem.logging().warn(getClass(), String.format("不能向后发送，流程实例：%s已结束", inst.getName()));

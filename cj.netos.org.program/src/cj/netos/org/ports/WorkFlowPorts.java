@@ -104,8 +104,8 @@ public class WorkFlowPorts implements IWorkflowPorts {
     }
 
     @Override
-    public boolean doMyWorkItem(ISecuritySession securitySession, String workitem, String operated, boolean doneWorkInst) throws CircuitException {
-        return workflowService.doMyWorkItem(securitySession.principal(), workitem, operated, doneWorkInst);
+    public boolean doMyWorkItem(ISecuritySession securitySession, String workitem, String operated,String note, boolean doneWorkInst) throws CircuitException {
+        return workflowService.doMyWorkItem(securitySession.principal(), workitem, operated,note, doneWorkInst);
     }
 
     @Override
@@ -114,8 +114,8 @@ public class WorkFlowPorts implements IWorkflowPorts {
     }
 
     @Override
-    public boolean doWorkItemAndSend(ISecuritySession securitySession, String workitem, String operated, String recipients, String eventCode, String stepName) throws CircuitException {
-        return workflowService.doWorkItemAndSend(securitySession.principal(), workitem, operated, recipients, eventCode, stepName);
+    public boolean doWorkItemAndSend(ISecuritySession securitySession, String workitem, String operated,String note, String recipients, String eventCode, String stepName) throws CircuitException {
+        return workflowService.doWorkItemAndSend(securitySession.principal(), workitem, operated,note, recipients, eventCode, stepName);
     }
 
     @Override

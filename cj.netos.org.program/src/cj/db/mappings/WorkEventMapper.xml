@@ -1,357 +1,370 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cj.netos.org.mapper.WorkEventMapper">
-    <resultMap id="BaseResultMap" type="cj.netos.org.model.WorkEvent">
-        <!-- @mbg.generated: generated automatically, do not modify! -->
-        <id column="id" jdbcType="VARCHAR" property="id"/>
-        <result column="title" jdbcType="VARCHAR" property="title"/>
-        <result column="code" jdbcType="VARCHAR" property="code"/>
-        <result column="step_no" jdbcType="INTEGER" property="stepNo"/>
-        <result column="work_inst" jdbcType="VARCHAR" property="workInst"/>
-        <result column="ctime" jdbcType="VARCHAR" property="ctime"/>
-        <result column="sender" jdbcType="VARCHAR" property="sender"/>
-        <result column="recipient" jdbcType="VARCHAR" property="recipient"/>
-        <result column="operated" jdbcType="VARCHAR" property="operated"/>
-        <result column="is_done" jdbcType="INTEGER" property="isDone"/>
-        <result column="prev_event" jdbcType="VARCHAR" property="prevEvent"/>
-        <result column="dtime" jdbcType="VARCHAR" property="dtime"/>
-        <result column="data" jdbcType="VARCHAR" property="data"/>
-    </resultMap>
-    <sql id="Example_Where_Clause">
-        <!-- @mbg.generated: generated automatically, do not modify! -->
-        <where>
-            <foreach collection="oredCriteria" item="criteria" separator="or">
-                <if test="criteria.valid">
-                    <trim prefix="(" prefixOverrides="and" suffix=")">
-                        <foreach collection="criteria.criteria" item="criterion">
-                            <choose>
-                                <when test="criterion.noValue">
-                                    and ${criterion.condition}
-                                </when>
-                                <when test="criterion.singleValue">
-                                    and ${criterion.condition} #{criterion.value}
-                                </when>
-                                <when test="criterion.betweenValue">
-                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                                </when>
-                                <when test="criterion.listValue">
-                                    and ${criterion.condition}
-                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
-                                             separator=",">
-                                        #{listItem}
-                                    </foreach>
-                                </when>
-                            </choose>
-                        </foreach>
-                    </trim>
-                </if>
+  <resultMap id="BaseResultMap" type="cj.netos.org.model.WorkEvent">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="step_no" jdbcType="INTEGER" property="stepNo" />
+    <result column="work_inst" jdbcType="VARCHAR" property="workInst" />
+    <result column="ctime" jdbcType="VARCHAR" property="ctime" />
+    <result column="sender" jdbcType="VARCHAR" property="sender" />
+    <result column="recipient" jdbcType="VARCHAR" property="recipient" />
+    <result column="operated" jdbcType="VARCHAR" property="operated" />
+    <result column="is_done" jdbcType="INTEGER" property="isDone" />
+    <result column="prev_event" jdbcType="VARCHAR" property="prevEvent" />
+    <result column="dtime" jdbcType="VARCHAR" property="dtime" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="data" jdbcType="VARCHAR" property="data" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
             </foreach>
-        </where>
-    </sql>
-    <sql id="Update_By_Example_Where_Clause">
-        <!-- @mbg.generated: generated automatically, do not modify! -->
-        <where>
-            <foreach collection="example.oredCriteria" item="criteria" separator="or">
-                <if test="criteria.valid">
-                    <trim prefix="(" prefixOverrides="and" suffix=")">
-                        <foreach collection="criteria.criteria" item="criterion">
-                            <choose>
-                                <when test="criterion.noValue">
-                                    and ${criterion.condition}
-                                </when>
-                                <when test="criterion.singleValue">
-                                    and ${criterion.condition} #{criterion.value}
-                                </when>
-                                <when test="criterion.betweenValue">
-                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                                </when>
-                                <when test="criterion.listValue">
-                                    and ${criterion.condition}
-                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
-                                             separator=",">
-                                        #{listItem}
-                                    </foreach>
-                                </when>
-                            </choose>
-                        </foreach>
-                    </trim>
-                </if>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
             </foreach>
-        </where>
-    </sql>
-    <sql id="Base_Column_List">
-        <!-- @mbg.generated: generated automatically, do not modify! -->
-        id, title, code, step_no, work_inst, ctime, sender, recipient, operated, is_done,
-        prev_event, dtime, `data`
-    </sql>
-    <select id="selectByExample" parameterType="cj.netos.org.model.WorkEventExample" resultMap="BaseResultMap">
-        <!-- @mbg.generated: generated automatically, do not modify! -->
-        select
-        <if test="distinct">
-            distinct
+          </trim>
         </if>
-        <include refid="Base_Column_List"/>
-        from work_event
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
-        <if test="orderByClause != null">
-            order by ${orderByClause}
-        </if>
-    </select>
-    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-        <!-- @mbg.generated: generated automatically, do not modify! -->
-        select
-        <include refid="Base_Column_List"/>
-        from work_event
-        where id = #{id,jdbcType=VARCHAR}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-        <!-- @mbg.generated: generated automatically, do not modify! -->
-        delete from work_event
-        where id = #{id,jdbcType=VARCHAR}
-    </delete>
-    <delete id="deleteByExample" parameterType="cj.netos.org.model.WorkEventExample">
-        <!-- @mbg.generated: generated automatically, do not modify! -->
-        delete from work_event
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
-    </delete>
-    <insert id="insert" parameterType="cj.netos.org.model.WorkEvent">
-        <!-- @mbg.generated: generated automatically, do not modify! -->
-        insert into work_event (id, title, code,
-        step_no, work_inst, ctime,
-        sender, recipient, operated,
-        is_done, prev_event, dtime,
-        `data`)
-        values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR},
-        #{stepNo,jdbcType=INTEGER}, #{workInst,jdbcType=VARCHAR}, #{ctime,jdbcType=VARCHAR},
-        #{sender,jdbcType=VARCHAR}, #{recipient,jdbcType=VARCHAR}, #{operated,jdbcType=VARCHAR},
-        #{isDone,jdbcType=INTEGER}, #{prevEvent,jdbcType=VARCHAR}, #{dtime,jdbcType=VARCHAR},
-        #{data,jdbcType=VARCHAR})
-    </insert>
-    <insert id="insertSelective" parameterType="cj.netos.org.model.WorkEvent">
-        <!-- @mbg.generated: generated automatically, do not modify! -->
-        insert into work_event
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
-            <if test="title != null">
-                title,
-            </if>
-            <if test="code != null">
-                code,
-            </if>
-            <if test="stepNo != null">
-                step_no,
-            </if>
-            <if test="workInst != null">
-                work_inst,
-            </if>
-            <if test="ctime != null">
-                ctime,
-            </if>
-            <if test="sender != null">
-                sender,
-            </if>
-            <if test="recipient != null">
-                recipient,
-            </if>
-            <if test="operated != null">
-                operated,
-            </if>
-            <if test="isDone != null">
-                is_done,
-            </if>
-            <if test="prevEvent != null">
-                prev_event,
-            </if>
-            <if test="dtime != null">
-                dtime,
-            </if>
-            <if test="data != null">
-                `data`,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=VARCHAR},
-            </if>
-            <if test="title != null">
-                #{title,jdbcType=VARCHAR},
-            </if>
-            <if test="code != null">
-                #{code,jdbcType=VARCHAR},
-            </if>
-            <if test="stepNo != null">
-                #{stepNo,jdbcType=INTEGER},
-            </if>
-            <if test="workInst != null">
-                #{workInst,jdbcType=VARCHAR},
-            </if>
-            <if test="ctime != null">
-                #{ctime,jdbcType=VARCHAR},
-            </if>
-            <if test="sender != null">
-                #{sender,jdbcType=VARCHAR},
-            </if>
-            <if test="recipient != null">
-                #{recipient,jdbcType=VARCHAR},
-            </if>
-            <if test="operated != null">
-                #{operated,jdbcType=VARCHAR},
-            </if>
-            <if test="isDone != null">
-                #{isDone,jdbcType=INTEGER},
-            </if>
-            <if test="prevEvent != null">
-                #{prevEvent,jdbcType=VARCHAR},
-            </if>
-            <if test="dtime != null">
-                #{dtime,jdbcType=VARCHAR},
-            </if>
-            <if test="data != null">
-                #{data,jdbcType=VARCHAR},
-            </if>
-        </trim>
-    </insert>
-    <select id="countByExample" parameterType="cj.netos.org.model.WorkEventExample" resultType="java.lang.Long">
-        <!-- @mbg.generated: generated automatically, do not modify! -->
-        select count(*) from work_event
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
-    </select>
-    <update id="updateByExampleSelective" parameterType="map">
-        <!-- @mbg.generated: generated automatically, do not modify! -->
-        update work_event
-        <set>
-            <if test="record.id != null">
-                id = #{record.id,jdbcType=VARCHAR},
-            </if>
-            <if test="record.title != null">
-                title = #{record.title,jdbcType=VARCHAR},
-            </if>
-            <if test="record.code != null">
-                code = #{record.code,jdbcType=VARCHAR},
-            </if>
-            <if test="record.stepNo != null">
-                step_no = #{record.stepNo,jdbcType=INTEGER},
-            </if>
-            <if test="record.workInst != null">
-                work_inst = #{record.workInst,jdbcType=VARCHAR},
-            </if>
-            <if test="record.ctime != null">
-                ctime = #{record.ctime,jdbcType=VARCHAR},
-            </if>
-            <if test="record.sender != null">
-                sender = #{record.sender,jdbcType=VARCHAR},
-            </if>
-            <if test="record.recipient != null">
-                recipient = #{record.recipient,jdbcType=VARCHAR},
-            </if>
-            <if test="record.operated != null">
-                operated = #{record.operated,jdbcType=VARCHAR},
-            </if>
-            <if test="record.isDone != null">
-                is_done = #{record.isDone,jdbcType=INTEGER},
-            </if>
-            <if test="record.prevEvent != null">
-                prev_event = #{record.prevEvent,jdbcType=VARCHAR},
-            </if>
-            <if test="record.dtime != null">
-                dtime = #{record.dtime,jdbcType=VARCHAR},
-            </if>
-            <if test="record.data != null">
-                `data` = #{record.data,jdbcType=VARCHAR},
-            </if>
-        </set>
-        <if test="_parameter != null">
-            <include refid="Update_By_Example_Where_Clause"/>
-        </if>
-    </update>
-    <update id="updateByExample" parameterType="map">
-        <!-- @mbg.generated: generated automatically, do not modify! -->
-        update work_event
-        set id = #{record.id,jdbcType=VARCHAR},
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    id, title, code, step_no, work_inst, ctime, sender, recipient, operated, is_done, 
+    prev_event, dtime, note, `data`
+  </sql>
+  <select id="selectByExample" parameterType="cj.netos.org.model.WorkEventExample" resultMap="BaseResultMap">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from work_event
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    select 
+    <include refid="Base_Column_List" />
+    from work_event
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    delete from work_event
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cj.netos.org.model.WorkEventExample">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    delete from work_event
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cj.netos.org.model.WorkEvent">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    insert into work_event (id, title, code, 
+      step_no, work_inst, ctime, 
+      sender, recipient, operated, 
+      is_done, prev_event, dtime, 
+      note, `data`)
+    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{stepNo,jdbcType=INTEGER}, #{workInst,jdbcType=VARCHAR}, #{ctime,jdbcType=VARCHAR}, 
+      #{sender,jdbcType=VARCHAR}, #{recipient,jdbcType=VARCHAR}, #{operated,jdbcType=VARCHAR}, 
+      #{isDone,jdbcType=INTEGER}, #{prevEvent,jdbcType=VARCHAR}, #{dtime,jdbcType=VARCHAR}, 
+      #{note,jdbcType=VARCHAR}, #{data,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cj.netos.org.model.WorkEvent">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    insert into work_event
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="stepNo != null">
+        step_no,
+      </if>
+      <if test="workInst != null">
+        work_inst,
+      </if>
+      <if test="ctime != null">
+        ctime,
+      </if>
+      <if test="sender != null">
+        sender,
+      </if>
+      <if test="recipient != null">
+        recipient,
+      </if>
+      <if test="operated != null">
+        operated,
+      </if>
+      <if test="isDone != null">
+        is_done,
+      </if>
+      <if test="prevEvent != null">
+        prev_event,
+      </if>
+      <if test="dtime != null">
+        dtime,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+      <if test="data != null">
+        `data`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="stepNo != null">
+        #{stepNo,jdbcType=INTEGER},
+      </if>
+      <if test="workInst != null">
+        #{workInst,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="sender != null">
+        #{sender,jdbcType=VARCHAR},
+      </if>
+      <if test="recipient != null">
+        #{recipient,jdbcType=VARCHAR},
+      </if>
+      <if test="operated != null">
+        #{operated,jdbcType=VARCHAR},
+      </if>
+      <if test="isDone != null">
+        #{isDone,jdbcType=INTEGER},
+      </if>
+      <if test="prevEvent != null">
+        #{prevEvent,jdbcType=VARCHAR},
+      </if>
+      <if test="dtime != null">
+        #{dtime,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="data != null">
+        #{data,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cj.netos.org.model.WorkEventExample" resultType="java.lang.Long">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    select count(*) from work_event
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    update work_event
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null">
         title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code != null">
         code = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stepNo != null">
         step_no = #{record.stepNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.workInst != null">
         work_inst = #{record.workInst,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ctime != null">
         ctime = #{record.ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sender != null">
         sender = #{record.sender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recipient != null">
         recipient = #{record.recipient,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operated != null">
         operated = #{record.operated,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDone != null">
         is_done = #{record.isDone,jdbcType=INTEGER},
+      </if>
+      <if test="record.prevEvent != null">
         prev_event = #{record.prevEvent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dtime != null">
         dtime = #{record.dtime,jdbcType=VARCHAR},
-        `data` = #{record.data,jdbcType=VARCHAR}
-        <if test="_parameter != null">
-            <include refid="Update_By_Example_Where_Clause"/>
-        </if>
-    </update>
-    <update id="updateByPrimaryKeySelective" parameterType="cj.netos.org.model.WorkEvent">
-        <!-- @mbg.generated: generated automatically, do not modify! -->
-        update work_event
-        <set>
-            <if test="title != null">
-                title = #{title,jdbcType=VARCHAR},
-            </if>
-            <if test="code != null">
-                code = #{code,jdbcType=VARCHAR},
-            </if>
-            <if test="stepNo != null">
-                step_no = #{stepNo,jdbcType=INTEGER},
-            </if>
-            <if test="workInst != null">
-                work_inst = #{workInst,jdbcType=VARCHAR},
-            </if>
-            <if test="ctime != null">
-                ctime = #{ctime,jdbcType=VARCHAR},
-            </if>
-            <if test="sender != null">
-                sender = #{sender,jdbcType=VARCHAR},
-            </if>
-            <if test="recipient != null">
-                recipient = #{recipient,jdbcType=VARCHAR},
-            </if>
-            <if test="operated != null">
-                operated = #{operated,jdbcType=VARCHAR},
-            </if>
-            <if test="isDone != null">
-                is_done = #{isDone,jdbcType=INTEGER},
-            </if>
-            <if test="prevEvent != null">
-                prev_event = #{prevEvent,jdbcType=VARCHAR},
-            </if>
-            <if test="dtime != null">
-                dtime = #{dtime,jdbcType=VARCHAR},
-            </if>
-            <if test="data != null">
-                `data` = #{data,jdbcType=VARCHAR},
-            </if>
-        </set>
-        where id = #{id,jdbcType=VARCHAR}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="cj.netos.org.model.WorkEvent">
-        <!-- @mbg.generated: generated automatically, do not modify! -->
-        update work_event
-        set title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.note != null">
+        note = #{record.note,jdbcType=VARCHAR},
+      </if>
+      <if test="record.data != null">
+        `data` = #{record.data,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    update work_event
+    set id = #{record.id,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      code = #{record.code,jdbcType=VARCHAR},
+      step_no = #{record.stepNo,jdbcType=INTEGER},
+      work_inst = #{record.workInst,jdbcType=VARCHAR},
+      ctime = #{record.ctime,jdbcType=VARCHAR},
+      sender = #{record.sender,jdbcType=VARCHAR},
+      recipient = #{record.recipient,jdbcType=VARCHAR},
+      operated = #{record.operated,jdbcType=VARCHAR},
+      is_done = #{record.isDone,jdbcType=INTEGER},
+      prev_event = #{record.prevEvent,jdbcType=VARCHAR},
+      dtime = #{record.dtime,jdbcType=VARCHAR},
+      note = #{record.note,jdbcType=VARCHAR},
+      `data` = #{record.data,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cj.netos.org.model.WorkEvent">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    update work_event
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
         code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="stepNo != null">
         step_no = #{stepNo,jdbcType=INTEGER},
+      </if>
+      <if test="workInst != null">
         work_inst = #{workInst,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
         ctime = #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="sender != null">
         sender = #{sender,jdbcType=VARCHAR},
+      </if>
+      <if test="recipient != null">
         recipient = #{recipient,jdbcType=VARCHAR},
+      </if>
+      <if test="operated != null">
         operated = #{operated,jdbcType=VARCHAR},
+      </if>
+      <if test="isDone != null">
         is_done = #{isDone,jdbcType=INTEGER},
+      </if>
+      <if test="prevEvent != null">
         prev_event = #{prevEvent,jdbcType=VARCHAR},
+      </if>
+      <if test="dtime != null">
         dtime = #{dtime,jdbcType=VARCHAR},
-        `data` = #{data,jdbcType=VARCHAR}
-        where id = #{id,jdbcType=VARCHAR}
-    </update>
+      </if>
+      <if test="note != null">
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="data != null">
+        `data` = #{data,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cj.netos.org.model.WorkEvent">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    update work_event
+    set title = #{title,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      step_no = #{stepNo,jdbcType=INTEGER},
+      work_inst = #{workInst,jdbcType=VARCHAR},
+      ctime = #{ctime,jdbcType=VARCHAR},
+      sender = #{sender,jdbcType=VARCHAR},
+      recipient = #{recipient,jdbcType=VARCHAR},
+      operated = #{operated,jdbcType=VARCHAR},
+      is_done = #{isDone,jdbcType=INTEGER},
+      prev_event = #{prevEvent,jdbcType=VARCHAR},
+      dtime = #{dtime,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR},
+      `data` = #{data,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
     <update id="done" parameterType="cj.netos.org.model.WorkEvent">
     update work_event
     set
@@ -362,7 +375,7 @@
   </update>
     <select id="getLastWorkEvent" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List" />
         from work_event
         where work_inst = #{workInst,jdbcType=VARCHAR}
         and recipient = #{recipient,jdbcType=VARCHAR}
@@ -371,7 +384,7 @@
     </select>
     <select id="getFirstWorkEvent" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List" />
         from work_event
         where work_inst = #{workInst,jdbcType=VARCHAR}
         and recipient = #{recipient,jdbcType=VARCHAR}
@@ -380,7 +393,7 @@
     </select>
     <select id="pageTodoEvents" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List" />
         from work_event
         where recipient = #{recipient,jdbcType=VARCHAR}
         and is_done = 0
@@ -388,7 +401,7 @@
     </select>
     <select id="pageDoneEvents" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List" />
         from work_event
         where work_inst in (select distinct inst.id
                             from workflow flow,
@@ -422,7 +435,7 @@
   </select>
     <select id="pageDoneEventsOnWorkflow" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List" />
         from work_event
         where work_inst in (select distinct inst.id
                             from workflow flow,
@@ -447,7 +460,7 @@
   </select>
     <select id="getAll" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List" />
         from work_event
         where work_inst = #{workInst,jdbcType=VARCHAR}
         order by work_inst asc,step_no asc

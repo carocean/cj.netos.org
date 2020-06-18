@@ -62,8 +62,7 @@ public interface OrgLaMapper {
      */
     int updateByPrimaryKey(OrgLa record);
 
-    List<OrgLa> pageLa(@Param(value = "limit") int limit,@Param(value = "offset") long offset);
+    List<OrgLa> pageLa(@Param(value = "limit") int limit, @Param(value = "offset") long offset);
 
-    List<OrgLa> pageLaOfIsp(@Param(value = "isp") String isp, @Param(value = "limit") int limit,@Param(value = "offset") long offset);
-
+    List<OrgLa> pageLaOfIsp(@Param(value = "isp") String isp, @Param(value = "limit") int limit, @Param(value = "offset") long offset);
 }

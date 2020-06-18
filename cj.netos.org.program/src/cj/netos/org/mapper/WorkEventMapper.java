@@ -2,9 +2,7 @@ package cj.netos.org.mapper;
 
 import cj.netos.org.model.WorkEvent;
 import cj.netos.org.model.WorkEventExample;
-
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 
 public interface WorkEventMapper {
@@ -68,7 +66,7 @@ public interface WorkEventMapper {
 
     WorkEvent getLastWorkEvent(@Param(value = "recipient") String recipient, @Param(value = "workInst") String workInst);
 
-    List<WorkEvent> pageTodoEvents(@Param(value = "recipient") String recipient,  @Param(value = "limit") int limit, @Param(value = "offset") long offset);
+    List<WorkEvent> pageTodoEvents(@Param(value = "recipient") String recipient, @Param(value = "limit") int limit, @Param(value = "offset") long offset);
 
     List<WorkEvent> pageDoneEvents(@Param(value = "principal") String principal, @Param(value = "limit") int limit, @Param(value = "offset") long offset);
 
@@ -76,8 +74,7 @@ public interface WorkEventMapper {
 
     List<WorkEvent> getAll(@Param(value = "workInst") String workInst);
 
-    List<WorkEvent> pageTodoEventsOnWorkflow(@Param(value = "recipient") String recipient, @Param(value = "workflow") String workflow,  @Param(value = "limit") int limit, @Param(value = "offset") long offset);
+    List<WorkEvent> pageTodoEventsOnWorkflow(@Param(value = "recipient") String recipient, @Param(value = "workflow") String workflow, @Param(value = "limit") int limit, @Param(value = "offset") long offset);
 
     List<WorkEvent> pageDoneEventsOnWorkflow(@Param(value = "principal") String principal, @Param(value = "workflow") String workflow, @Param(value = "limit") int limit, @Param(value = "offset") long offset);
-
 }

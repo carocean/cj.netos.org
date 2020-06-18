@@ -32,12 +32,12 @@ public class LaPorts implements ILaPorts {
 
     @Override
     public List<OrgLa> pageLa(ISecuritySession securitySession, int limit, long offset) throws CircuitException {
-        return laService.pageLa(limit,offset);
+        return laService.pageLa(limit, offset);
     }
 
     @Override
     public List<OrgLa> pageLaOfIsp(ISecuritySession securitySession, String ispid, int limit, long offset) throws CircuitException {
-        return laService.pageLaOfIsp(ispid,limit,offset);
+        return laService.pageLaOfIsp(ispid, limit, offset);
     }
 
     @Override
@@ -50,13 +50,13 @@ public class LaPorts implements ILaPorts {
         laService.doRegisterIsp(securitySession.principal(), bo);
 
         WorkItem workItem = workflowService.createWorkInstance(securitySession.principal(), workflow, new Gson().toJson(bo));
-        workflowService.doWorkItemAndSend(securitySession.principal(), workItem.getWorkInst().getId(), "doRegister", securitySession.principal(), "payConfirm", "付款确认");
+        workflowService.doWorkItemAndSend(securitySession.principal(), workItem.getWorkInst().getId(), "doRegister", "", securitySession.principal(), "payConfirm", "付款确认");
         return workItem;
     }
 
     @Override
     public WorkItem reviewByIsp(ISecuritySession securitySession, String workinst) throws CircuitException {
-        workflowService.doMyWorkItem(securitySession.principal(), workinst, "reviewed", true);
+        workflowService.doMyWorkItem(securitySession.principal(), workinst, "reviewed", "", true);
         return null;
     }
 
@@ -70,12 +70,12 @@ public class LaPorts implements ILaPorts {
         LaApplyBO laApplyBO = new Gson().fromJson(json, LaApplyBO.class);
         laApplyBO.setPayEvidence(payEvidence);
         workflowService.updateWorkInstData(workinst, new Gson().toJson(laApplyBO));
-        workflowService.doWorkItemAndSend(securitySession.principal(), workItem.getWorkInst().getId(), "doConfirm", "$g.netos.market.checker", "platformChecker", "平台审核");
+        workflowService.doWorkItemAndSend(securitySession.principal(), workItem.getWorkInst().getId(), "doConfirm", "", "$g.netos.market.checker", "platformChecker", "平台审核");
         return workItem;
     }
 
     @Override
-    public WorkItem checkApplyRegisterByPlatform(ISecuritySession securitySession, String workinst, boolean checkPass) throws CircuitException {
+    public WorkItem checkApplyRegisterByPlatform(ISecuritySession securitySession, String workinst, boolean checkPass, String ispid) throws CircuitException {
         WorkItem workItem = workflowService.getMyLastWorkItemOnInstance(securitySession.principal(), workinst);
         if (workItem == null || workItem.getWorkEvent() == null) {
             throw new CircuitException("404", String.format("用户:%s当前没有工作事件。", securitySession.principal()));
@@ -83,17 +83,19 @@ public class LaPorts implements ILaPorts {
         if (checkPass) {
             String json = workItem.getWorkInst().getData();
             LaApplyBO laApplyBO = new Gson().fromJson(json, LaApplyBO.class);
+            laApplyBO.setIsp(ispid);
+            workflowService.updateWorkInstData(workinst, new Gson().toJson(laApplyBO));
             licenceService.publishLaLicence(laApplyBO);
-            workflowService.doWorkItemAndSend(securitySession.principal(), workinst, "adopt", workItem.getWorkEvent().getSender(), "review", "地商查阅");
+            workflowService.doWorkItemAndSend(securitySession.principal(), workinst, "adopt", "", workItem.getWorkEvent().getSender(), "review", "地商查阅");
         } else {
-            workflowService.doWorkItemAndSend(securitySession.principal(), workinst, "return", workItem.getWorkEvent().getSender(), "return", "退回");
+            workflowService.doWorkItemAndSend(securitySession.principal(), workinst, "return", "", workItem.getWorkEvent().getSender(), "return", "退回");
         }
         return workItem;
     }
 
     @Override
     public OrgLicence getLicence(ISecuritySession securitySession, String laid) throws CircuitException {
-        return licenceService.getLicence(laid,0);
+        return licenceService.getLicence(laid, 0);
     }
 
     @Override
@@ -105,12 +107,12 @@ public class LaPorts implements ILaPorts {
         Map<String, Object> data = new HashMap<>();
         data.put("licenceid", licenceid);
         WorkItem workItem = workflowService.createWorkInstance(securitySession.principal(), workflow, new Gson().toJson(data));
-        workflowService.doWorkItemAndSend(securitySession.principal(), workItem.getWorkInst().getId(), "ok", "$g.netos.market.checker", "platformCheck", "平台审核");
+        workflowService.doWorkItemAndSend(securitySession.principal(), workItem.getWorkInst().getId(), "ok", "", "$g.netos.market.checker", "platformCheck", "平台审核");
         return workItem;
     }
 
     @Override
-    public WorkItem checkRevokeLaByPlatfrom(ISecuritySession securitySession, String workinst,  boolean checkPass) throws CircuitException {
+    public WorkItem checkRevokeLaByPlatfrom(ISecuritySession securitySession, String workinst, boolean checkPass) throws CircuitException {
         WorkItem workItem = workflowService.getMyLastWorkItemOnInstance(securitySession.principal(), workinst);
         if (workItem == null || workItem.getWorkEvent() == null) {
             throw new CircuitException("404", String.format("用户:%s当前没有工作事件。", securitySession.principal()));
@@ -119,9 +121,9 @@ public class LaPorts implements ILaPorts {
             String json = workItem.getWorkInst().getData();
             HashMap map = new Gson().fromJson(json, HashMap.class);
             licenceService.revokeById(map.get("licenceid") + "");
-            workflowService.doMyWorkItem(securitySession.principal(), workinst, "adopt", true);
+            workflowService.doMyWorkItem(securitySession.principal(), workinst, "adopt", "", true);
         } else {
-            workflowService.doWorkItemAndSend(securitySession.principal(), workinst, "return", workItem.getWorkEvent().getSender(), "return", "退回");
+            workflowService.doWorkItemAndSend(securitySession.principal(), workinst, "return", "", workItem.getWorkEvent().getSender(), "return", "退回");
         }
         return workItem;
     }
@@ -129,7 +131,7 @@ public class LaPorts implements ILaPorts {
     @Override
     public void forceRevokeLaByPlatfrom(ISecuritySession securitySession, String licenceid) throws CircuitException {
         if (!securitySession.roleIn("platform:administrators")) {
-            throw new CircuitException("800",String.format("拒绝访问"));
+            throw new CircuitException("800", String.format("拒绝访问"));
         }
         licenceService.revokeById(licenceid);
     }

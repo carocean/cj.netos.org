@@ -397,7 +397,7 @@
         where flow.id = inst.workflow
         and inst.id = event.work_inst
         and (event.recipient =  #{principal} or event.sender =  #{principal}))
-        and step_no = (select max(step_no) from work_event group by work_inst)
+        and step_no in (select max(step_no) from work_event group by work_inst)
         limit #{offset},#{limit}
     </select>
     <select id="pageTodoEventsOnWorkflow" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
@@ -423,7 +423,7 @@
                               and inst.id = event.work_inst
                               and flow.id = #{workflow}
                               and (event.recipient =  #{principal} or event.sender =  #{principal}))
-          and step_no = (select max(step_no) from work_event group by work_inst)
+          and step_no in (select max(step_no) from work_event group by work_inst)
          limit #{offset},#{limit}
   </select>
     <select id="getAll" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">

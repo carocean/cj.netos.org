@@ -6,6 +6,7 @@ import cj.netos.org.bo.IspApplyBO;
 import cj.netos.org.mapper.OrgIspMapper;
 import cj.netos.org.model.OrgIsp;
 import cj.netos.org.model.OrgLicence;
+import cj.netos.org.result.OrgLicenceResult;
 import cj.netos.org.util.IdWorker;
 import cj.netos.org.util.OrgUtils;
 import cj.studio.ecm.annotation.CjBridge;
@@ -38,8 +39,10 @@ public class IspService implements IIspService {
 
     @CjTransaction
     @Override
-    public OrgLicence getLicence(String ispid) {
-        return licenceService.getLicence(ispid, 2);
+    public OrgLicenceResult getLicence(String ispid) {
+        OrgIsp isp = getIsp(ispid);
+        OrgLicence licence= licenceService.getLicence(ispid, 2);
+        return new OrgLicenceResult(isp, licence);
     }
 
     @CjTransaction

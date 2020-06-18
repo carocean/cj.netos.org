@@ -2,8 +2,7 @@ package cj.netos.org.ports;
 
 import cj.netos.org.bo.IspApplyBO;
 import cj.netos.org.model.OrgIsp;
-import cj.netos.org.model.OrgLicence;
-import cj.netos.org.model.WorkEvent;
+import cj.netos.org.result.OrgLicenceResult;
 import cj.netos.org.result.WorkItem;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.IOpenportService;
@@ -30,8 +29,8 @@ public interface IIspPorts extends IOpenportService {
     ) throws CircuitException;
 
 
-    @CjOpenport(usage = "获取运营商营业牌照")
-    OrgLicence getLicence(
+    @CjOpenport(usage = "获取运营商营业牌照及运营商信息")
+    OrgLicenceResult getLicence(
             ISecuritySession securitySession,
             @CjOpenportParameter(usage = "运营商标识", name = "ispid") String ispid
     ) throws CircuitException;
@@ -39,7 +38,7 @@ public interface IIspPorts extends IOpenportService {
     @CjOpenport(usage = "公众申请成为运营商。该公众会被作为所有人", command = "post")
     WorkItem applyRegisterByPerson(ISecuritySession securitySession,
                                    @CjOpenportParameter(usage = "注册流程", name = "workflow") String workflow,
-                                   @CjOpenportParameter(usage = "运营商申请单", name = "ispApplyBO", in = PKeyInRequest.content,simpleModelFile = "/ispApplyBO.md") IspApplyBO ispApplyBO
+                                   @CjOpenportParameter(usage = "运营商申请单", name = "ispApplyBO", in = PKeyInRequest.content, simpleModelFile = "/ispApplyBO.md") IspApplyBO ispApplyBO
     ) throws CircuitException;
 
     @CjOpenport(usage = "确认付款单")

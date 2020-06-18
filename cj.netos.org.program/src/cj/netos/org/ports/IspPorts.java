@@ -7,6 +7,7 @@ import cj.netos.org.bo.IspApplyBO;
 import cj.netos.org.model.OrgIsp;
 import cj.netos.org.model.OrgLicence;
 import cj.netos.org.model.Workflow;
+import cj.netos.org.result.OrgLicenceResult;
 import cj.netos.org.result.WorkItem;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
@@ -36,7 +37,7 @@ public class IspPorts implements IIspPorts {
     }
 
     @Override
-    public OrgLicence getLicence(ISecuritySession securitySession, String ispid) throws CircuitException {
+    public OrgLicenceResult getLicence(ISecuritySession securitySession, String ispid) throws CircuitException {
         return ispService.getLicence(ispid);
     }
 

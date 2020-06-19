@@ -34,6 +34,7 @@ public class LaService implements ILaService {
         la.setCorpLogo(bo.getCropLogo());
         la.setCorpCode(bo.getCropCode());
         la.setIsp(bo.getIsp());
+        la.setCorpSimple(bo.getSimpleName());
         orgLaMapper.insert(la);
 
         bo.setOrgan(la.getId());

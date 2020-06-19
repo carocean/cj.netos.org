@@ -79,6 +79,7 @@ public class IspService implements IIspService {
         isp.setCorpName(bo.getCropName());
         isp.setCorpLogo(bo.getCropLogo());
         isp.setCorpCode(bo.getCropCode());
+        isp.setCorpSimple(bo.getSimpleName());
         orgIspMapper.insert(isp);
 
         bo.setOrgan(isp.getId());

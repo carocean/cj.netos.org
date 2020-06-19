@@ -22,6 +22,12 @@ public class OrgLa {
     private String corpCode;
 
     /**
+     * Column: corp_simple
+     * Remark: 公司简称
+     */
+    private String corpSimple;
+
+    /**
      * Column: licence_src
      * Remark: 营业执照地址
      */
@@ -84,6 +90,14 @@ public class OrgLa {
 
     public void setCorpCode(String corpCode) {
         this.corpCode = corpCode == null ? null : corpCode.trim();
+    }
+
+    public String getCorpSimple() {
+        return corpSimple;
+    }
+
+    public void setCorpSimple(String corpSimple) {
+        this.corpSimple = corpSimple == null ? null : corpSimple.trim();
     }
 
     public String getLicenceSrc() {

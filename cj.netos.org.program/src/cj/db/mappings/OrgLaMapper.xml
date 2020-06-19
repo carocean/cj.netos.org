@@ -6,6 +6,7 @@
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="corp_name" jdbcType="VARCHAR" property="corpName" />
     <result column="corp_code" jdbcType="VARCHAR" property="corpCode" />
+    <result column="corp_simple" jdbcType="VARCHAR" property="corpSimple" />
     <result column="licence_src" jdbcType="VARCHAR" property="licenceSrc" />
     <result column="corp_logo" jdbcType="VARCHAR" property="corpLogo" />
     <result column="isp" jdbcType="VARCHAR" property="isp" />
@@ -76,8 +77,8 @@
   </sql>
   <sql id="Base_Column_List">
     <!-- @mbg.generated: generated automatically, do not modify! -->
-    id, corp_name, corp_code, licence_src, corp_logo, isp, master_person, master_real_name, 
-    master_phone, `time`
+    id, corp_name, corp_code, corp_simple, licence_src, corp_logo, isp, master_person, 
+    master_real_name, master_phone, `time`
   </sql>
   <select id="selectByExample" parameterType="cj.netos.org.model.OrgLaExample" resultMap="BaseResultMap">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -116,13 +117,13 @@
   <insert id="insert" parameterType="cj.netos.org.model.OrgLa">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     insert into org_la (id, corp_name, corp_code, 
-      licence_src, corp_logo, isp, 
-      master_person, master_real_name, master_phone, 
-      `time`)
+      corp_simple, licence_src, corp_logo, 
+      isp, master_person, master_real_name, 
+      master_phone, `time`)
     values (#{id,jdbcType=VARCHAR}, #{corpName,jdbcType=VARCHAR}, #{corpCode,jdbcType=VARCHAR}, 
-      #{licenceSrc,jdbcType=VARCHAR}, #{corpLogo,jdbcType=VARCHAR}, #{isp,jdbcType=VARCHAR}, 
-      #{masterPerson,jdbcType=VARCHAR}, #{masterRealName,jdbcType=VARCHAR}, #{masterPhone,jdbcType=VARCHAR}, 
-      #{time,jdbcType=VARCHAR})
+      #{corpSimple,jdbcType=VARCHAR}, #{licenceSrc,jdbcType=VARCHAR}, #{corpLogo,jdbcType=VARCHAR}, 
+      #{isp,jdbcType=VARCHAR}, #{masterPerson,jdbcType=VARCHAR}, #{masterRealName,jdbcType=VARCHAR}, 
+      #{masterPhone,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cj.netos.org.model.OrgLa">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -136,6 +137,9 @@
       </if>
       <if test="corpCode != null">
         corp_code,
+      </if>
+      <if test="corpSimple != null">
+        corp_simple,
       </if>
       <if test="licenceSrc != null">
         licence_src,
@@ -168,6 +172,9 @@
       </if>
       <if test="corpCode != null">
         #{corpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="corpSimple != null">
+        #{corpSimple,jdbcType=VARCHAR},
       </if>
       <if test="licenceSrc != null">
         #{licenceSrc,jdbcType=VARCHAR},
@@ -212,6 +219,9 @@
       <if test="record.corpCode != null">
         corp_code = #{record.corpCode,jdbcType=VARCHAR},
       </if>
+      <if test="record.corpSimple != null">
+        corp_simple = #{record.corpSimple,jdbcType=VARCHAR},
+      </if>
       <if test="record.licenceSrc != null">
         licence_src = #{record.licenceSrc,jdbcType=VARCHAR},
       </if>
@@ -244,6 +254,7 @@
     set id = #{record.id,jdbcType=VARCHAR},
       corp_name = #{record.corpName,jdbcType=VARCHAR},
       corp_code = #{record.corpCode,jdbcType=VARCHAR},
+      corp_simple = #{record.corpSimple,jdbcType=VARCHAR},
       licence_src = #{record.licenceSrc,jdbcType=VARCHAR},
       corp_logo = #{record.corpLogo,jdbcType=VARCHAR},
       isp = #{record.isp,jdbcType=VARCHAR},
@@ -264,6 +275,9 @@
       </if>
       <if test="corpCode != null">
         corp_code = #{corpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="corpSimple != null">
+        corp_simple = #{corpSimple,jdbcType=VARCHAR},
       </if>
       <if test="licenceSrc != null">
         licence_src = #{licenceSrc,jdbcType=VARCHAR},
@@ -294,6 +308,7 @@
     update org_la
     set corp_name = #{corpName,jdbcType=VARCHAR},
       corp_code = #{corpCode,jdbcType=VARCHAR},
+      corp_simple = #{corpSimple,jdbcType=VARCHAR},
       licence_src = #{licenceSrc,jdbcType=VARCHAR},
       corp_logo = #{corpLogo,jdbcType=VARCHAR},
       isp = #{isp,jdbcType=VARCHAR},

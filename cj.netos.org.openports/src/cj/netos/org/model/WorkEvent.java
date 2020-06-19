@@ -76,7 +76,6 @@ public class WorkEvent {
 
     /**
      * Column: note
-     * Remark: 本事件的附加说明
      */
     private String note;
 

@@ -347,6 +347,76 @@ public class OrgLaExample {
             return (Criteria) this;
         }
 
+        public Criteria andCorpSimpleIsNull() {
+            addCriterion("corp_simple is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCorpSimpleIsNotNull() {
+            addCriterion("corp_simple is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCorpSimpleEqualTo(String value) {
+            addCriterion("corp_simple =", value, "corpSimple");
+            return (Criteria) this;
+        }
+
+        public Criteria andCorpSimpleNotEqualTo(String value) {
+            addCriterion("corp_simple <>", value, "corpSimple");
+            return (Criteria) this;
+        }
+
+        public Criteria andCorpSimpleGreaterThan(String value) {
+            addCriterion("corp_simple >", value, "corpSimple");
+            return (Criteria) this;
+        }
+
+        public Criteria andCorpSimpleGreaterThanOrEqualTo(String value) {
+            addCriterion("corp_simple >=", value, "corpSimple");
+            return (Criteria) this;
+        }
+
+        public Criteria andCorpSimpleLessThan(String value) {
+            addCriterion("corp_simple <", value, "corpSimple");
+            return (Criteria) this;
+        }
+
+        public Criteria andCorpSimpleLessThanOrEqualTo(String value) {
+            addCriterion("corp_simple <=", value, "corpSimple");
+            return (Criteria) this;
+        }
+
+        public Criteria andCorpSimpleLike(String value) {
+            addCriterion("corp_simple like", value, "corpSimple");
+            return (Criteria) this;
+        }
+
+        public Criteria andCorpSimpleNotLike(String value) {
+            addCriterion("corp_simple not like", value, "corpSimple");
+            return (Criteria) this;
+        }
+
+        public Criteria andCorpSimpleIn(List<String> values) {
+            addCriterion("corp_simple in", values, "corpSimple");
+            return (Criteria) this;
+        }
+
+        public Criteria andCorpSimpleNotIn(List<String> values) {
+            addCriterion("corp_simple not in", values, "corpSimple");
+            return (Criteria) this;
+        }
+
+        public Criteria andCorpSimpleBetween(String value1, String value2) {
+            addCriterion("corp_simple between", value1, value2, "corpSimple");
+            return (Criteria) this;
+        }
+
+        public Criteria andCorpSimpleNotBetween(String value1, String value2) {
+            addCriterion("corp_simple not between", value1, value2, "corpSimple");
+            return (Criteria) this;
+        }
+
         public Criteria andLicenceSrcIsNull() {
             addCriterion("licence_src is null");
             return (Criteria) this;

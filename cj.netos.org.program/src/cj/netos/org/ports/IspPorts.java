@@ -36,6 +36,11 @@ public class IspPorts implements IIspPorts {
     }
 
     @Override
+    public List<OrgIsp> listIspOfMasters(ISecuritySession securitySession, List<String> masters) throws CircuitException {
+        return ispService.listIspOfMasters(masters);
+    }
+
+    @Override
     public List<OrgLicenceResult> pageIspWithLicence(ISecuritySession securitySession, int limit, long offset) throws CircuitException {
         return ispService.pageIspWithLicence(limit, offset);
     }

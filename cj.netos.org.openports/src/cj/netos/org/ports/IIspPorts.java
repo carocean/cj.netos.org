@@ -28,6 +28,11 @@ public interface IIspPorts extends IOpenportService {
             @CjOpenportParameter(usage = "偏移", name = "offset") long offset
     ) throws CircuitException;
 
+    @CjOpenport(usage = "按运营商负责人获取地商信息列表。一个地商负责人有且仅有一条运营商信息",command = "post")
+    List<OrgIsp> listIspOfMasters(
+            ISecuritySession securitySession,
+            @CjOpenportParameter(usage = "运营商的负责人列表", name = "masters",in = PKeyInRequest.content) List<String> masters
+    ) throws CircuitException;
 
     @CjOpenport(usage = "分页运营商及其执照")
     List<OrgLicenceResult> pageIspWithLicence(

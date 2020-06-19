@@ -3,8 +3,8 @@ package cj.netos.org.service;
 import cj.netos.org.ILaService;
 import cj.netos.org.bo.LaApplyBO;
 import cj.netos.org.mapper.OrgLaMapper;
-import cj.netos.org.model.OrgIsp;
 import cj.netos.org.model.OrgLa;
+import cj.netos.org.model.OrgLaExample;
 import cj.netos.org.util.IdWorker;
 import cj.netos.org.util.OrgUtils;
 import cj.studio.ecm.annotation.CjBridge;
@@ -49,18 +49,26 @@ public class LaService implements ILaService {
     @CjTransaction
     @Override
     public List<OrgLa> pageLa(int limit, long offset) {
-        return orgLaMapper.pageLa(limit,offset);
+        return orgLaMapper.pageLa(limit, offset);
     }
 
     @CjTransaction
     @Override
     public List<OrgLa> pageLaOfIsp(String ispid, int limit, long offset) {
-        return orgLaMapper.pageLaOfIsp(ispid,limit,offset);
+        return orgLaMapper.pageLaOfIsp(ispid, limit, offset);
     }
 
     @CjTransaction
     @Override
-    public void updateIsp(String laid,String ispid) {
-        orgLaMapper.updateIsp(laid,ispid);
+    public void updateIsp(String laid, String ispid) {
+        orgLaMapper.updateIsp(laid, ispid);
+    }
+
+    @CjTransaction
+    @Override
+    public List<OrgLa> listLaOfMasters(List<String> masters) {
+        OrgLaExample example = new OrgLaExample();
+        example.createCriteria().andMasterPersonIn(masters);
+        return orgLaMapper.selectByExample(example);
     }
 }

@@ -41,6 +41,11 @@ public class LaPorts implements ILaPorts {
     }
 
     @Override
+    public List<OrgLa> listLaOfMasters(ISecuritySession securitySession, List<String> masters) throws CircuitException {
+        return laService.listLaOfMasters(masters);
+    }
+
+    @Override
     public WorkItem applyRegisterByPerson(ISecuritySession securitySession, String workflow, LaApplyBO bo) throws CircuitException {
         Workflow flow = workflowService.getWorkflow(workflow);
         if (flow == null) {

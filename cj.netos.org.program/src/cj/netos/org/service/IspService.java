@@ -5,6 +5,7 @@ import cj.netos.org.ILicenceService;
 import cj.netos.org.bo.IspApplyBO;
 import cj.netos.org.mapper.OrgIspMapper;
 import cj.netos.org.model.OrgIsp;
+import cj.netos.org.model.OrgIspExample;
 import cj.netos.org.model.OrgLicence;
 import cj.netos.org.result.OrgLicenceResult;
 import cj.netos.org.util.IdWorker;
@@ -36,6 +37,13 @@ public class IspService implements IIspService {
     @Override
     public List<OrgIsp> pageIsp(int limit, long offset) {
         return orgIspMapper.page(limit, offset);
+    }
+    @CjTransaction
+    @Override
+    public List<OrgIsp> listIspOfMasters(List<String> masters) {
+        OrgIspExample example = new OrgIspExample();
+        example.createCriteria().andMasterPersonIn(masters);
+        return orgIspMapper.selectByExample(example);
     }
 
     @CjTransaction

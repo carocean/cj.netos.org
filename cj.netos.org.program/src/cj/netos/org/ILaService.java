@@ -16,4 +16,6 @@ public interface ILaService {
 
     void updateIsp(String laid,String ispid);
 
+    List<OrgLa> listLaOfMasters(List<String> masters);
+
 }

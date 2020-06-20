@@ -127,13 +127,22 @@ public class WorkflowService implements IWorkflowService {
     public List<WorkItem> pageMyWorkItem(String principal, int filter, int limit, long offset) throws CircuitException {
         List<WorkEvent> list = null;
 
-        //0为待办项；1为我参与过的已处理项
+        //0为我的待办项；1为我的已办事项；2为我创建的实例的当前事项；3为我参与过的未完成的流程；4为我参与过的已完成的流程
         switch (filter) {
             case 0:
                 list = workEventMapper.pageTodoEvents(principal,  limit, offset);
                 break;
             case 1:
                 list = workEventMapper.pageDoneEvents(principal,limit, offset);
+                break;
+            case 2:
+                list = workEventMapper.pageMyCreateInstEvents(principal,limit, offset);
+                break;
+            case 3:
+                list = workEventMapper.pageMyDoneInstEvents(0,limit, offset);
+                break;
+            case 4:
+                list = workEventMapper.pageMyDoneInstEvents(1,limit, offset);
                 break;
             default:
                 throw new CircuitException("500", String.format("不支持的过滤条件:%s", filter));

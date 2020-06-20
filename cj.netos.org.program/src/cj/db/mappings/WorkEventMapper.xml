@@ -80,7 +80,7 @@
   </sql>
   <sql id="Base_Column_List">
     <!-- @mbg.generated: generated automatically, do not modify! -->
-    id, title, code, step_no, work_inst, ctime, sender, recipient, operated, is_done, 
+    id, title, code, step_no, work_inst, ctime, sender, recipient, operated, is_done,
     prev_event, dtime, note, `data`
   </sql>
   <select id="selectByExample" parameterType="cj.netos.org.model.WorkEventExample" resultMap="BaseResultMap">
@@ -100,7 +100,7 @@
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     <!-- @mbg.generated: generated automatically, do not modify! -->
-    select 
+    select
     <include refid="Base_Column_List" />
     from work_event
     where id = #{id,jdbcType=VARCHAR}
@@ -119,15 +119,15 @@
   </delete>
   <insert id="insert" parameterType="cj.netos.org.model.WorkEvent">
     <!-- @mbg.generated: generated automatically, do not modify! -->
-    insert into work_event (id, title, code, 
-      step_no, work_inst, ctime, 
-      sender, recipient, operated, 
-      is_done, prev_event, dtime, 
+    insert into work_event (id, title, code,
+      step_no, work_inst, ctime,
+      sender, recipient, operated,
+      is_done, prev_event, dtime,
       note, `data`)
-    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
-      #{stepNo,jdbcType=INTEGER}, #{workInst,jdbcType=VARCHAR}, #{ctime,jdbcType=VARCHAR}, 
-      #{sender,jdbcType=VARCHAR}, #{recipient,jdbcType=VARCHAR}, #{operated,jdbcType=VARCHAR}, 
-      #{isDone,jdbcType=INTEGER}, #{prevEvent,jdbcType=VARCHAR}, #{dtime,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR},
+      #{stepNo,jdbcType=INTEGER}, #{workInst,jdbcType=VARCHAR}, #{ctime,jdbcType=VARCHAR},
+      #{sender,jdbcType=VARCHAR}, #{recipient,jdbcType=VARCHAR}, #{operated,jdbcType=VARCHAR},
+      #{isDone,jdbcType=INTEGER}, #{prevEvent,jdbcType=VARCHAR}, #{dtime,jdbcType=VARCHAR},
       #{note,jdbcType=VARCHAR}, #{data,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cj.netos.org.model.WorkEvent">
@@ -409,6 +409,7 @@
                                  work_event event
                             where flow.id = inst.workflow
                               and inst.id = event.work_inst
+                              and event.is_done=1
                               and (event.recipient =  #{principal} or event.sender =  #{principal}))
           and step_no in (select max(step_no)
                           from work_event
@@ -418,21 +419,70 @@
                                                    work_event event
                                               where flow.id = inst.workflow
                                                 and inst.id = event.work_inst
+                                                and event.is_done=1
                                                 and (event.recipient =  #{principal} or event.sender =  #{principal}))
                           group by work_inst)
         limit #{offset},#{limit}
     </select>
+    <select id="pageMyCreateInstEvents" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from work_event
+        where work_inst in (select distinct inst.id
+                            from workflow flow,
+                                 work_inst inst,
+                                 work_event event
+                            where flow.id = inst.workflow
+                              and inst.id = event.work_inst
+                              and inst.creator = #{creator})
+          and step_no in (select max(step_no)
+                          from work_event
+                          where work_inst in (select distinct inst.id
+                                              from workflow flow,
+                                                   work_inst inst,
+                                                   work_event event
+                                              where flow.id = inst.workflow
+                                                and inst.id = event.work_inst
+                                                and inst.creator = #{creator})
+                          group by work_inst)
+        limit 0,10;
+    </select>
+    <select id="pageMyDoneInstEvents" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from work_event
+        where work_inst in (select distinct inst.id
+                            from workflow flow,
+                                 work_inst inst,
+                                 work_event event
+                            where flow.id = inst.workflow
+                              and inst.id = event.work_inst
+                              and inst.is_done=#{isDone}
+                              )
+          and step_no in (select max(step_no)
+                          from work_event
+                          where work_inst in (select distinct inst.id
+                                              from workflow flow,
+                                                   work_inst inst,
+                                                   work_event event
+                                              where flow.id = inst.workflow
+                                                and inst.id = event.work_inst
+                                                and inst.is_done=#{isDone}
+                                                )
+                          group by work_inst)
+        limit 0,10;
+    </select>
     <select id="pageTodoEventsOnWorkflow" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
-    select
-    event.*
-    from work_event event,work_inst inst,workflow flow
-    where flow.id=inst.workflow
-    and inst.id=event.work_inst
-    and event.recipient = #{recipient,jdbcType=VARCHAR}
-    and flow.id=#{workflow}
-    and event.is_done = 0
-    limit #{offset},#{limit}
-  </select>
+        select
+        event.*
+        from work_event event,work_inst inst,workflow flow
+        where flow.id=inst.workflow
+        and inst.id=event.work_inst
+        and event.recipient = #{recipient,jdbcType=VARCHAR}
+        and flow.id=#{workflow}
+        and event.is_done = 0
+        limit #{offset},#{limit}
+    </select>
     <select id="pageDoneEventsOnWorkflow" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
@@ -443,6 +493,7 @@
                                  work_event event
                             where flow.id = inst.workflow
                               and inst.id = event.work_inst
+                              and event.is_done=1
                               and flow.id = #{workflow}
                               and (event.recipient =  #{principal} or event.sender =  #{principal}))
           and step_no in (select max(step_no)
@@ -453,11 +504,12 @@
                                                    work_event event
                                               where flow.id = inst.workflow
                                                 and inst.id = event.work_inst
+                                                and event.is_done=1
                                                 and flow.id = #{workflow}
                                                 and (event.recipient =  #{principal} or event.sender =  #{principal}))
                           group by work_inst)
         limit #{offset},#{limit}
-  </select>
+    </select>
     <select id="getAll" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />

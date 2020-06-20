@@ -2,7 +2,9 @@ package cj.netos.org.mapper;
 
 import cj.netos.org.model.WorkEvent;
 import cj.netos.org.model.WorkEventExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface WorkEventMapper {
@@ -69,6 +71,10 @@ public interface WorkEventMapper {
     List<WorkEvent> pageTodoEvents(@Param(value = "recipient") String recipient, @Param(value = "limit") int limit, @Param(value = "offset") long offset);
 
     List<WorkEvent> pageDoneEvents(@Param(value = "principal") String principal, @Param(value = "limit") int limit, @Param(value = "offset") long offset);
+
+    List<WorkEvent> pageMyCreateInstEvents(@Param(value = "creator") String creator, @Param(value = "limit") int limit, @Param(value = "offset") long offset);
+
+    List<WorkEvent> pageMyDoneInstEvents(@Param(value = "isDone") int isDone, @Param(value = "limit") int limit, @Param(value = "offset") long offset);
 
     WorkEvent getFirstWorkEvent(@Param(value = "recipient") String recipient, @Param(value = "workInst") String workInst);
 

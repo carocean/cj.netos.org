@@ -445,7 +445,7 @@
                                                 and inst.id = event.work_inst
                                                 and inst.creator = #{creator})
                           group by work_inst)
-        limit 0,10;
+      limit #{offset},#{limit}
     </select>
     <select id="pageMyDoneInstEvents" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
         select
@@ -470,7 +470,7 @@
                                                 and inst.is_done=#{isDone}
                                                 )
                           group by work_inst)
-        limit 0,10;
+      limit #{offset},#{limit}
     </select>
     <select id="pageTodoEventsOnWorkflow" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
         select

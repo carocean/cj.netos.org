@@ -237,7 +237,7 @@ public class WorkflowService implements IWorkflowService {
             throw new CircuitException("500", String.format("用户%s 的工作事件%s在流程实例%s上已完成", principal, workItem.getWorkEvent().getId(), workinst));
         }
         if (data != null) {
-            updateWorkInstData(workinst, new Gson().toJson(data));
+            updateWorkInstData(workinst,data instanceof String?(String)data: new Gson().toJson(data));
         }
         workEventMapper.done(workItem.getWorkEvent().getId(), operated, OrgUtils.dateTimeToMicroSecond(System.currentTimeMillis()));
         if (doneWorkInst) {
@@ -257,7 +257,7 @@ public class WorkflowService implements IWorkflowService {
             if (data == null) {
                 event.setData(workItem.getWorkInst().getData());
             } else {
-                event.setData(new Gson().toJson(data));
+                event.setData(data instanceof String?(String)data:new Gson().toJson(data));
             }
             event.setNote(note);
             workEventMapper.insert(event);

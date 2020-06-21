@@ -6,13 +6,16 @@ import cj.netos.org.model.*;
 import cj.netos.org.result.WorkItem;
 import cj.netos.org.util.IdWorker;
 import cj.netos.org.util.OrgUtils;
+import cj.netos.rabbitmq.IRabbitMQProducer;
 import cj.studio.ecm.CJSystem;
 import cj.studio.ecm.annotation.CjBridge;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.orm.mybatis.annotation.CjTransaction;
+import cj.ultimate.gson2.com.google.gson.Gson;
 import cj.ultimate.util.StringUtil;
+import com.rabbitmq.client.AMQP;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,6 +36,9 @@ public class WorkflowService implements IWorkflowService {
     WorkGroupMapper workGroupMapper;
     @CjServiceRef(refByName = "mybatis.cj.netos.org.mapper.WorkRecipientMapper")
     WorkRecipientMapper workRecipientMapper;
+
+    @CjServiceRef(refByName = "@.rabbitmq.producer.workflow")
+    IRabbitMQProducer rabbitMQProducer;
 
     @CjTransaction
     @Override
@@ -130,19 +136,19 @@ public class WorkflowService implements IWorkflowService {
         //0为我的待办项；1为我的已办事项；2为我创建的实例的当前事项；3为我参与过的未完成的流程；4为我参与过的已完成的流程
         switch (filter) {
             case 0:
-                list = workEventMapper.pageTodoEvents(principal,  limit, offset);
+                list = workEventMapper.pageTodoEvents(principal, limit, offset);
                 break;
             case 1:
-                list = workEventMapper.pageDoneEvents(principal,limit, offset);
+                list = workEventMapper.pageDoneEvents(principal, limit, offset);
                 break;
             case 2:
-                list = workEventMapper.pageMyCreateInstEvents(principal,limit, offset);
+                list = workEventMapper.pageMyCreateInstEvents(principal, limit, offset);
                 break;
             case 3:
-                list = workEventMapper.pageMyDoneInstEvents(0,limit, offset);
+                list = workEventMapper.pageMyDoneInstEvents(0, limit, offset);
                 break;
             case 4:
-                list = workEventMapper.pageMyDoneInstEvents(1,limit, offset);
+                list = workEventMapper.pageMyDoneInstEvents(1, limit, offset);
                 break;
             default:
                 throw new CircuitException("500", String.format("不支持的过滤条件:%s", filter));
@@ -171,7 +177,7 @@ public class WorkflowService implements IWorkflowService {
         //0为未完成；1为已完成；2为所有
         switch (filter) {
             case 0:
-                list = workEventMapper.pageTodoEventsOnWorkflow(principal, workflow,  limit, offset);
+                list = workEventMapper.pageTodoEventsOnWorkflow(principal, workflow, limit, offset);
                 break;
             case 1:
                 list = workEventMapper.pageDoneEventsOnWorkflow(principal, workflow, limit, offset);
@@ -219,10 +225,7 @@ public class WorkflowService implements IWorkflowService {
         return workEventMapper.countByExample(example);
     }
 
-
-    @CjTransaction
-    @Override
-    public boolean doMyWorkItem(String principal, String workinst, String operated, String note, boolean doneWorkInst) throws CircuitException {
+    private boolean _doMyWorkItem(String principal, String workinst, String operated, String note, boolean doneWorkInst, Object data) throws CircuitException {
         WorkItem workItem = getMyLastWorkItemOnInstance(principal, workinst);
         if (workItem == null || workItem.getWorkEvent() == null) {
             throw new CircuitException("404", String.format("当前工作事件不是我本人"));
@@ -232,6 +235,9 @@ public class WorkflowService implements IWorkflowService {
         }
         if (workItem.getWorkEvent().getIsDone() == 1) {
             throw new CircuitException("500", String.format("用户%s 的工作事件%s在流程实例%s上已完成", principal, workItem.getWorkEvent().getId(), workinst));
+        }
+        if (data != null) {
+            updateWorkInstData(workinst, new Gson().toJson(data));
         }
         workEventMapper.done(workItem.getWorkEvent().getId(), operated, OrgUtils.dateTimeToMicroSecond(System.currentTimeMillis()));
         if (doneWorkInst) {
@@ -248,12 +254,48 @@ public class WorkflowService implements IWorkflowService {
             event.setCtime(OrgUtils.dateTimeToMicroSecond(System.currentTimeMillis()));
             event.setDtime(event.getCtime());
             event.setOperated("ok");
-            event.setData(workItem.getWorkInst().getData());
+            if (data == null) {
+                event.setData(workItem.getWorkInst().getData());
+            } else {
+                event.setData(new Gson().toJson(data));
+            }
             event.setNote(note);
             workEventMapper.insert(event);
             return true;
         }
         return false;
+    }
+
+    @CjTransaction
+    @Override
+    public boolean doMyWorkItem(String principal, String workinst, String operated, String note, boolean doneWorkInst) throws CircuitException {
+        return _doMyWorkItem(principal, workinst, operated, note, doneWorkInst, null);
+    }
+
+    @CjTransaction
+    @Override
+    public boolean doMyWorkItem2(String principal, String workinst, String operated, String note, boolean doneWorkInst, Object data, boolean putonMQHub) throws CircuitException {
+        boolean ret = _doMyWorkItem(principal, workinst, operated, note, doneWorkInst, data);
+        if (ret && putonMQHub) {
+            WorkItem workItem = getMyLastWorkItemOnInstance(principal, workinst);
+            if (workItem != null) {
+                AMQP.BasicProperties props = new AMQP.BasicProperties().builder()
+                        .type("/workfkow/event.mhub")
+                        .headers(new HashMap<String, Object>() {
+                            {
+                                put("command", "doWorkItem");
+                                put("title", workItem.getWorkEvent().getTitle());
+                                put("eventid", workItem.getWorkEvent().getId());
+                                put("workinst", workinst);
+                                put("sender", workItem.getWorkEvent().getSender());
+                                put("recipient", workItem.getWorkEvent().getRecipient());
+                                put("ctime", workItem.getWorkEvent().getCtime());
+                            }
+                        }).build();
+                rabbitMQProducer.publish("workflow", props, new Gson().toJson(workItem).getBytes());
+            }
+        }
+        return ret;
     }
 
     @CjTransaction
@@ -305,9 +347,22 @@ public class WorkflowService implements IWorkflowService {
 
     @CjTransaction
     @Override
-    public boolean doWorkItemAndSend(String principal, String workinst, String operated,String note, String recipients, String eventCode, String stepName) throws CircuitException {
+    public boolean doWorkItemAndSend(String principal, String workinst, String operated, String note, String recipients, String eventCode, String stepName) throws CircuitException {
         boolean isEnd = doMyWorkItem(principal, workinst, operated, note, false);
         if (isEnd) {
+            WorkInst inst = getWorkInstance(principal, workinst);
+            CJSystem.logging().warn(getClass(), String.format("不能向后发送，流程实例：%s已结束", inst.getName()));
+            return true;
+        }
+        sendMyWorkItem(principal, workinst, recipients, eventCode, stepName);
+        return false;
+    }
+
+    @CjTransaction
+    @Override
+    public boolean doWorkItemAndSend2(String principal, String workinst, String operated, String note, Object data, boolean putonMQHub, String recipients, String eventCode, String stepName) throws CircuitException {
+        boolean ret = doMyWorkItem2(principal, workinst, operated, note, false, data, putonMQHub);
+        if (ret) {
             WorkInst inst = getWorkInstance(principal, workinst);
             CJSystem.logging().warn(getClass(), String.format("不能向后发送，流程实例：%s已结束", inst.getName()));
             return true;
@@ -357,7 +412,7 @@ public class WorkflowService implements IWorkflowService {
     public boolean existsWorkRecipient(String workgroup, String person) {
         WorkRecipientExample example = new WorkRecipientExample();
         example.createCriteria().andWorkgroupEqualTo(workgroup).andPersonEqualTo(person);
-        return workRecipientMapper.countByExample(example)>0;
+        return workRecipientMapper.countByExample(example) > 0;
     }
 
     @CjTransaction

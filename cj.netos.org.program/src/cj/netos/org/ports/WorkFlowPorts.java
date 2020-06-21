@@ -104,8 +104,13 @@ public class WorkFlowPorts implements IWorkflowPorts {
     }
 
     @Override
-    public boolean doMyWorkItem(ISecuritySession securitySession, String workitem, String operated,String note, boolean doneWorkInst) throws CircuitException {
-        return workflowService.doMyWorkItem(securitySession.principal(), workitem, operated,note, doneWorkInst);
+    public boolean doMyWorkItem(ISecuritySession securitySession, String workinst, String operated,String note, boolean doneWorkInst) throws CircuitException {
+        return workflowService.doMyWorkItem(securitySession.principal(), workinst, operated,note, doneWorkInst);
+    }
+
+    @Override
+    public boolean doMyWorkItem2(ISecuritySession securitySession, String workinst, String operated, String note, boolean doneWorkInst, Object data, boolean putonMQHub) throws CircuitException {
+        return workflowService.doMyWorkItem2(securitySession.principal(), workinst, operated,note, doneWorkInst,data,putonMQHub);
     }
 
     @Override
@@ -114,8 +119,13 @@ public class WorkFlowPorts implements IWorkflowPorts {
     }
 
     @Override
-    public boolean doWorkItemAndSend(ISecuritySession securitySession, String workitem, String operated,String note, String recipients, String eventCode, String stepName) throws CircuitException {
-        return workflowService.doWorkItemAndSend(securitySession.principal(), workitem, operated,note, recipients, eventCode, stepName);
+    public boolean doWorkItemAndSend(ISecuritySession securitySession, String workinst, String operated,String note, String recipients, String eventCode, String stepName) throws CircuitException {
+        return workflowService.doWorkItemAndSend(securitySession.principal(), workinst, operated,note, recipients, eventCode, stepName);
+    }
+
+    @Override
+    public boolean doWorkItemAndSend2(ISecuritySession securitySession, String workinst, String operated, String note, Object data, boolean putonMQHub, String recipients, String eventCode, String stepName) throws CircuitException {
+        return workflowService.doWorkItemAndSend2(securitySession.principal(), workinst, operated,note,data,putonMQHub, recipients, eventCode, stepName);
     }
 
     @Override

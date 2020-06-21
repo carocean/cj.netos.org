@@ -46,7 +46,7 @@
 		name : "netContainer",
 		switchFilter:"off",
 		desc: "cj.netos.rabbitmq.DefaultRabbitMQMonitor 如用再设给monitor",
-		monitor: "",
+		monitor: "cj.netos.rabbitmq.DefaultRabbitMQMonitor",
 		jss:[{
 			module:"services1",
 			package:"cj.netos.org.jss",

@@ -61,4 +61,8 @@ public interface IWorkflowService {
 
     boolean existsWorkRecipient(String workgroup, String person);
 
+    boolean doMyWorkItem2(String principal, String workinst, String operated, String note, boolean doneWorkInst, Object data, boolean putonMQHub) throws CircuitException;
+
+    boolean doWorkItemAndSend2(String principal, String workinst, String operated, String note, Object data, boolean putonMQHub, String recipients, String eventCode, String stepName) throws CircuitException;
+
 }

@@ -47,8 +47,8 @@ routing:
       title: 工作流事件
       castmode: unicast
       routingKeys:
-        - workflow.note.1
-        - workflow.note.2
-        - workflow.note.3
-        - workflow.note.4
-        - workflow.note.5
+        - workflow.node.1
+        - workflow.node.2
+        - workflow.node.3
+        - workflow.node.4
+        - workflow.node.5

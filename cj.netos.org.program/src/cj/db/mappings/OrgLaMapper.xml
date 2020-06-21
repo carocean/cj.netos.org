@@ -337,7 +337,7 @@
     select
     <include refid="Base_Column_List" />
     from org_la
-    where isp in (${ispList,jdbcType=VARCHAR})
+    where isp in (${ispList})
     order by `time` asc
     limit #{offset},#{limit}
   </select>

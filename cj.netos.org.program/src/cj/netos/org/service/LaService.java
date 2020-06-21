@@ -7,11 +7,13 @@ import cj.netos.org.model.OrgLa;
 import cj.netos.org.model.OrgLaExample;
 import cj.netos.org.util.IdWorker;
 import cj.netos.org.util.OrgUtils;
+import cj.studio.ecm.CJSystem;
 import cj.studio.ecm.annotation.CjBridge;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
 import cj.studio.orm.mybatis.annotation.CjTransaction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CjBridge(aspects = "@transaction")
@@ -57,6 +59,20 @@ public class LaService implements ILaService {
     @Override
     public List<OrgLa> pageLaOfIsp(String ispid, int limit, long offset) {
         return orgLaMapper.pageLaOfIsp(ispid, limit, offset);
+    }
+
+    @CjTransaction
+    @Override
+    public List<OrgLa> pageLaOfIspList(List<String> ispList, int limit, long offset) {
+        StringBuffer sb = new StringBuffer();
+        for (String isp : ispList) {
+            sb.append(String.format("'%s',",isp));
+        }
+        if (sb.length() <= 0) {
+            return new ArrayList<>();
+        }
+        sb.append("''");
+        return orgLaMapper.pageLaOfIspList(sb.toString(), limit, offset);
     }
 
     @CjTransaction

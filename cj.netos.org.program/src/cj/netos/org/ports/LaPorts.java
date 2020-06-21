@@ -41,6 +41,11 @@ public class LaPorts implements ILaPorts {
     }
 
     @Override
+    public List<OrgLa> pageLaOfIspList(ISecuritySession securitySession, List<String> ispList, int limit, long offset) throws CircuitException {
+        return laService.pageLaOfIspList(ispList, limit, offset);
+    }
+
+    @Override
     public List<OrgLa> listLaOfMasters(ISecuritySession securitySession, List<String> masters) throws CircuitException {
         return laService.listLaOfMasters(masters);
     }

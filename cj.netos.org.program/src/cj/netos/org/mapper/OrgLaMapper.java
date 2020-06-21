@@ -2,7 +2,9 @@ package cj.netos.org.mapper;
 
 import cj.netos.org.model.OrgLa;
 import cj.netos.org.model.OrgLaExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface OrgLaMapper {
@@ -67,4 +69,7 @@ public interface OrgLaMapper {
     List<OrgLa> pageLaOfIsp(@Param(value = "isp") String isp, @Param(value = "limit") int limit, @Param(value = "offset") long offset);
 
     void updateIsp(@Param(value = "id") String id, @Param(value = "isp") String isp);
+
+    List<OrgLa> pageLaOfIspList(@Param(value = "ispList") String ispList, @Param(value = "limit") int limit, @Param(value = "offset") long offset);
+
 }

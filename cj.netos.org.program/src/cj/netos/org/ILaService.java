@@ -18,4 +18,6 @@ public interface ILaService {
 
     List<OrgLa> listLaOfMasters(List<String> masters);
 
+    List<OrgLa> pageLaOfIspList(List<String> ispList, int limit, long offset);
+
 }

@@ -12,6 +12,7 @@ import cj.studio.openport.annotations.CjOpenport;
 import cj.studio.openport.annotations.CjOpenportParameter;
 import cj.studio.openport.annotations.CjOpenports;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CjOpenports(usage = "地商管理服务")
@@ -36,10 +37,19 @@ public interface ILaPorts extends IOpenportService {
             @CjOpenportParameter(usage = "偏移", name = "offset") long offset
     ) throws CircuitException;
 
-    @CjOpenport(usage = "按地商负责人获取地商信息列表。一个地商负责人有且仅有一条地商信息",command = "post")
+
+    @CjOpenport(usage = "分页运营商所辖的地商")
+    List<OrgLa> pageLaOfIspList(
+            ISecuritySession securitySession,
+            @CjOpenportParameter(usage = "运营商标识集合", name = "ispList", type = ArrayList.class, elementType = String.class) List<String> ispList,
+            @CjOpenportParameter(usage = "分页大小", name = "limit") int limit,
+            @CjOpenportParameter(usage = "偏移", name = "offset") long offset
+    ) throws CircuitException;
+
+    @CjOpenport(usage = "按地商负责人获取地商信息列表。一个地商负责人有且仅有一条地商信息", command = "post")
     List<OrgLa> listLaOfMasters(
             ISecuritySession securitySession,
-            @CjOpenportParameter(usage = "地商的负责人列表", name = "masters",in = PKeyInRequest.content) List<String> masters
+            @CjOpenportParameter(usage = "地商的负责人列表", name = "masters", in = PKeyInRequest.content) List<String> masters
     ) throws CircuitException;
 
     @CjOpenport(usage = "公众申请成为地商。该公众会被作为所有人", command = "post")

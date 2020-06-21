@@ -333,6 +333,14 @@
     order by `time` asc
     limit #{offset},#{limit}
   </select>
+  <select id="pageLaOfIspList" parameterType="cj.netos.org.model.OrgLa" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from org_la
+    where isp in (${ispList,jdbcType=VARCHAR})
+    order by `time` asc
+    limit #{offset},#{limit}
+  </select>
   <update id="updateIsp" parameterType="cj.netos.org.model.OrgLa">
     update org_la
     set

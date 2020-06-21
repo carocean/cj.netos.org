@@ -225,7 +225,7 @@ public class WorkflowService implements IWorkflowService {
         return workEventMapper.countByExample(example);
     }
 
-    private boolean _doMyWorkItem(String principal, String workinst, String operated, String note, boolean doneWorkInst, Object data) throws CircuitException {
+    private boolean _doMyWorkItem(String principal, String workinst, String operated, String note, boolean doneWorkInst, String data) throws CircuitException {
         WorkItem workItem = getMyLastWorkItemOnInstance(principal, workinst);
         if (workItem == null || workItem.getWorkEvent() == null) {
             throw new CircuitException("404", String.format("当前工作事件不是我本人"));
@@ -236,10 +236,12 @@ public class WorkflowService implements IWorkflowService {
         if (workItem.getWorkEvent().getIsDone() == 1) {
             throw new CircuitException("500", String.format("用户%s 的工作事件%s在流程实例%s上已完成", principal, workItem.getWorkEvent().getId(), workinst));
         }
-        if (data != null) {
-            updateWorkInstData(workinst,data instanceof String?(String)data: new Gson().toJson(data));
+        if (!StringUtil.isEmpty(data)) {
+            updateWorkInstData(workinst,data);
+            workEventMapper.doneWithData(workItem.getWorkEvent().getId(), operated, OrgUtils.dateTimeToMicroSecond(System.currentTimeMillis()),data);
+        }else{
+            workEventMapper.done(workItem.getWorkEvent().getId(), operated, OrgUtils.dateTimeToMicroSecond(System.currentTimeMillis()));
         }
-        workEventMapper.done(workItem.getWorkEvent().getId(), operated, OrgUtils.dateTimeToMicroSecond(System.currentTimeMillis()));
         if (doneWorkInst) {
             workInstMapper.done(workinst);
             WorkEvent event = new WorkEvent();
@@ -254,10 +256,10 @@ public class WorkflowService implements IWorkflowService {
             event.setCtime(OrgUtils.dateTimeToMicroSecond(System.currentTimeMillis()));
             event.setDtime(event.getCtime());
             event.setOperated("ok");
-            if (data == null) {
+            if (StringUtil.isEmpty(data)) {
                 event.setData(workItem.getWorkInst().getData());
             } else {
-                event.setData(data instanceof String?(String)data:new Gson().toJson(data));
+                event.setData(data);
             }
             event.setNote(note);
             workEventMapper.insert(event);
@@ -274,9 +276,9 @@ public class WorkflowService implements IWorkflowService {
 
     @CjTransaction
     @Override
-    public boolean doMyWorkItem2(String principal, String workinst, String operated, String note, boolean doneWorkInst, Object data, boolean putonMQHub) throws CircuitException {
+    public boolean doMyWorkItem2(String principal, String workinst, String operated, String note, boolean doneWorkInst, String data, boolean putonMQHub) throws CircuitException {
         boolean ret = _doMyWorkItem(principal, workinst, operated, note, doneWorkInst, data);
-        if (ret && putonMQHub) {
+        if (putonMQHub) {
             WorkItem workItem = getMyLastWorkItemOnInstance(principal, workinst);
             if (workItem != null) {
                 AMQP.BasicProperties props = new AMQP.BasicProperties().builder()
@@ -360,7 +362,7 @@ public class WorkflowService implements IWorkflowService {
 
     @CjTransaction
     @Override
-    public boolean doWorkItemAndSend2(String principal, String workinst, String operated, String note, Object data, boolean putonMQHub, String recipients, String eventCode, String stepName) throws CircuitException {
+    public boolean doWorkItemAndSend2(String principal, String workinst, String operated, String note, String data, boolean putonMQHub, String recipients, String eventCode, String stepName) throws CircuitException {
         boolean ret = doMyWorkItem2(principal, workinst, operated, note, false, data, putonMQHub);
         if (ret) {
             WorkInst inst = getWorkInstance(principal, workinst);

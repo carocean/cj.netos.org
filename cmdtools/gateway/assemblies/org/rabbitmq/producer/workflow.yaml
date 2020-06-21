@@ -14,9 +14,9 @@ connectionTimeout: 0
 workPoolTimeout: 0
 exchange:
   # 该交换器名提供给消费者绑定
-  name: workflow.trade.amq.direct
+  name: workflow.amq.topic
   # direct|fanout|topic|header
-  type: direct
+  type: topic
   #设置是否持久 durable 设置为 true 表示持久化， 反之是非持久,设置为true则将Exchange存盘，即使服务器重启数据也不会丢失。默认为false
   durable: true
   #设置是否自动删除，当最后一个绑定到Exchange上的队列删除后，自动删除该Exchange，简单来说也就是如果该Exchange没有和任何队列Queue绑定则删除，默认为false
@@ -47,8 +47,8 @@ routing:
       title: 工作流事件
       castmode: unicast
       routingKeys:
-        - workflow.note1.trade
-        - workflow.note2.trade
-        - workflow.note3.trade
-        - workflow.note4.trade
-        - workflow.note5.trade
+        - workflow.note.1
+        - workflow.note.2
+        - workflow.note.3
+        - workflow.note.4
+        - workflow.note.5

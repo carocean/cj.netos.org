@@ -373,6 +373,15 @@
     is_done = 1
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  <update id="doneWithData" parameterType="cj.netos.org.model.WorkEvent">
+    update work_event
+    set
+    operated = #{operated,jdbcType=VARCHAR},
+    dtime = #{dtime,jdbcType=VARCHAR},
+    `data` = #{data,jdbcType=VARCHAR},
+    is_done = 1
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
     <select id="getLastWorkEvent" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />

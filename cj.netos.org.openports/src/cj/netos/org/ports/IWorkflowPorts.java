@@ -94,7 +94,7 @@ public interface IWorkflowPorts extends IOpenportService {
                                                  @CjOpenportParameter(usage = "工作实例标识", name = "workinst") String workinst
     ) throws CircuitException;
 
-    @CjOpenport(usage = "处理当前工作项。必须是收件人才有权限处理")
+    @CjOpenport(usage = "处理当前工作项。必须是收件人才有权限处理。返回值true表示流程已结束")
     boolean doMyWorkItem(ISecuritySession securitySession,
                          @CjOpenportParameter(usage = "工作实例标识", name = "workinst") String workinst,
                          @CjOpenportParameter(usage = "发生的操作。如已审批｜已发申请等，由程序定义每一step是什么操作，下一步需要根据前边的操作做什么", name = "operated") String operated,
@@ -102,13 +102,13 @@ public interface IWorkflowPorts extends IOpenportService {
                          @CjOpenportParameter(usage = "是否结束流程实例", name = "doneWorkInst") boolean doneWorkInst
     ) throws CircuitException;
 
-    @CjOpenport(usage = "处理当前工作项。必须是收件人才有权限处理",command = "post")
+    @CjOpenport(usage = "处理当前工作项。必须是收件人才有权限处理。返回值true表示流程已结束",command = "post")
     boolean doMyWorkItem2(ISecuritySession securitySession,
                           @CjOpenportParameter(usage = "工作实例标识", name = "workinst") String workinst,
                           @CjOpenportParameter(usage = "发生的操作。如已审批｜已发申请等，由程序定义每一step是什么操作，下一步需要根据前边的操作做什么", name = "operated") String operated,
                           @CjOpenportParameter(usage = "备注", name = "note") String note,
                           @CjOpenportParameter(usage = "是否结束流程实例", name = "doneWorkInst") boolean doneWorkInst,
-                          @CjOpenportParameter(usage = "是否附带表单数据，如果有则更新流程的表单", name = "data",in = PKeyInRequest.content) Object data,
+                          @CjOpenportParameter(usage = "是否附带表单数据，如果有则更新流程的表单", name = "data",in = PKeyInRequest.content) String data,
                           @CjOpenportParameter(usage = "是否放到mqhub上", name = "putonMHub") boolean putonMQHub
     ) throws CircuitException;
 
@@ -120,7 +120,7 @@ public interface IWorkflowPorts extends IOpenportService {
                         @CjOpenportParameter(usage = "频骤名", name = "stepName") String stepName
     ) throws CircuitException;
 
-    @CjOpenport(usage = "完成当前工作事件并发送")
+    @CjOpenport(usage = "完成当前工作事件并发送。返回值true表示流程已结束")
     boolean doWorkItemAndSend(ISecuritySession securitySession,
                               @CjOpenportParameter(usage = "工作实例标识", name = "workinst") String workinst,
                               @CjOpenportParameter(usage = "发生的操作。如已审批｜已发申请等，由程序定义每一step是什么操作，下一步需要根据前边的操作做什么", name = "operated") String operated,
@@ -130,12 +130,12 @@ public interface IWorkflowPorts extends IOpenportService {
                               @CjOpenportParameter(usage = "频骤名", name = "stepName") String stepName
     ) throws CircuitException;
 
-    @CjOpenport(usage = "完成当前工作事件并发送",command = "post")
+    @CjOpenport(usage = "完成当前工作事件并发送。返回值true表示流程已结束",command = "post")
     boolean doWorkItemAndSend2(ISecuritySession securitySession,
                                @CjOpenportParameter(usage = "工作实例标识", name = "workinst") String workinst,
                                @CjOpenportParameter(usage = "发生的操作。如已审批｜已发申请等，由程序定义每一step是什么操作，下一步需要根据前边的操作做什么", name = "operated") String operated,
                                @CjOpenportParameter(usage = "备注", name = "note") String note,
-                               @CjOpenportParameter(usage = "是否附带表单数据，如果有则更新流程的表单", name = "data",in = PKeyInRequest.content) Object data,
+                               @CjOpenportParameter(usage = "是否附带表单数据，如果有则更新流程的表单", name = "data",in = PKeyInRequest.content) String data,
                                @CjOpenportParameter(usage = "是否放到mqhub上", name = "putonMHub") boolean putonMQHub,
                                @CjOpenportParameter(usage = "收件人列表，多个收件人以;号隔开。如果以$g.开头表示工作组作为收件人。", name = "recipients") String recipients/*多个收件人以;号隔开*/,
                                @CjOpenportParameter(usage = "事件代码，即步骤的英文名，在一个实例中唯一，它也用来标记实例的结束", name = "eventCode") String eventCode,

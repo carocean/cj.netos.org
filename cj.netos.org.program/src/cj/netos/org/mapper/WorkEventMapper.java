@@ -66,6 +66,8 @@ public interface WorkEventMapper {
 
     void done(@Param(value = "id") String id, @Param(value = "operated") String operated, @Param(value = "dtime") String dtime);
 
+    void doneWithData(@Param(value = "id") String id, @Param(value = "operated") String operated, @Param(value = "dtime") String dtime, @Param(value = "data") String data);
+
     WorkEvent getLastWorkEvent(@Param(value = "recipient") String recipient, @Param(value = "workInst") String workInst);
 
     List<WorkEvent> pageTodoEvents(@Param(value = "recipient") String recipient, @Param(value = "limit") int limit, @Param(value = "offset") long offset);

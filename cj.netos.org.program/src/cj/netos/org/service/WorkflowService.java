@@ -282,7 +282,7 @@ public class WorkflowService implements IWorkflowService {
             WorkItem workItem = getMyLastWorkItemOnInstance(principal, workinst);
             if (workItem != null) {
                 AMQP.BasicProperties props = new AMQP.BasicProperties().builder()
-                        .type("/workfkow/event.mhub")
+                        .type("/workflow/event.mhub")
                         .headers(new HashMap<String, Object>() {
                             {
                                 put("command", "doWorkItem");

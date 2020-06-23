@@ -406,6 +406,7 @@
         from work_event
         where recipient = #{recipient,jdbcType=VARCHAR}
         and is_done = 0
+        order by work_inst desc,step_no asc
         limit #{offset},#{limit}
     </select>
     <select id="pageDoneEvents" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
@@ -431,6 +432,7 @@
                                                 and event.is_done=1
                                                 and (event.recipient =  #{principal} or event.sender =  #{principal}))
                           group by work_inst)
+        order by work_inst desc,step_no asc
         limit #{offset},#{limit}
     </select>
     <select id="pageMyCreateInstEvents" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
@@ -454,6 +456,7 @@
                                                 and inst.id = event.work_inst
                                                 and inst.creator = #{creator})
                           group by work_inst)
+      order by work_inst desc,step_no asc
       limit #{offset},#{limit}
     </select>
     <select id="pageMyDoneInstEvents" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
@@ -479,6 +482,7 @@
                                                 and inst.is_done=#{isDone}
                                                 )
                           group by work_inst)
+      order by work_inst desc,step_no asc
       limit #{offset},#{limit}
     </select>
     <select id="pageTodoEventsOnWorkflow" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
@@ -490,6 +494,7 @@
         and event.recipient = #{recipient,jdbcType=VARCHAR}
         and flow.id=#{workflow}
         and event.is_done = 0
+        order by work_inst desc,step_no asc
         limit #{offset},#{limit}
     </select>
     <select id="pageDoneEventsOnWorkflow" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">
@@ -517,6 +522,7 @@
                                                 and flow.id = #{workflow}
                                                 and (event.recipient =  #{principal} or event.sender =  #{principal}))
                           group by work_inst)
+        order by work_inst desc,step_no asc
         limit #{offset},#{limit}
     </select>
     <select id="getAll" parameterType="cj.netos.org.model.WorkEvent" resultMap="BaseResultMap">

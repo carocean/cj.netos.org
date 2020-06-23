@@ -34,4 +34,8 @@ public class LicencePorts implements ILicencePorts {
         return licenceService.getlicenceByID(licenceid);
     }
 
+    @Override
+    public OrgLicence getLicenceByAreaCode(ISecuritySession securitySession, String businessAreaCode,int privilegeLevel) throws CircuitException {
+        return licenceService.getLicenceByAreaCode(businessAreaCode,privilegeLevel);
+    }
 }

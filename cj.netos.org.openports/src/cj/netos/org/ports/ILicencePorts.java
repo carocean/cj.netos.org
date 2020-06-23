@@ -43,5 +43,13 @@ public interface ILicencePorts extends IOpenportService {
             @CjOpenportParameter(usage = "经营牌照", name = "licenceid") String licenceid
     ) throws CircuitException;
 
-
+    @CjOpenport(usage = "按地区代码获取经营牌照")
+    OrgLicence getLicenceByAreaCode(
+            ISecuritySession securitySession,
+            @CjOpenportParameter(usage = "经营区域", name = "businessAreaCode") String businessAreaCode,
+            @CjOpenportParameter(usage = "权限等级。\n" +
+                    "0地商\n" +
+                    "1市商\n" +
+                    "2运营商", name = "privilegeLevel") int privilegeLevel
+    ) throws CircuitException;
 }

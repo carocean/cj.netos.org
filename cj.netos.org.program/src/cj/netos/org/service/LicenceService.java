@@ -128,17 +128,30 @@ public class LicenceService implements ILicenceService {
     @CjTransaction
     @Override
     public List<OrgLicence> pageLicence(int limit, long offset) {
-        return orgLicenceMapper.page(limit,offset);
+        return orgLicenceMapper.page(limit, offset);
     }
+
     @CjTransaction
     @Override
     public List<OrgLicence> pageLicenceByIsp(String isp, int limit, long offset) {
-        return orgLicenceMapper.pageByIsp(isp,limit,offset);
+        return orgLicenceMapper.pageByIsp(isp, limit, offset);
     }
 
     @CjTransaction
     @Override
     public OrgLicence getlicenceByID(String licenceid) {
         return orgLicenceMapper.selectByPrimaryKey(licenceid);
+    }
+
+    @CjTransaction
+    @Override
+    public OrgLicence getLicenceByAreaCode(String businessAreaCode, int privilegeLevel) {
+        OrgLicenceExample example = new OrgLicenceExample();
+        example.createCriteria().andPrivilegeLevelEqualTo(privilegeLevel).andBussinessAreaCodeEqualTo(businessAreaCode);
+        List<OrgLicence> list= orgLicenceMapper.selectByExample(example);
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
     }
 }

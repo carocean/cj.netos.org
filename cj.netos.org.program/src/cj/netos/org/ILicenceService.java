@@ -23,4 +23,6 @@ public interface ILicenceService {
 
     List<OrgLicence> pageLicenceByIsp(String isp, int limit, long offset);
 
+    OrgLicence getLicenceByAreaCode(String businessAreaCode, int privilegeLevel);
+
 }

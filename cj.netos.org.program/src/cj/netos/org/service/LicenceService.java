@@ -16,6 +16,7 @@ import cj.studio.openport.util.Encript;
 import cj.studio.orm.mybatis.annotation.CjTransaction;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -139,6 +140,20 @@ public class LicenceService implements ILicenceService {
 
     @CjTransaction
     @Override
+    public List<OrgLicence> pageLicenceByIsps(List<String> isps, int limit, long offset) {
+        StringBuffer sb = new StringBuffer();
+        for (String isp : isps) {
+            sb.append(String.format("'%s',",isp));
+        }
+        if (sb.length() <= 0) {
+            return new ArrayList<>();
+        }
+        sb.append("''");
+        return orgLicenceMapper.pageByIsps(sb.toString(), limit, offset);
+    }
+
+    @CjTransaction
+    @Override
     public OrgLicence getlicenceByID(String licenceid) {
         return orgLicenceMapper.selectByPrimaryKey(licenceid);
     }
@@ -148,7 +163,7 @@ public class LicenceService implements ILicenceService {
     public OrgLicence getLicenceByAreaCode(String businessAreaCode, int privilegeLevel) {
         OrgLicenceExample example = new OrgLicenceExample();
         example.createCriteria().andPrivilegeLevelEqualTo(privilegeLevel).andBussinessAreaCodeEqualTo(businessAreaCode);
-        List<OrgLicence> list= orgLicenceMapper.selectByExample(example);
+        List<OrgLicence> list = orgLicenceMapper.selectByExample(example);
         if (list.isEmpty()) {
             return null;
         }

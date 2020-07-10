@@ -394,4 +394,16 @@
     order by pub_time asc
     limit #{offset},#{limit}
   </select>
+  <select id="pageByIsps" parameterType="cj.netos.org.model.OrgLicence" resultMap="BaseResultMap">
+    select licence.*
+    from org_isp isp,
+         org_la la,
+         org_licence licence
+    where isp.id=la.isp
+      and licence.privilege_level=0
+      and licence.organ=la.id
+      and isp.id in (${isps})
+    order by licence.pub_time desc
+    limit #{offset},#{limit}
+  </select>
 </mapper>

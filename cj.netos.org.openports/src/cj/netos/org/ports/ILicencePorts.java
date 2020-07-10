@@ -27,6 +27,14 @@ public interface ILicencePorts extends IOpenportService {
             @CjOpenportParameter(usage = "偏移", name = "offset") long offset
     ) throws CircuitException;
 
+    @CjOpenport(usage = "分页运营商颁发的经营牌照。")
+    List<OrgLicence> pageLicenceByIsps(
+            ISecuritySession securitySession,
+            @CjOpenportParameter(usage = "运营商标识集合", name = "isps") List<String> isps,
+            @CjOpenportParameter(usage = "分页大小", name = "limit") int limit,
+            @CjOpenportParameter(usage = "偏移", name = "offset") long offset
+    ) throws CircuitException;
+
     @CjOpenport(usage = "获取经营牌照")
     OrgLicence getLicenceByOrg(
             ISecuritySession securitySession,

@@ -69,4 +69,7 @@ public interface OrgLicenceMapper {
     List<OrgLicence> page(@Param(value = "limit") int limit, @Param(value = "offset") long offset);
 
     List<OrgLicence> pageByIsp(@Param(value = "isp") String isp, @Param(value = "limit") int limit, @Param(value = "offset") long offset);
+
+    List<OrgLicence> pageByIsps(@Param(value = "isps") String isps, @Param(value = "limit") int limit, @Param(value = "offset") long offset);
+
 }

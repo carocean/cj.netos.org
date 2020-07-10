@@ -25,6 +25,11 @@ public class LicencePorts implements ILicencePorts {
     }
 
     @Override
+    public List<OrgLicence> pageLicenceByIsps(ISecuritySession securitySession, List<String> isps, int limit, long offset) throws CircuitException {
+        return licenceService.pageLicenceByIsps(isps,limit,offset);
+    }
+
+    @Override
     public OrgLicence getLicenceByOrg(ISecuritySession securitySession, String organ, int privilegeLevel) throws CircuitException {
         return licenceService.getLicence(organ,privilegeLevel);
     }

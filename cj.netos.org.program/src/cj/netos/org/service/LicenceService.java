@@ -143,7 +143,7 @@ public class LicenceService implements ILicenceService {
     public List<OrgLicence> pageLicenceByIsps(List<String> isps, int limit, long offset) {
         StringBuffer sb = new StringBuffer();
         for (String isp : isps) {
-            sb.append(String.format("'%s',",isp));
+            sb.append(String.format("'%s',", isp));
         }
         if (sb.length() <= 0) {
             return new ArrayList<>();
@@ -168,5 +168,11 @@ public class LicenceService implements ILicenceService {
             return null;
         }
         return list.get(0);
+    }
+
+    @CjTransaction
+    @Override
+    public List<OrgLicence> listLicenceOfPlatformSelf(int limit, long offset) {
+        return orgLicenceMapper.listLicenceOfPlatformSelf(limit, offset);
     }
 }

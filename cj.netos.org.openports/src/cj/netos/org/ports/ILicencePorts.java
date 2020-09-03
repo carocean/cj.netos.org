@@ -2,9 +2,11 @@ package cj.netos.org.ports;
 
 import cj.netos.org.model.OrgLicence;
 import cj.studio.ecm.net.CircuitException;
+import cj.studio.openport.AccessTokenIn;
 import cj.studio.openport.IOpenportService;
 import cj.studio.openport.ISecuritySession;
 import cj.studio.openport.annotations.CjOpenport;
+import cj.studio.openport.annotations.CjOpenportAppSecurity;
 import cj.studio.openport.annotations.CjOpenportParameter;
 import cj.studio.openport.annotations.CjOpenports;
 
@@ -59,5 +61,14 @@ public interface ILicencePorts extends IOpenportService {
                     "0地商\n" +
                     "1市商\n" +
                     "2运营商", name = "privilegeLevel") int privilegeLevel
+    ) throws CircuitException;
+
+
+    @CjOpenportAppSecurity
+    @CjOpenport(usage = "获取平台自运营的营业执照", tokenIn = AccessTokenIn.nope)
+    List<OrgLicence> listLicenceOfPlatformSelf(
+            ISecuritySession securitySession,
+            @CjOpenportParameter(usage = "分页大小", name = "limit") int limit,
+            @CjOpenportParameter(usage = "偏移", name = "offset") long offset
     ) throws CircuitException;
 }

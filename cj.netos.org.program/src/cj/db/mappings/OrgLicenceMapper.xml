@@ -406,4 +406,22 @@
     order by licence.pub_time desc
     limit #{offset},#{limit}
   </select>
+
+  <select id="listLicenceOfPlatformSelf" parameterType="cj.netos.org.model.OrgLicence" resultMap="BaseResultMap">
+    select licence.*
+    from org_licence licence
+    where licence.privilege_level = 0
+      and licence.organ = (
+      select la.id
+      from org_la la
+      where la.isp = (
+        select licence.organ
+        from org_licence licence
+        where licence.bussiness_area_code = '100000'
+          and licence.privilege_level = 2
+      )
+    )
+    order by pub_time asc
+    limit #{offset},#{limit}
+  </select>
 </mapper>

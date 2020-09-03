@@ -27,4 +27,6 @@ public interface ILicenceService {
 
     List<OrgLicence> pageLicenceByIsps(List<String> isps, int limit, long offset);
 
+    List<OrgLicence> listLicenceOfPlatformSelf(int limit, long offset);
+
 }
